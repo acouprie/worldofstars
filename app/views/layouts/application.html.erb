@@ -1,0 +1,32 @@
+<% provide(:title, "World of Stars") %>
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv = "Content-type" content = "text/html; charset = utf-8">
+		<title ><%= yield(:title) %></title>
+		<%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+		<%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+	</head>
+	<body>
+		<header>
+			<%= link_to image_tag("banner.jpg", alt: "World of Stars banniere"),root_path %>
+			<nav class="navbar-collapse">
+				<ul class="nav navbar-nav">
+					<li><%= link_to "Accueill", root_path %></li>
+					<li><%= link_to "S'enregistrer", register_path %></li>
+					<li><%= link_to "Forum", '#' %></li>
+					<li><%= link_to "Mot de passe oublié", '#' %></li>
+					<li><%= link_to "Contact", contact_path %></li>
+				</ul>
+			</nav>
+		</header>
+
+		<%= yield %>
+		
+		<footer>
+			2017 @ World of Stars - Développeur et designer : Ether Astral <br />
+			World Of Stars est librement inspiré du jeu qui a occuper mon enfance : World of Stargate.<br />
+			Tous mes remerciement à Phil le créateur original, où qu'il soit aujourd'hui.
+		</footer>
+	</body>
+</html>
