@@ -12,8 +12,8 @@ class StaticPagesControllerTest < ActionDispatch::IntegrationTest
     assert_select "title", "Accueil | #{@base_title}"
   end
 
-  test "should get register" do
-    get register_path
+  test "should get sign_up" do
+    get signup_path
     assert_response :success
     assert_select "title", "Enregistrement | #{@base_title}"
   end
