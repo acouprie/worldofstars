@@ -6,16 +6,16 @@
 			<%= render 'shared/error_messages' %>
 
 			<%= i.label :name, "Pseudo" %>
-			<%= i.text_field :name %>
+			<%= i.text_field :name, class: 'form-control' %>
 
 			<%= i.label :email, "Adresse e-mail" %>
-			<%= i.email_field :email %>
+			<%= i.email_field :email, class: 'form-control' %>
 
 			<%= i.label :email, "Mot de passe" %>
-			<%= i.password_field :password %>
+			<%= i.password_field :password, class: 'form-control' %>
 
 			<%= i.label :password_confirmation, "Confirmation" %>
-			<%= i.password_field :password_confirmation %>
+			<%= i.password_field :password_confirmation, class: 'form-control' %>
 			
 			<%= i.submit "Créer mon compte", class: "btn btn-default"%>
 		<% end %>
