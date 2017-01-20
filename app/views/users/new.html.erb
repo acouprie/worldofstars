@@ -1,2 +1,23 @@
-<h1>Enregistrement d'un nouvel utilisateur</h1>
-<p>Find me in app/views/users/new.html.erb</p>
+<% provide(:title, 'Enregistrement') %>
+<h1>Enregistrement</h1>
+<div class="row">
+	<div class="col-md-6 col-md-offset-3">
+		<%= form_for(@user) do |i| %>
+			<%= render 'shared/error_messages' %>
+
+			<%= i.label :name, "Pseudo" %>
+			<%= i.text_field :name %>
+
+			<%= i.label :email, "Adresse e-mail" %>
+			<%= i.email_field :email %>
+
+			<%= i.label :email, "Mot de passe" %>
+			<%= i.password_field :password %>
+
+			<%= i.label :password_confirmation, "Confirmation" %>
+			<%= i.password_field :password_confirmation %>
+			
+			<%= i.submit "Créer mon compte"%>
+		<% end %>
+	</div>
+</div>

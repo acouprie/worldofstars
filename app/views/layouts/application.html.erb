@@ -1,4 +1,4 @@
-<% provide(:title, "World of Stars") %>
+<% provide(:title, " | World of Stars") %>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -20,12 +20,17 @@
 				</ul>
 			</nav>
 		</header>
+		
 
+		
+		
 		<%= yield %>
 		
+		<%= debug(params) if Rails.env.development? %>
+		
 		<footer>
-			2017 @ World of Stars - Développeur et designer : Ether Astral <br />
-			World Of Stars est librement inspiré du jeu qui a occuper mon enfance : World of Stargate.<br />
+			2017 @ World of Stars - Développeur et designer : Ether Astral <br>
+			World Of Stars est librement inspiré du jeu qui a occuper mon enfance : World of Stargate.<br>
 			Tous mes remerciement à Phil le créateur original, où qu'il soit aujourd'hui.
 		</footer>
 	</body>
