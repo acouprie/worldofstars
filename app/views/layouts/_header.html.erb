@@ -1,0 +1,26 @@
+<header class="navbar navbar-inverse">
+	<div class="container">
+	
+		<div id="banner"><%= link_to image_tag("banner.jpg", 
+			alt: "World of Stars banniere"), root_path %>
+		</div>
+
+		<nav class="navbar-collapse">
+			<ul class="nav navbar-nav navbar-right">
+				<li><%= link_to "Accueil", root_path %></li>
+				<li><%= link_to "Forum", '#' %></li>
+				
+				<% if logged_in? %>
+					<li><%= link_to "Ma planète", '#' %></li>
+					<li><%= link_to "Contact", contact_path %></li>
+					<li><%= link_to "Déconnection", logout_path, method: "delete" %></li>
+				<% else %>
+					<li><%= link_to "S'enregistrer", signup_path %></li>
+					<li><%= link_to "Mot de passe oublié", '#' %></li>
+					<li><%= link_to "Contact", contact_path %></li>
+				<% end %>
+			</ul>
+		</nav>
+		
+	</div>
+</header>

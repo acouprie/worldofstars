@@ -22,6 +22,11 @@ $gray-medium-light: #eaeaea; */
 	@include box_sizing;
 }
 
+header {
+	padding-top :55px;
+}
+
+
 /* sidebar */
 aside {
 	section.user_info {
