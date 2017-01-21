@@ -14,10 +14,12 @@
 
 		</aside>
 
+		<div class="col-md-1"></div>
+
 		<% if logged_in? %>
 			<% # Don't dislay the login form %>
 		<% else %>
-			<aside id="connexion" class="col-md-8">
+			<aside id="connexion" class="col-md-7">
 				<h4>Connection</h4>
 
 				<%= form_for(:session, url: root_path) do |f| %>

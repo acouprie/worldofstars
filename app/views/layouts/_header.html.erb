@@ -11,8 +11,9 @@
 				<li><%= link_to "Forum", '#' %></li>
 				
 				<% if logged_in? %>
-					<li><%= link_to "Ma planète", current_user %></li>
+					<li><%= link_to "Profil", current_user %></li>
 					<li><%= link_to "Contact", contact_path %></li>
+					<li><%= link_to "Compte", edit_user_path(current_user) %></li>
 					<li><%= link_to "Déconnection", logout_path, method: "delete" %></li>
 				<% else %>
 					<li><%= link_to "Connection", login_path %></li>
