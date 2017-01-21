@@ -2,7 +2,7 @@ require 'test_helper'
 
 class UsersLoginTest < ActionDispatch::IntegrationTest
 	def setup
-		@user = users(:testUser)
+		@user = users(:LukeSkywalker)
 	end
    test "login with invalid information" do
 		get root_path
