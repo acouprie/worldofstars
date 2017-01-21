@@ -1,2 +1,25 @@
-<% provide(:title, 'Erreur d\'authentification') %>
-<h1>Erreur d'authentification</h1>
+		<aside id="connexion" class="col-md-8">
+			<h4>Connection</h4>
+
+			<%= form_for(:session, url: login_path) do |f| %>
+				<div class="row">
+					<div class="col-md-3">
+						<%= f.label :email, "Email ou pseudo" %>
+					</div>
+					<div class="col-md-6">
+						<%= f.email_field :email, class: 'form-control' %>
+					</div>
+					<div class="col-md-3">	
+						<%= f.submit "Connection", class: "btn btn-default" %>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-3">
+						<%= f.label :password, "Mot de passe" %>
+					</div>
+					<div class="col-md-6">
+						<%= f.password_field :password, class: 'form-control' %>
+					</div>
+
+				</div>
+			<% end %>

@@ -1,100 +1,109 @@
 <% provide(:title, 'Accueil') %>
-<section class="row">
-	<aside id="statistics" class="col-md-6">
-		<h4>Statistiques</h4>
-		<ul>
-			<li><%= User.count %> joueurs inscrits</li>
-			<li>joueurs actifs</li>
-			<li>Joueurs connectés</li>
-			<li>record de joueurs connectés</li>
-		</ul>
-	</aside>
-
-	<aside id="connexion" class="col-md-6">
-		<h4>Connection</h4>
-
-		<%= form_for(:session, url: root_path) do |f| %>
-			<div class="row">
-				<div class="col-md-3">
-					<%= f.label :email, "Email ou pseudo" %>
-				</div>
-				<div class="col-md-6">
-					<%= f.email_field :email, class: 'form-control' %>
-				</div>
-				<div class="col-md-3">	
-					<%= f.submit "Connection", class: "btn btn-default" %>
-				</div>
+<div class="container">
+	<section class="row">
+		<aside id="statistics" class="col-md-4">
+			<div class="test">
+						<h4>Statistiques</h4>
+			<ul>
+				<li><%= User.count %> joueurs inscrits</li>
+				<li>joueurs actifs</li>
+				<li>Joueurs connectés</li>
+				<li>record de joueurs connectés</li>
+			</ul>
 			</div>
-			<div class="row">
-				<div class="col-md-3">
-					<%= f.label :password, "Mot de passe" %>
-				</div>
-				<div class="col-md-6">
-					<%= f.password_field :password, class: 'form-control' %>
-				</div>
 
-			</div>
+		</aside>
+
+		<% if logged_in? %>
+			<% # Don't dislay the login form %>
+		<% else %>
+		<aside id="connexion" class="col-md-8">
+			<h4>Connection</h4>
+
+			<%= form_for(:session, url: root_path) do |f| %>
+				<div class="row">
+					<div class="col-md-3">
+						<%= f.label :email, "Email ou pseudo" %>
+					</div>
+					<div class="col-md-6">
+						<%= f.email_field :email, class: 'form-control' %>
+					</div>
+					<div class="col-md-3">	
+						<%= f.submit "Connection", class: "btn btn-default" %>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-3">
+						<%= f.label :password, "Mot de passe" %>
+					</div>
+					<div class="col-md-6">
+						<%= f.password_field :password, class: 'form-control' %>
+					</div>
+
+				</div>
+			<% end %>
 		<% end %>
 
-		
-	</aside>
-</section>
-<section class="row">
-	<aside id="presentation" class="col-md-6">
-		<h4>Présentation</h4>
-		Lorem ipsum dolor sit amet, consecteteur adipiscing elit nisi orci. Sociis dui, mi ligula porta condimentum facilisi. Tellus cursus vulputate mi. Ante nec dictum. At quam quis elementum facilisi sociis eget feugiat. Ve neque ad purus et phasellus. Eros, taciti, placerat eros, nam neque mattis litora. Venenatis in, massa id porta hendrerit id, aptent commodo nullam hymenaeos habitant, at ipsum. Aliquam consectetuer facilisis donec. Lacinia, mi aptent.
-	</aside>
-	<aside id="actuality" class="col-md-6">
-		<h4>En ce moment ...</h4>
-		Lorem ipsum dolor sit amet, consecteteur adipiscing elit nisi orci. Sociis dui, mi ligula porta condimentum facilisi. Tellus cursus vulputate mi. Ante nec dictum. At quam quis elementum facilisi sociis eget feugiat. Ve neque ad purus et phasellus. Eros, taciti, placerat eros, nam neque mattis litora. Venenatis in, massa id porta hendrerit id, aptent commodo nullam hymenaeos habitant, at ipsum. Aliquam consectetuer facilisis donec. Lacinia, mi aptent.
-	</aside>
-</section>
-
-<section class="row">
-	<aside id="classementGeneral" class="col-md-4">
-		<h5>Top 10 : Classement général</h5>
-		<ul>
 			
-			<li>Lorem ipsum dolor sit amet, consecteteur adipiscing elit velit congue.</li>
-			<li>Lorem ipsum dolor sit amet, consecteteur adipiscing elit velit congue.</li>
-			<li>Lorem ipsum dolor sit amet, consecteteur adipiscing elit velit congue.</li>
-			<li>Lorem ipsum dolor sit amet, consecteteur adipiscing elit velit congue.</li>
-			<li>Lorem ipsum dolor sit amet, consecteteur adipiscing elit velit congue.</li>
-			<li>Lorem ipsum dolor sit amet, consecteteur adipiscing elit velit congue.</li>
-			<li>Lorem ipsum dolor sit amet, consecteteur adipiscing elit velit congue.</li>
-			<li>Lorem ipsum dolor sit amet, consecteteur adipiscing elit velit congue.</li>
-			<li>Lorem ipsum dolor sit amet, consecteteur adipiscing elit velit congue.</li>
-			<li>Lorem ipsum dolor sit amet, consecteteur adipiscing elit velit congue.</li>
-		</ul>
-	</aside>
-	<aside id="classementTeam" class="col-md-4">
-		<h5>Top 10 : Classement des alliances</h5>
-		<ul>
-			<li>Lorem ipsum dolor sit amet, consecteteur adipiscing elit velit congue.</li>
-			<li>Lorem ipsum dolor sit amet, consecteteur adipiscing elit velit congue.</li>
-			<li>Lorem ipsum dolor sit amet, consecteteur adipiscing elit velit congue.</li>
-			<li>Lorem ipsum dolor sit amet, consecteteur adipiscing elit velit congue.</li>
-			<li>Lorem ipsum dolor sit amet, consecteteur adipiscing elit velit congue.</li>
-			<li>Lorem ipsum dolor sit amet, consecteteur adipiscing elit velit congue.</li>
-			<li>Lorem ipsum dolor sit amet, consecteteur adipiscing elit velit congue.</li>
-			<li>Lorem ipsum dolor sit amet, consecteteur adipiscing elit velit congue.</li>
-			<li>Lorem ipsum dolor sit amet, consecteteur adipiscing elit velit congue.</li>
-			<li>Lorem ipsum dolor sit amet, consecteteur adipiscing elit velit congue.</li>
-		</ul>
-	</aside>
-	<aside id="classementAttack" class="col-md-4">
-		<h5>Top 10 : Classement d'attaque</h5>
-		<ul>
-			<li>Lorem ipsum dolor sit amet, consecteteur adipiscing elit velit congue.</li>
-			<li>Lorem ipsum dolor sit amet, consecteteur adipiscing elit velit congue.</li>
-			<li>Lorem ipsum dolor sit amet, consecteteur adipiscing elit velit congue.</li>
-			<li>Lorem ipsum dolor sit amet, consecteteur adipiscing elit velit congue.</li>
-			<li>Lorem ipsum dolor sit amet, consecteteur adipiscing elit velit congue.</li>
-			<li>Lorem ipsum dolor sit amet, consecteteur adipiscing elit velit congue.</li>
-			<li>Lorem ipsum dolor sit amet, consecteteur adipiscing elit velit congue.</li>
-			<li>Lorem ipsum dolor sit amet, consecteteur adipiscing elit velit congue.</li>
-			<li>Lorem ipsum dolor sit amet, consecteteur adipiscing elit velit congue.</li>
-			<li>Lorem ipsum dolor sit amet, consecteteur adipiscing elit velit congue.</li>
-		</ul>
-	</aside>
-</section>
+		</aside>
+	</section>
+	<section class="row">
+		<aside id="presentation" class="col-md-6">
+			<h4>Présentation</h4>
+			Lorem ipsum dolor sit amet, consecteteur adipiscing elit nisi orci. Sociis dui, mi ligula porta condimentum facilisi. Tellus cursus vulputate mi. Ante nec dictum. At quam quis elementum facilisi sociis eget feugiat. Ve neque ad purus et phasellus. Eros, taciti, placerat eros, nam neque mattis litora. Venenatis in, massa id porta hendrerit id, aptent commodo nullam hymenaeos habitant, at ipsum. Aliquam consectetuer facilisis donec. Lacinia, mi aptent.
+		</aside>
+		<aside id="actuality" class="col-md-6">
+			<h4>En ce moment ...</h4>
+			Lorem ipsum dolor sit amet, consecteteur adipiscing elit nisi orci. Sociis dui, mi ligula porta condimentum facilisi. Tellus cursus vulputate mi. Ante nec dictum. At quam quis elementum facilisi sociis eget feugiat. Ve neque ad purus et phasellus. Eros, taciti, placerat eros, nam neque mattis litora. Venenatis in, massa id porta hendrerit id, aptent commodo nullam hymenaeos habitant, at ipsum. Aliquam consectetuer facilisis donec. Lacinia, mi aptent.
+		</aside>
+	</section>
+
+	<section class="row">
+		<aside id="classementGeneral" class="col-md-4">
+			<h5>Top 10 : Classement général</h5>
+			<ul>
+				
+				<li>Lorem ipsum dolor sit amet, consecteteur adipiscing elit velit congue.</li>
+				<li>Lorem ipsum dolor sit amet, consecteteur adipiscing elit velit congue.</li>
+				<li>Lorem ipsum dolor sit amet, consecteteur adipiscing elit velit congue.</li>
+				<li>Lorem ipsum dolor sit amet, consecteteur adipiscing elit velit congue.</li>
+				<li>Lorem ipsum dolor sit amet, consecteteur adipiscing elit velit congue.</li>
+				<li>Lorem ipsum dolor sit amet, consecteteur adipiscing elit velit congue.</li>
+				<li>Lorem ipsum dolor sit amet, consecteteur adipiscing elit velit congue.</li>
+				<li>Lorem ipsum dolor sit amet, consecteteur adipiscing elit velit congue.</li>
+				<li>Lorem ipsum dolor sit amet, consecteteur adipiscing elit velit congue.</li>
+				<li>Lorem ipsum dolor sit amet, consecteteur adipiscing elit velit congue.</li>
+			</ul>
+		</aside>
+		<aside id="classementTeam" class="col-md-4">
+			<h5>Top 10 : Classement des alliances</h5>
+			<ul>
+				<li>Lorem ipsum dolor sit amet, consecteteur adipiscing elit velit congue.</li>
+				<li>Lorem ipsum dolor sit amet, consecteteur adipiscing elit velit congue.</li>
+				<li>Lorem ipsum dolor sit amet, consecteteur adipiscing elit velit congue.</li>
+				<li>Lorem ipsum dolor sit amet, consecteteur adipiscing elit velit congue.</li>
+				<li>Lorem ipsum dolor sit amet, consecteteur adipiscing elit velit congue.</li>
+				<li>Lorem ipsum dolor sit amet, consecteteur adipiscing elit velit congue.</li>
+				<li>Lorem ipsum dolor sit amet, consecteteur adipiscing elit velit congue.</li>
+				<li>Lorem ipsum dolor sit amet, consecteteur adipiscing elit velit congue.</li>
+				<li>Lorem ipsum dolor sit amet, consecteteur adipiscing elit velit congue.</li>
+				<li>Lorem ipsum dolor sit amet, consecteteur adipiscing elit velit congue.</li>
+			</ul>
+		</aside>
+		<aside id="classementAttack" class="col-md-4">
+			<h5>Top 10 : Classement d'attaque</h5>
+			<ul>
+				<li>Lorem ipsum dolor sit amet, consecteteur adipiscing elit velit congue.</li>
+				<li>Lorem ipsum dolor sit amet, consecteteur adipiscing elit velit congue.</li>
+				<li>Lorem ipsum dolor sit amet, consecteteur adipiscing elit velit congue.</li>
+				<li>Lorem ipsum dolor sit amet, consecteteur adipiscing elit velit congue.</li>
+				<li>Lorem ipsum dolor sit amet, consecteteur adipiscing elit velit congue.</li>
+				<li>Lorem ipsum dolor sit amet, consecteteur adipiscing elit velit congue.</li>
+				<li>Lorem ipsum dolor sit amet, consecteteur adipiscing elit velit congue.</li>
+				<li>Lorem ipsum dolor sit amet, consecteteur adipiscing elit velit congue.</li>
+				<li>Lorem ipsum dolor sit amet, consecteteur adipiscing elit velit congue.</li>
+				<li>Lorem ipsum dolor sit amet, consecteteur adipiscing elit velit congue.</li>
+			</ul>
+		</aside>
+	</section>
+</div>

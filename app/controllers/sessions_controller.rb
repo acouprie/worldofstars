@@ -1,4 +1,5 @@
 class SessionsController < ApplicationController
+
   	def new
 	end
 
@@ -9,7 +10,7 @@ class SessionsController < ApplicationController
 			redirect_to user
 		else
 			flash.now[:danger] = 'Email/mot de passe invalides'
-			render 'static_pages/home'
+			render 'new'
 		end
 	end
 
@@ -17,4 +18,5 @@ class SessionsController < ApplicationController
 		log_out
 		redirect_to root_url
 	end
+
 end
