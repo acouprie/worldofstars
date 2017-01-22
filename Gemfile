@@ -37,6 +37,10 @@ gem 'jbuilder', '~> 2.5'
 # personnal gems
 # to use bootstrap
 gem 'bootstrap-sass'
+# bootstrap for pagination
+# gem 'bootstrap-will_pagination'
+# implements pagination of users
+# gem 'will_pagination'
 # i don"t know the use of this gem ?
 gem 'autoprefixer-rails'
 # to add more userfriendly tests interface
@@ -45,6 +49,8 @@ gem 'minitest-reporters'
 gem 'rails-controller-testing'
 # to crypt passwords
 gem 'bcrypt', '~> 3.1.7'
+# make sample users with semi-realistics name
+# gem 'faker'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

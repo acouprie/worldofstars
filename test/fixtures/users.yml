@@ -7,12 +7,24 @@
 #two:
 #  name: MyString
 #  email: MyString
-LukeSkywalker:
-  name: Luke Skywalker
-  email: luke.skywalker@example.com
+Frodo:
+  name: Frodo
+  email: frodo@admin.com
   password_digest: <%= User.digest('password') %>
+  admin: true
 
 ObiWan:
   name: Obi Wan
-  email: obiwan@example.gov
+  email: obi@1.gov
   password_digest: <%= User.digest('password') %>
+
+LukeSkywalker:
+  name: LukeSkywalker
+  email: luke@skywalker.com
+  password_digest: <%= User.digest('password') %>
+
+JohnSnow:
+  name: John Snow
+  email: john@snow.gov
+  password_digest: <%= User.digest('password') %>
+
