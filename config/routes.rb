@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   get 'users/new'
   	# URL home page
 	root 'static_pages#home'
+	
 	# URL contact information
   	get '/contact', to: 'static_pages#contact'
 
@@ -15,6 +16,8 @@ Rails.application.routes.draw do
   	# URL login
   	get '/login', to: 'sessions#new'
 	post '/login', to: 'sessions#create'
+
+	# Login from root page
 	get '/', to: 'sessions#new'
 	post '/', to: 'sessions#create'
 
@@ -22,6 +25,7 @@ Rails.application.routes.draw do
 	delete '/logout', to: 'sessions#destroy'
 
   	resources :users
+  	resources :account_activations, only: [:edit]
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
