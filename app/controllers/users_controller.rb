@@ -18,9 +18,9 @@ class UsersController < ApplicationController
 	def create
 		@user = User.new(user_params)
 		if @user.save
-			log_in @user
-			flash[:success] = "Bienvenue sur World of Stars !"
-			redirect_to @user
+			UserMailer.account_activation(@user).deliver_now
+			flash[:info] = "Activez votre compte via le lien reçu par e-mail."
+			redirect_to root_url
 		else
 			render 'new'
 		end
@@ -31,7 +31,7 @@ class UsersController < ApplicationController
 
 	def update
 	    if @user.update_attributes(user_params)
-      		flash[:success] = "Profil mis à jour"
+      		flash[:success] = "Profil mis à jour !"
       		redirect_to @user
     	else
       		render 'edit'
