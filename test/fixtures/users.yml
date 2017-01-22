@@ -12,18 +12,26 @@ Frodo:
   email: frodo@admin.com
   password_digest: <%= User.digest('password') %>
   admin: true
+  activated: true
+  activated_at: <%= Time.zone.now %>
 
 ObiWan:
   name: Obi Wan
   email: obi@1.gov
   password_digest: <%= User.digest('password') %>
+  activated: true
+  activated_at: <%= Time.zone.now %>
 
 LukeSkywalker:
   name: LukeSkywalker
   email: luke@skywalker.com
   password_digest: <%= User.digest('password') %>
+  activated: true
+  activated_at: <%= Time.zone.now %>
 
 JohnSnow:
   name: John Snow
   email: john@snow.gov
   password_digest: <%= User.digest('password') %>
+  activated: true
+  activated_at: <%= Time.zone.now %>
