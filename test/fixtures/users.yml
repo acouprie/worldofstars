@@ -27,4 +27,3 @@ JohnSnow:
   name: John Snow
   email: john@snow.gov
   password_digest: <%= User.digest('password') %>
-
