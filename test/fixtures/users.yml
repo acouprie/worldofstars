@@ -7,6 +7,8 @@
 #two:
 #  name: MyString
 #  email: MyString
+
+# ADMIN
 Frodo:
   name: Frodo
   email: frodo@admin.com
@@ -15,6 +17,7 @@ Frodo:
   activated: true
   activated_at: <%= Time.zone.now %>
 
+# NON ADMIN
 ObiWan:
   name: Obi Wan
   email: obi@1.gov
@@ -22,16 +25,17 @@ ObiWan:
   activated: true
   activated_at: <%= Time.zone.now %>
 
-LukeSkywalker:
-  name: LukeSkywalker
-  email: luke@skywalker.com
-  password_digest: <%= User.digest('password') %>
-  activated: true
-  activated_at: <%= Time.zone.now %>
-
+# NON ACTIVATED
 JohnSnow:
   name: John Snow
   email: john@snow.gov
+  password_digest: <%= User.digest('password') %>
+  activated: false
+  activated_at: <%= Time.zone.now %>
+
+LukeSkywalker:
+  name: LukeSkywalker
+  email: luke@skywalker.com
   password_digest: <%= User.digest('password') %>
   activated: true
   activated_at: <%= Time.zone.now %>
