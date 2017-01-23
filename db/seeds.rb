@@ -11,7 +11,9 @@ User.create!(name:  "Polybius",
              password_confirmation: "foobar",
              admin: true,
              activated: true,
-             activated_at: Time.zone.now)
+             activated_at: Time.zone.now,
+             actif: true,
+             last_connection: Time.zone.now)
 
 99.times do |n|
 	name = Faker::Name.name
@@ -22,5 +24,7 @@ User.create!(name:  "Polybius",
 				password: password,
 				password_confirmation: password,
 				activated: true,
-				activated_at: Time.zone.now)
+				activated_at: Time.zone.now,
+				actif: true,
+             	last_connection: Time.zone.now)
 end

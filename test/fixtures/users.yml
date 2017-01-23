@@ -16,6 +16,8 @@ Frodo:
   admin: true
   activated: true
   activated_at: <%= Time.zone.now %>
+  actif: true
+  last_connection: <%= Time.zone.now %>
 
 # NON ADMIN
 ObiWan:
@@ -24,6 +26,8 @@ ObiWan:
   password_digest: <%= User.digest('password') %>
   activated: true
   activated_at: <%= Time.zone.now %>
+  actif: true
+  last_connection: <%= Time.zone.now %>
 
 # NON ACTIVATED
 JohnSnow:
@@ -32,10 +36,15 @@ JohnSnow:
   password_digest: <%= User.digest('password') %>
   activated: false
   activated_at: <%= Time.zone.now %>
+  actif: true
+  last_connection: <%= Time.zone.now %>
 
+# NON ACTIF
 LukeSkywalker:
   name: LukeSkywalker
   email: luke@skywalker.com
   password_digest: <%= User.digest('password') %>
   activated: true
   activated_at: <%= Time.zone.now %>
+  actif: false
+  last_connection: <%= Time.zone.now %>

@@ -17,6 +17,14 @@ class User < ApplicationRecord
 	# validate password
 	validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
 
+	def actifs
+		update_columns(last_connection: Time.zone.now)
+	end
+
+	def actif_expired?
+    	last_connection < 2.weeks.ago
+   	end
+
 	# Returns the hash digest of the given string.
 	def User.digest(string)
 		cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
