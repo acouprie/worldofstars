@@ -12,9 +12,9 @@ class UsersController < ApplicationController
 		redirect_to root_url and return unless @users = User.where(activated: true)
 	end
 
-  	def new
-  		@user = User.new
-  	end
+	def new
+		@user = User.new
+	end
 
 	def create
 		@user = User.new(user_params)

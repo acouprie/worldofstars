@@ -16,7 +16,6 @@ class User < ApplicationRecord
 	has_secure_password
 	# validate password
 	validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
-
 	def actifs
 		update_columns(last_connection: Time.zone.now)
 	end

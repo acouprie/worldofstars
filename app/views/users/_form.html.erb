@@ -1,6 +1,6 @@
 <%= form_for(@user) do |f| %>
   <%= render 'shared/error_messages', object: @user %>
-  	<%= f.label :name, "Pseudo" %>
+  	<%= f.label :name, "Pseudonyme" %>
 	<%= f.text_field :name, class: 'form-control' %>
 	<%= f.label :email, "Adresse e-mail" %>
 	<%= f.email_field :email, class: 'form-control' %>

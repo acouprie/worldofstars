@@ -7,12 +7,14 @@ Rails.application.routes.draw do
   get 'sessions/new'
 
   get 'users/new'
+  get 'planets/new'
   	# URL home page
 	root 'static_pages#home'
 	
 	# URL contact information
-  	get '/contact', to: 'static_pages#contact'
+  get '/contact', to: 'static_pages#contact'
 
+  get '/planets', to: 'planets#new'
 	# URL signup
 	get '/signup', to: 'users#new'
 	post '/signup', to: 'users#create'
@@ -29,6 +31,7 @@ Rails.application.routes.draw do
 	delete '/logout', to: 'sessions#destroy'
 
   	resources :users
+  	resources :planets
   	resources :account_activations, only: [:edit]
   	resources :password_resets, only: [:new, :create, :edit, :update]
   	resources :account_actifs, only: [:edit]
