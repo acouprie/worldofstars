@@ -1,11 +1,79 @@
 <div class="container">
 	<div class="row">
-		<aside class="col-md-4">
-			<h1>Informations sur <%= @planet.name %></h1>
-			Le <%= Time.now %><br />
-			<%= @planet.created_at %><br />
-			<%= @planet.user_id %><br />
-			<%= @planet.id %><br />
+		<span class="col-md-3">
+			Energie: <%= Time.now %><br />
+		</span>
+		<span class="col-md-3">
+			Métaux: <%= Time.now %><br />
+		</span>
+		<span class="col-md-3">
+			Thorium: <%= Time.now %><br />
+		</span>
+		<span class="col-md-3">
+			Nourriture: <%= Time.now %><br />
+		</span>
+	</div>
+	<div class="row">
+		<aside class="col-md-3">
+			<h2>Production / Conso.</h2><br />
+			<br />
+			Energie:<br />
+			+ par heure<br />
+			- par heure<br />
+			<br />
+			Métaux:<br />
+			+ par heure<br />
+			- par heure<br />
+			<br />
+			Thorium:<br />
+			+ par heure<br />
+			- par heure<br />
+			<br />
+			Nourriture:<br />
+			+ par heure<br />
+			- par heure<br />
 		</aside>
+		<aside class="col-md-9">
+			<h2>Ma planète</h2>
+			<div id="planet"><%= link_to image_tag("planet_img.jpg", 
+			alt: "Ma planète") %>
+			</div>
+		</aside>
+	</div>
+	<div class="row">
+		<div class="row">
+		<div class="col-md-3">
+			<aside>
+				<h2>Niveau</h2><br />
+				Expérience<br/>
+				Niveau: 1<br />
+				Points de stratégie:<br />
+				<br />
+				00 / 00 <br />
+				Niveau<br />
+				Expérience<br/>
+				Niveau: 1<br />
+				Points d'exploration:<br />
+				<br />
+				00 / 00 <br />
+			</aside>		
+			<aside>
+				<h2>Informations sur <%=  %></h2>
+				Le <%= Time.now %><br />
+				<%=  %><br />
+				<%=  %><br />
+			</aside>
+			<aside>
+				<h2>Informations sur <%= @planet.name %></h2>
+				Le <%= Time.now %><br />
+				<%= @planet.created_at %><br />
+				<%= @planet.user_id %><br />
+				<%= @planet.id %><br />
+			</aside>
+		</div>
+			<aside class="col-md-9">
+				<h2>Page</h2>
+			</aside>
+		</div>
 	</div>
 </div>
