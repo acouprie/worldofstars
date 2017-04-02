@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 	
+  resources :planets
   resources :buildings
   get 'password_resets/new'
 

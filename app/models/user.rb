@@ -25,8 +25,8 @@ class User < ApplicationRecord
 	end
 
 	def actif_expired?
-    	last_connection < 2.weeks.ago
-   	end
+   	last_connection < 2.weeks.ago
+  end
 
 	# Returns the hash digest of the given string.
 	def User.digest(string)
@@ -41,7 +41,7 @@ class User < ApplicationRecord
 	end
 
  	def add_planet_to_user
- 		self.planets.create
+ 		self.planets.create(name:"Mars")
  	end
 
 	# Remembers a user in the database for use in persistent sessions.

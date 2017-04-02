@@ -29,8 +29,3 @@ User.create!(name:  "Polybius",
 				actif: true,
              	last_connection: Time.zone.now)
 end
-
-Planet.create!(name:  "Terre",
-	user_id: 1)
-
-Building.create!(name:  "QG")
