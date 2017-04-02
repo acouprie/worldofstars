@@ -14,13 +14,12 @@ Rails.application.routes.draw do
 	# URL contact information
   get '/contact', to: 'static_pages#contact'
 
-  get '/planets', to: 'planets#new'
 	# URL signup
 	get '/signup', to: 'users#new'
 	post '/signup', to: 'users#create'
 	
   	# URL login
-  	get '/login', to: 'sessions#new'
+  get '/login', to: 'sessions#new'
 	post '/login', to: 'sessions#create'
 
 	# Login from root page

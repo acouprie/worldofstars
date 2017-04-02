@@ -1,0 +1,10 @@
+<% provide(:title, 'Classement') %>
+<h1>Toutes les planètes</h1>
+
+<%= will_paginate %>
+
+<ul class="planets">
+	<%= render @planets %>
+</ul>
+
+<%= will_paginate %>

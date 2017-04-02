@@ -16,6 +16,7 @@ class User < ApplicationRecord
 	has_secure_password
 	# validate password
 	validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
+	has_many :planets
 	def actifs
 		update_columns(last_connection: Time.zone.now)
 	end
@@ -35,6 +36,10 @@ class User < ApplicationRecord
  	def User.new_token
  		SecureRandom.urlsafe_base64
 	end
+
+	def add_planet_to_user(user_id)
+ 		Planet.create(name: "Lorem", user_id: user_id)
+ 	end
 
 	# Remembers a user in the database for use in persistent sessions.
 	 def remember

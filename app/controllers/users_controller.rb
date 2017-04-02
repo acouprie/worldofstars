@@ -5,7 +5,7 @@ class UsersController < ApplicationController
 
 	def index
 		@users = User.where(activated: true).paginate(page: params[:page])
-   	end
+   end
 
 	def show
 		@user = User.find(params[:id])
@@ -14,6 +14,11 @@ class UsersController < ApplicationController
 
 	def new
 		@user = User.new
+		#@user.add_planet_to_user(@user.id)
+		planet = Planet.new
+		planet.name = "Dictionnaire"
+		planet.save
+		planet
 	end
 
 	def create
@@ -44,7 +49,6 @@ class UsersController < ApplicationController
 	    flash[:success] = "User deleted"
 	    redirect_to users_url
  	end
-
 	private
 		def user_params
 			params.require(:user).permit(:name, :email, :password,
