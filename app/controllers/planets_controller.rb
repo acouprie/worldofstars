@@ -1,7 +1,7 @@
 class PlanetsController < ApplicationController
 
 	def index
-		@planets = Planet.paginate(page: params[:page])
+		@planets = Planet.all
   end
 
 	def show

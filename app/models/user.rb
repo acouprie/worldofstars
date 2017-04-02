@@ -4,6 +4,8 @@ class User < ApplicationRecord
 	before_save :downcase_email
 	# activation token
 	before_create :create_activation_digest
+	after_create :add_planet_to_user
+
 	# validate presence and length of username
 	validates :name, presence: true, length: { maximum: 25 }
 	# add a regex to check email address
@@ -17,6 +19,7 @@ class User < ApplicationRecord
 	# validate password
 	validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
 	has_many :planets
+	accepts_nested_attributes_for :planets
 	def actifs
 		update_columns(last_connection: Time.zone.now)
 	end
@@ -37,8 +40,8 @@ class User < ApplicationRecord
  		SecureRandom.urlsafe_base64
 	end
 
-	def add_planet_to_user(user_id)
- 		Planet.create(name: "Lorem", user_id: user_id)
+ 	def add_planet_to_user
+ 		self.planets.create
  	end
 
 	# Remembers a user in the database for use in persistent sessions.

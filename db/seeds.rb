@@ -16,7 +16,7 @@ User.create!(name:  "Polybius",
              actif: true,
              last_connection: Time.zone.now)
 
-99.times do |n|
+4.times do |n|
 	name = Faker::Name.name
 	email = "example-#{n+1}@railstutorial.org"
 	password = "password"
@@ -29,3 +29,8 @@ User.create!(name:  "Polybius",
 				actif: true,
              	last_connection: Time.zone.now)
 end
+
+Planet.create!(name:  "Terre",
+	user_id: 1)
+
+Building.create!(name:  "QG")

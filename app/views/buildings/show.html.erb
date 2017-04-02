@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @building.name %>
+</p>
+
+<p>
+  <strong>Planet:</strong>
+  <%= @building.planet_id %>
+</p>
+
+<p>
+  <strong>Price:</strong>
+  <%= @building.price %>
+</p>
+
+<p>
+  <strong>Lvl:</strong>
+  <%= @building.lvl %>
+</p>
+
+<p>
+  <strong>Conso power:</strong>
+  <%= @building.conso_power %>
+</p>
+
+<p>
+  <strong>Time to build:</strong>
+  <%= @building.time_to_build %>
+</p>
+
+<p>
+  <strong>Production:</strong>
+  <%= @building.production %>
+</p>
+
+<%= link_to 'Edit', edit_building_path(@building) %> |
+<%= link_to 'Back', buildings_path %>

@@ -10,7 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170331213553) do
+ActiveRecord::Schema.define(version: 20170402153221) do
+
+  create_table "buildings", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "planet_id"
+    t.integer  "price"
+    t.integer  "lvl",           default: 1
+    t.integer  "conso_power"
+    t.integer  "time_to_build"
+    t.integer  "production"
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+  end
 
   create_table "planets", force: :cascade do |t|
     t.string   "name"

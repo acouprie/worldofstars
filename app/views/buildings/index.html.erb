@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Buildings</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Planet</th>
+      <th>Price</th>
+      <th>Lvl</th>
+      <th>Conso power</th>
+      <th>Time to build</th>
+      <th>Production</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @buildings.each do |building| %>
+      <tr>
+        <td><%= building.name %></td>
+        <td><%= building.planet_id %></td>
+        <td><%= building.price %></td>
+        <td><%= building.lvl %></td>
+        <td><%= building.conso_power %></td>
+        <td><%= building.time_to_build %></td>
+        <td><%= building.production %></td>
+        <td><%= link_to 'Show', building %></td>
+        <td><%= link_to 'Edit', edit_building_path(building) %></td>
+        <td><%= link_to 'Destroy', building, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Building', new_building_path %>

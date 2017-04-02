@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  planet_id: 1
+  price: 
+  lvl: 1
+  conso_power: 
+  time_to_build: 
+  production: 
+
+two:
+  name: MyString
+  planet_id: 1
+  price: 
+  lvl: 1
+  conso_power: 
+  time_to_build: 
+  production: 
