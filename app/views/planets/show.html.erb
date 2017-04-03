@@ -18,19 +18,19 @@
 			<h2>Production / Conso.</h2><br />
 			<br />
 			Energie:<br />
-			+ <%= @planet.get_conso_tot_power %> par heure<br />
-			- 0 par heure<br />
+			+ 0 par heure<br />
+			- <%= @planet.get_conso_tot_power %> par heure<br />
 			<br />
 			Métaux:<br />
-			+ <%= @planet.get_production(@planet,"metal_farm") %> par heure<br />
+			+ <%= @planet.get_production("metal_farm") %> par heure<br />
 			- 0 par heure<br />
 			<br />
 			Thorium:<br />
-			+ <%= @planet.get_production(@planet,"thorium_farm") %> par heure<br />
+			+ <%= @planet.get_production("thorium_farm") %> par heure<br />
 			- 0 par heure<br />
 			<br />
 			Nourriture:<br />
-			+ <%= @planet.get_production(@planet,"food_farm") %> par heure<br />
+			+ <%= @planet.get_production("food_farm") %> par heure<br />
 			- 0 par heure<br />
 		</aside>
 		<aside class="col-md-9">

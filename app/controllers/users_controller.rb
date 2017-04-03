@@ -30,6 +30,7 @@ class UsersController < ApplicationController
 	end
 
 	def edit
+		@planet = @user.planets.first
 	end
 
 	def update

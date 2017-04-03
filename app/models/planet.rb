@@ -1,22 +1,38 @@
 class Planet < ApplicationRecord
 	validates :name, presence: true, length: { maximum: 25 }
-	after_create :add_building_to_planet
 	belongs_to :user
 	has_many :buildings
 	accepts_nested_attributes_for :buildings
-	def add_building_to_planet
- 		self.buildings.create(name:"center", lvl: 1, conso_power: 0, production: 0)
- 		self.buildings.create(name:"food_farm", lvl: 1, conso_power: 22, production: 18)
- 		self.buildings.create(name:"metal_farm", lvl: 1, conso_power: 22, production: 18)
- 		self.buildings.create(name:"thorium_farm", lvl: 1, conso_power: 22, production: 18)
- 	end
-  def get_production(planet, name)
-    planet.buildings.where(planet_id:planet.id, name:name).first.production
+
+	def add_building_to_planet(type)
+      name_type = Hash[1 => "center", 2 => "food_farm", 3 => "metal_farm", 4 => "thorium_farm"]
+      conso_type = Hash[1 => 0, 2 => 18, 3 => 18, 4 => 18]
+      production_type = Hash[1 => 0, 2 => 22, 3 => 22, 4 => 22]
+      self.buildings.create(name: name_type[type], lvl: 1, 
+        conso_power: conso_type[type], production: production_type[type])
   end
+
+  def get_production(n)
+    if self.buildings.find_by_name(n) != nil
+      self.buildings.find_by_name(n).production
+    else
+      return 0
+    end
+  end
+
+  def get_conso_power(n)
+    if self.buildings.find_by_name(n) != nil
+      self.buildings.find_by_name(n).conso_power
+    else
+      return 0
+    end
+  end
+
   def get_conso_tot_power
-  	food = self.buildings.find_by_name("food_farm").production
-  	metal = self.buildings.find_by_name("metal_farm").production
-  	thorium = self.buildings.find_by_name("thorium_farm").production
-  	prod_tot = food + metal + thorium
+    center = self.get_conso_power("center")
+  	food = self.get_conso_power("food_farm")
+  	metal = self.get_conso_power("metal_farm")
+  	thorium = self.get_conso_power("thorium_farm")
+  	prod_tot = center + food + metal + thorium
   end
 end
