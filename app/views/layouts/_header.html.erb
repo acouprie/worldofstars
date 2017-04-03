@@ -11,7 +11,7 @@
 				<li><%= link_to "Forum", '#' %></li>
 				
 				<% if logged_in? %>
-					<li><%= link_to "Ma planète", users_path %></li>
+					<li><%= link_to "Ma planète", current_user.planets.first %></li>
 					<li><%= link_to "Classement", users_path %></li>
 					<li><%= link_to "Profil", current_user %></li>
 					<li><%= link_to "Contact", contact_path %></li>

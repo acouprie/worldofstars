@@ -1,11 +1,5 @@
 class BuildingsController < ApplicationController
-  before_action :set_building, only: [:show, :edit, :update, :destroy]
-
-  # GET /buildings
-  # GET /buildings.json
-  def index
-    @buildings = Building.all
-  end
+  before_action :set_building, only: [:show, :update, :destroy]
 
   # GET /buildings/1
   # GET /buildings/1.json
@@ -15,10 +9,6 @@ class BuildingsController < ApplicationController
   # GET /buildings/new
   def new
     @building = Building.new
-  end
-
-  # GET /buildings/1/edit
-  def edit
   end
 
   # POST /buildings

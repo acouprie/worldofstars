@@ -1,16 +1,13 @@
 class PlanetsController < ApplicationController
   before_action :set_planet, only: [:show, :edit, :update, :destroy]
-
-  # GET /planets
-  # GET /planets.json
-  def index
-    @planets = Planet.all
-  end
+  before_action :logged_in_user
 
   # GET /planets/1
   # GET /planets/1.json
   def show
     @planet = Planet.find(params[:id])
+    @user = User.find(params[:id])
+    redirect_to root_url and return unless @planet.id == current_user.planets.first.id
   end
 
   # GET /planets/new
@@ -72,4 +69,15 @@ class PlanetsController < ApplicationController
     def planet_params
       params.fetch(:planet, {})
     end
+
+    # Before filters
+
+      # Confirms a logged-in user.
+      def logged_in_user
+        unless logged_in?
+          store_location
+          flash[:danger] = "Veuillez vous connecter pour effectuer cette action."
+          redirect_to login_url
+        end
+      end
 end

@@ -13,9 +13,10 @@ class Planet < ApplicationRecord
   def get_production(planet, name)
     planet.buildings.where(planet_id:planet.id, name:name).first.production
   end
-  def get_conso_tot_power(planet)
-  	for i in planet.buildings.each
-    	@p = planet.buildings.where(planet_id:planet.id)
-    end
+  def get_conso_tot_power
+  	food = self.buildings.find_by_name("food_farm").production
+  	metal = self.buildings.find_by_name("metal_farm").production
+  	thorium = self.buildings.find_by_name("thorium_farm").production
+  	prod_tot = food + metal + thorium
   end
 end

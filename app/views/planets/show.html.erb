@@ -18,20 +18,20 @@
 			<h2>Production / Conso.</h2><br />
 			<br />
 			Energie:<br />
-			+ <%= @planet.get_conso_tot_power(@planet) %> par heure<br />
-			- par heure<br />
+			+ <%= @planet.get_conso_tot_power %> par heure<br />
+			- 0 par heure<br />
 			<br />
 			Métaux:<br />
 			+ <%= @planet.get_production(@planet,"metal_farm") %> par heure<br />
-			- par heure<br />
+			- 0 par heure<br />
 			<br />
 			Thorium:<br />
-			+ par <%= @planet.get_production(@planet,"thorium_farm") %> heure<br />
-			- par heure<br />
+			+ <%= @planet.get_production(@planet,"thorium_farm") %> par heure<br />
+			- 0 par heure<br />
 			<br />
 			Nourriture:<br />
 			+ <%= @planet.get_production(@planet,"food_farm") %> par heure<br />
-			- par heure<br />
+			- 0 par heure<br />
 		</aside>
 		<aside class="col-md-9">
 			<h2><%= @planet.name %> Planète de <%= @planet.user.name %></h2>
@@ -80,7 +80,9 @@
 					</div>
 					<div class="col-md-6">
 						Batiments :<br />
-						<%= @planet.buildings.first.name %>
+						<% @planet.buildings.each do |i| %>
+							<%= i.name %>
+						<% end %>
 					</div>
 				</div>
 				<div class="row">
