@@ -20,6 +20,7 @@ class User < ApplicationRecord
 	validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
 	has_many :planets
 	accepts_nested_attributes_for :planets
+	
 	def actifs
 		update_columns(last_connection: Time.zone.now)
 	end

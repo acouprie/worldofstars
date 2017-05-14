@@ -7,7 +7,8 @@ class PlanetsController < ApplicationController
   def show
     @planet = Planet.find(params[:id])
     @user = User.find(params[:id])
-    redirect_to root_url and return unless @planet.id == current_user.planets.first.id
+    # to fix : bug when visit other planet
+    redirect_to root_url and return unless @planet == current_user.planets.find(@planet)
   end
 
   # GET /planets/new
@@ -58,6 +59,16 @@ class PlanetsController < ApplicationController
     end
   end
 
+  def construct
+    Thread.new {
+      @planet = Planet.find(params[:id])
+      #@type = params[:type]
+      # Est actuellement vide donc plante
+      # fonctionne si valeur en dur transmise
+      @planet.add_building_to_planet(1)
+    }
+  end
+
   private
 
     # Use callbacks to share common setup or constraints between actions.
@@ -67,17 +78,17 @@ class PlanetsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def planet_params
-      params.fetch(:planet, {})
+      params.fetch(:planet, :type, {})
     end
 
     # Before filters
 
-      # Confirms a logged-in user.
-      def logged_in_user
-        unless logged_in?
-          store_location
-          flash[:danger] = "Veuillez vous connecter pour effectuer cette action."
-          redirect_to login_url
-        end
+    # Confirms a logged-in user.
+    def logged_in_user
+      unless logged_in?
+        store_location
+        flash[:danger] = "Veuillez vous connecter pour effectuer cette action."
+        redirect_to login_url
       end
+    end
 end

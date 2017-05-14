@@ -14,6 +14,7 @@ ActiveRecord::Schema.define(version: 20170402182444) do
 
   create_table "buildings", force: :cascade do |t|
     t.string   "name"
+    t.integer   "type"
     t.integer  "planet_id"
     t.integer  "price"
     t.integer  "lvl",           default: 1
@@ -29,6 +30,8 @@ ActiveRecord::Schema.define(version: 20170402182444) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer  "user_id"
+    t.float   "food_tot",    default: 0
+    t.integer  "place_1"
     t.index ["user_id"], name: "index_planets_on_user_id"
   end
 

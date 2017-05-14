@@ -17,6 +17,7 @@ Rails.application.routes.draw do
 
   get 'users/new'
   get 'planets/new'
+  post 'buildings/new', to: 'planets#construct'
 	
 	# URL contact information
   get '/contact', to: 'static_pages#contact'
@@ -35,6 +36,8 @@ Rails.application.routes.draw do
 
 	# URL logout
 	delete '/logout', to: 'sessions#destroy'
+
+  post "planets/build" => "planets#construct"
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
