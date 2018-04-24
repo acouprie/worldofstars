@@ -10,28 +10,31 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170402182444) do
+ActiveRecord::Schema.define(version: 20170402153221) do
 
   create_table "buildings", force: :cascade do |t|
     t.string   "name"
-    t.integer   "type"
+    t.integer  "type"
     t.integer  "planet_id"
-    t.integer  "price"
+    t.integer  "food_price",    default: 0
+    t.integer  "metal_price",   default: 0
+    t.integer  "thorium_price", default: 0
     t.integer  "lvl",           default: 1
-    t.integer  "conso_power"
-    t.integer  "time_to_build"
-    t.integer  "production"
+    t.integer  "conso_power",   default: 0
+    t.integer  "time_to_build", default: 0
+    t.integer  "production",    default: 1
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
   end
 
   create_table "planets", force: :cascade do |t|
-    t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.integer  "user_id"
-    t.float   "food_tot",    default: 0
+    t.string   "name",       default: "Terre"
+    t.integer  "conso_tot",  default: 0
+    t.float    "food_tot"
     t.integer  "place_1"
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
     t.index ["user_id"], name: "index_planets_on_user_id"
   end
 
