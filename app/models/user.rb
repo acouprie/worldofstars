@@ -12,7 +12,7 @@ class User < ApplicationRecord
 	VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
 	# validate email presence and format
 	validates :email, presence: true, length: { maximum: 100 },
-		format: { with: VALID_EMAIL_REGEX }, 
+		format: { with: VALID_EMAIL_REGEX },
 		uniqueness: { case_sensitive: false }
 	# password contraint
 	has_secure_password
@@ -20,7 +20,7 @@ class User < ApplicationRecord
 	validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
 	has_many :planets
 	accepts_nested_attributes_for :planets
-	
+
 	def actifs
 		update_columns(last_connection: Time.zone.now)
 	end
@@ -75,7 +75,7 @@ class User < ApplicationRecord
 	def create_reset_digest
 		self.reset_token = User.new_token
 		self.reset_token = User.new_token
-		update_columns(reset_digest: User.digest(reset_token), 
+		update_columns(reset_digest: User.digest(reset_token),
 					reset_sent_at: Time.zone.now)
 	end
 	# Sends password reset email.
@@ -94,7 +94,7 @@ class User < ApplicationRecord
 		def downcase_email
 			self.email = email.downcase
 		end
-		
+
 		# Creates and assigns the activation token and digest.
 		def create_activation_digest
 			self.activation_token = User.new_token

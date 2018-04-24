@@ -60,13 +60,9 @@ class PlanetsController < ApplicationController
   end
 
   def construct
-    Thread.new {
       @planet = Planet.find(params[:id])
-      #@type = params[:type]
-      # Est actuellement vide donc plante
-      # fonctionne si valeur en dur transmise
-      @planet.add_building_to_planet(1)
-    }
+      @type = params[:type]
+      @planet.add_building_to_planet(@type)
   end
 
   private
