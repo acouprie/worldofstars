@@ -21,25 +21,24 @@
 			<h2>Production / Conso.</h2><br />
 			<br />
 			Energie:<br />
-			+ <%= @planet.get_prod_tot_power %> par heure<br />
-			- <%= @planet.get_conso_tot_power %> par heure<br />
+      + <%= @planet.prod_power %> par heure<br />
+      - <%= @planet.conso_power %> par heure<br />
 			<br />
 			Métaux:<br />
-			+ <%= @planet.get_production("Mine de métaux") %> par heure<br />
+      + <%= @planet.get_production %> par heure<br />
 			- 0 par heure<br />
 			<br />
 			Thorium:<br />
-			+ <%= @planet.get_production("Mine de thorium") %> par heure<br />
+      + <%= @planet.get_production %> par heure<br />
 			- 0 par heure<br />
 			<br />
 			Nourriture:<br />
-			+ <%= @planet.get_production("Champs") %> par heure<br />
+      + <%= @planet.food_production %> par heure<br />
 			- 0 par heure<br />
 		</aside>
 		<aside class="col-md-9">
 			<h2>Planète <%= @planet.name %></h2>
-			<div id="planet"><%= link_to image_tag("planet_img.jpg", 
-			alt: "Ma planète") %>
+      <div id="planet"><%= link_to image_tag("planet_img.jpg", alt: "Ma planète") %>
 			</div>
 		</aside>
 	</div>
@@ -59,7 +58,7 @@
 				Points d'exploration:<br />
 				<br />
 				00 / 00 <br />
-			</aside>		
+      </aside>
 			<aside>
 				<h2>Mon compte</h2>
 				<%=  %><br />
@@ -75,11 +74,11 @@
 				<div class="row">
 					<div class="col-md-6">
 						Unités :<br />
-						
+
 					</div>
 					<div class="col-md-6">
 						Batiments :<br /><% @type = 1 %>
-						<%= button_to "Construct", new_building_path(:id => @planet.id, type: @type) %><br />
+            <%= button_to "Construct", new_building_path(:id => @planet.id) %><br />
 						<ul>
 							<% @planet.buildings.each do |i| %>
 								<li><%= i.name %></li>

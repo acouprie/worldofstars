@@ -14,7 +14,6 @@ ActiveRecord::Schema.define(version: 20170402153221) do
 
   create_table "buildings", force: :cascade do |t|
     t.string   "name"
-    t.integer  "type"
     t.integer  "planet_id"
     t.integer  "food_price",    default: 0
     t.integer  "metal_price",   default: 0
@@ -32,7 +31,6 @@ ActiveRecord::Schema.define(version: 20170402153221) do
     t.string   "name",       default: "Terre"
     t.integer  "conso_tot",  default: 0
     t.float    "food_tot"
-    t.integer  "place_1"
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
     t.index ["user_id"], name: "index_planets_on_user_id"

@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-	
+
   resources :planets
   resources :buildings
   resources :users
@@ -9,7 +9,7 @@ Rails.application.routes.draw do
 
   # URL home page
   root 'static_pages#home'
-  
+
   get 'password_resets/new'
   get 'password_resets/edit'
 
@@ -17,15 +17,15 @@ Rails.application.routes.draw do
 
   get 'users/new'
   get 'planets/new'
-  post 'buildings/new', to: 'planets#construct'
-	
+  post 'buildings/new', to: 'planets#create_farm'
+
 	# URL contact information
   get '/contact', to: 'static_pages#contact'
 
 	# URL signup
 	get '/signup', to: 'users#new'
 	post '/signup', to: 'users#create'
-	
+
   # URL login
   get '/login', to: 'sessions#new'
 	post '/login', to: 'sessions#create'

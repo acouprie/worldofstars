@@ -59,10 +59,9 @@ class PlanetsController < ApplicationController
     end
   end
 
-  def construct
-      @planet = Planet.find(params[:id])
-      @type = params[:type]
-      @planet.add_building_to_planet(@type)
+  def create_farm
+      return if set_planet.farm
+      set_planet.create_farm
   end
 
   private
@@ -74,7 +73,7 @@ class PlanetsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def planet_params
-      params.fetch(:planet, :type, {})
+      params.fetch(:user_id, :name)
     end
 
     # Before filters

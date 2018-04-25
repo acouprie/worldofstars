@@ -25,8 +25,8 @@ class User < ApplicationRecord
 		update_columns(last_connection: Time.zone.now)
 	end
 
-	def actif_expired?
-   	last_connection < 2.weeks.ago
+  def actif_expired?
+    last_connection < 2.weeks.ago
   end
 
 	# Returns the hash digest of the given string.
@@ -42,7 +42,7 @@ class User < ApplicationRecord
 	end
 
  	def add_planet_to_user
- 		self.planets.create(name:"Mars")
+    Planet.create(user_id: self.id, name: 'Mars')
  	end
 
 	# Remembers a user in the database for use in persistent sessions.

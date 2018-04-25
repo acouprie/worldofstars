@@ -1,23 +1,16 @@
+require 'buildings/farm.rb'
+require 'buildings/solar.rb'
+
 class Planet < ApplicationRecord
   validates :name, presence: true, length: { maximum: 25 }
   belongs_to :user
+  has_one :farm
+  has_one :solar
   has_many :buildings
   accepts_nested_attributes_for :buildings
 
   def exist?
     Planet
-  end
-
-  def add_building_to_planet(type)
-    @type = type
-    lvl_t = Array[1,2,3,4,5,6,7,8,9]
-    record = get_type(@type)
-    self.buildings.create(name: record["name"], lvl: lvl_t[0])
-    self.add_building_to_place
-  end
-
-  def add_building_to_place
-    self.place_1 = self.buildings.last.id
   end
 
   def get_type(type)
@@ -35,37 +28,41 @@ class Planet < ApplicationRecord
     end
   end
 
+  def create_solar
+    Solar.create(name: 'Centrale Solaire', planet_id: self.id, lvl: 1, conso_power: 0, production: 55)
+  end
+
+  def create_farm
+    Farm.create(name: 'Champs', planet_id: self.id, lvl: 1, conso_power: 18, production: 100)
+  end
+
+  def food_production
+    return 0 unless self.farm
+    self.farm[:production]
+  end
+
   def food_stock
-      self.get_production("Champs")
-      # tot production per seconds
-      # self.get_production("Champs") + self.food_tot
+    return 0 unless self.farm
+    #$redis.set("#{self.id}-food", 0)
+    #$redis.set("#{self.id}-food-time", Time.now.to_datetime)
+    stock_saved = ($redis.get("#{self.id}-food")).to_i
+    gap = (Time.now.to_datetime - ($redis.get("#{self.id}-food-time"))&.to_datetime) * 1.days
+    prod = food_production.to_f / 3600 * gap.to_f
+    stock_saved + prod
   end
 
-  def get_production(n)
-    if self.buildings.find_by_name(n) != nil
-      self.buildings.find_by_name(n).production
-    else
-      return 0
-    end
+  def get_production
+    puts self.inspect
+    #$redis.set("foo", "bar")
   end
 
-  def get_power(n)
-    if self.buildings.find_by_name(n) != nil
-      self.buildings.find_by_name(n).conso_power
-    else
-      return 0
-    end
+  def prod_power
+    return 0 unless self.solar
+    self.solar[:production]
   end
 
-  def get_prod_tot_power
-    self.get_power("solar")
-  end
-
-  def get_conso_tot_power
-    center = self.get_power("center")
-  	food = self.get_power("food_farm")
-  	metal = self.get_power("metal_farm")
-  	thorium = self.get_power("thorium_farm")
-  	center + food + metal + thorium
+  def conso_power
+    return 0 unless self.farm
+    self.farm[:conso_power]
   end
 end
