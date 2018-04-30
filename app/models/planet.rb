@@ -4,7 +4,6 @@ require 'buildings/solar.rb'
 class Planet < ApplicationRecord
   validates :name, presence: true, length: { maximum: 25 }
   belongs_to :user
-  has_one :farm
   has_one :solar
   has_many :buildings
   accepts_nested_attributes_for :buildings
@@ -28,21 +27,25 @@ class Planet < ApplicationRecord
     end
   end
 
+  def create_headquarter
+    Building.create(name: 'Centre de commandement', planet_id: self.id, lvl: 1, conso_power: 0, production: 0)
+  end
+
   def create_solar
-    Solar.create(name: 'Centrale Solaire', planet_id: self.id, lvl: 1, conso_power: 0, production: 55)
+    Building.create(name: 'Centrale Solaire', planet_id: self.id, lvl: 1, conso_power: 0, production: 55)
   end
 
   def create_farm
-    Farm.create(name: 'Champs', planet_id: self.id, lvl: 1, conso_power: 18, production: 100)
+    Building.create(name: 'Champs', planet_id: self.id, lvl: 1, conso_power: 18, production: 100)
   end
 
   def food_production
-    return 0 unless self.farm
-    self.farm[:production]
+    return 0 unless self.buildings.farm
+    self.buildings.farm.production
   end
 
   def food_stock
-    return 0 unless self.farm
+    return 0 unless self.buildings.farm
     #$redis.set("#{self.id}-food", 0)
     #$redis.set("#{self.id}-food-time", Time.now.to_datetime)
     stock_saved = ($redis.get("#{self.id}-food")).to_i
@@ -51,18 +54,47 @@ class Planet < ApplicationRecord
     stock_saved + prod
   end
 
-  def get_production
-    puts self.inspect
-    #$redis.set("foo", "bar")
+  def metal_production
+    return 0 unless self.buildings.metal
+    self.buildings.metal.production
   end
 
-  def prod_power
-    return 0 unless self.solar
-    self.solar[:production]
+  def metal_stock
+    return 0 unless self.buildings.metal
+    $redis.set("#{self.id}-metal", 0)
+    $redis.set("#{self.id}-metal-time", Time.now.to_datetime)
+    stock_saved = ($redis.get("#{self.id}-metal")).to_i
+    gap = (Time.now.to_datetime - ($redis.get("#{self.id}-metal-time"))&.to_datetime) * 1.days
+    prod = metal_production.to_f / 3600 * gap.to_f
+    stock_saved + prod
   end
 
-  def conso_power
-    return 0 unless self.farm
-    self.farm[:conso_power]
+  def thorium_production
+    return 0 unless self.buildings.metal
+    self.buildings.metal.production
+  end
+
+  def thorium_stock
+    return 0 unless self.buildings.metal
+    $redis.set("#{self.id}-thorium", 0)
+    $redis.set("#{self.id}-thorium-time", Time.now.to_datetime)
+    stock_saved = ($redis.get("#{self.id}-thorium")).to_i
+    gap = (Time.now.to_datetime - ($redis.get("#{self.id}-thorium-time"))&.to_datetime) * 1.days
+    prod = metal_production.to_f / 3600 * gap.to_f
+    stock_saved + prod
+  end
+
+  def power_production
+    return 0 unless self.buildings.solar
+    self.buildings.solar.production
+  end
+
+  def power_conso
+    return 0 unless self.buildings.farm
+    self.buildings.farm.conso_power
+  end
+
+  def power_stock
+    self.buildings.solar.production - self.buildings.farm.conso_power
   end
 end

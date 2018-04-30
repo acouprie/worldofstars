@@ -31,6 +31,7 @@ ActiveRecord::Schema.define(version: 20170402153221) do
     t.string   "name",       default: "Terre"
     t.integer  "conso_tot",  default: 0
     t.float    "food_tot"
+    t.integer  "place_1"
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
     t.index ["user_id"], name: "index_planets_on_user_id"

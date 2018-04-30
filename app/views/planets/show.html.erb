@@ -4,13 +4,13 @@
 <div class="container">
 	<div class="row">
 		<span class="col-md-3">
-			Energie: <br />
+			Energie: <%= @planet.power_stock %><br />
 		</span>
 		<span class="col-md-3">
-			Métaux: <%= Time.now %><br />
+			Métaux: <%= @planet.metal_stock %><br />
 		</span>
 		<span class="col-md-3">
-			Thorium:<br />
+      Thorium: <%= @planet.thorium_stock %><br />
 		</span>
 		<span class="col-md-3">
 			Nourriture: <%= @planet.food_stock %><br />
@@ -21,15 +21,15 @@
 			<h2>Production / Conso.</h2><br />
 			<br />
 			Energie:<br />
-      + <%= @planet.prod_power %> par heure<br />
-      - <%= @planet.conso_power %> par heure<br />
+      + <%= @planet.power_production %> par heure<br />
+      - <%= @planet.power_conso %> par heure<br />
 			<br />
 			Métaux:<br />
-      + <%= @planet.get_production %> par heure<br />
+      + <%= @planet.metal_production %> par heure<br />
 			- 0 par heure<br />
 			<br />
 			Thorium:<br />
-      + <%= @planet.get_production %> par heure<br />
+      + <%= @planet.thorium_production %> par heure<br />
 			- 0 par heure<br />
 			<br />
 			Nourriture:<br />
