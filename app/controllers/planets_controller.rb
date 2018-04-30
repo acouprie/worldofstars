@@ -60,8 +60,11 @@ class PlanetsController < ApplicationController
   end
 
   def create_farm
-      return if set_planet.farm
-      set_planet.create_farm
+    set_planet.create_farm
+  end
+
+  def create_solar
+    set_planet.create_solar
   end
 
   private

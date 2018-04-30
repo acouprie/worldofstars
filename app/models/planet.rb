@@ -46,8 +46,6 @@ class Planet < ApplicationRecord
 
   def food_stock
     return 0 unless self.buildings.farm
-    #$redis.set("#{self.id}-food", 0)
-    #$redis.set("#{self.id}-food-time", Time.now.to_datetime)
     stock_saved = ($redis.get("#{self.id}-food")).to_i
     gap = (Time.now.to_datetime - ($redis.get("#{self.id}-food-time"))&.to_datetime) * 1.days
     prod = food_production.to_f / 3600 * gap.to_f
@@ -61,8 +59,6 @@ class Planet < ApplicationRecord
 
   def metal_stock
     return 0 unless self.buildings.metal
-    $redis.set("#{self.id}-metal", 0)
-    $redis.set("#{self.id}-metal-time", Time.now.to_datetime)
     stock_saved = ($redis.get("#{self.id}-metal")).to_i
     gap = (Time.now.to_datetime - ($redis.get("#{self.id}-metal-time"))&.to_datetime) * 1.days
     prod = metal_production.to_f / 3600 * gap.to_f
@@ -76,8 +72,8 @@ class Planet < ApplicationRecord
 
   def thorium_stock
     return 0 unless self.buildings.metal
-    $redis.set("#{self.id}-thorium", 0)
-    $redis.set("#{self.id}-thorium-time", Time.now.to_datetime)
+    #$redis.set("#{self.id}-thorium", 0)
+    #$redis.set("#{self.id}-thorium-time", Time.now.to_datetime)
     stock_saved = ($redis.get("#{self.id}-thorium")).to_i
     gap = (Time.now.to_datetime - ($redis.get("#{self.id}-thorium-time"))&.to_datetime) * 1.days
     prod = metal_production.to_f / 3600 * gap.to_f

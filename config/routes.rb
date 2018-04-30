@@ -17,25 +17,26 @@ Rails.application.routes.draw do
 
   get 'users/new'
   get 'planets/new'
-  post 'buildings/new', to: 'planets#create_farm'
+  post 'farm/new', to: 'planets#create_farm'
+  post 'solar/new', to: 'planets#create_solar'
 
-	# URL contact information
+  # URL contact information
   get '/contact', to: 'static_pages#contact'
 
-	# URL signup
-	get '/signup', to: 'users#new'
-	post '/signup', to: 'users#create'
+  # URL signup
+  get '/signup', to: 'users#new'
+  post '/signup', to: 'users#create'
 
   # URL login
   get '/login', to: 'sessions#new'
-	post '/login', to: 'sessions#create'
+  post '/login', to: 'sessions#create'
 
-	# Login from root page
-	get '/', to: 'sessions#new'
-	post '/', to: 'sessions#create'
+  # Login from root page
+  get '/', to: 'sessions#new'
+  post '/', to: 'sessions#create'
 
-	# URL logout
-	delete '/logout', to: 'sessions#destroy'
+  # URL logout
+  delete '/logout', to: 'sessions#destroy'
 
   post "planets/build" => "planets#construct"
 

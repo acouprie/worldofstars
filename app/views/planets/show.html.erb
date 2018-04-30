@@ -77,8 +77,14 @@
 
 					</div>
 					<div class="col-md-6">
-						Batiments :<br /><% @type = 1 %>
-            <%= button_to "Construct", new_building_path(:id => @planet.id) %><br />
+            Batiments :<br />
+            <select id="type" name="type" onchange="alert(self.options[selectCtrl.selectedIndex];)">
+              <option value="headquarter">Centre de commandement</option>
+              <option value="farm">Champs</option>
+              <option value="solar">Centrale solaire</option>
+            </select>
+            <%= button_to "Construire champs", farm_new_path(:id => @planet.id) %><br />
+            <%= button_to "Construire centrale solaire", solar_new_path(:id => @planet.id) %><br />
 						<ul>
 							<% @planet.buildings.each do |i| %>
 								<li><%= i.name %></li>
