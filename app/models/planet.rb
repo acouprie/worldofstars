@@ -28,15 +28,15 @@ class Planet < ApplicationRecord
   end
 
   def create_headquarter
-    Building.create(name: 'Centre de commandement', planet_id: self.id, lvl: 1, conso_power: 0, production: 0)
+    Building.create(name: 'Centre de commandement', planet_id: self.id, lvl: 1, conso_power: 0, production: 0, position: 1)
   end
 
   def create_solar
-    Building.create(name: 'Centrale Solaire', planet_id: self.id, lvl: 1, conso_power: 0, production: 55)
+    Building.create(name: 'Centrale Solaire', planet_id: self.id, lvl: 1, conso_power: 0, production: 55, position: 2)
   end
 
   def create_farm
-    Building.create(name: 'Champs', planet_id: self.id, lvl: 1, conso_power: 18, production: 100)
+    Building.create(name: 'Champs', planet_id: self.id, lvl: 1, conso_power: 18, production: 100, position: 3)
   end
 
   def food_production
@@ -91,6 +91,7 @@ class Planet < ApplicationRecord
   end
 
   def power_stock
-    self.buildings.solar.production - self.buildings.farm.conso_power
+    return 0 if self.buildings.empty?
+    (self.buildings.solar&.production || 0) - (self.buildings.farm&.conso_power || 0)
   end
 end

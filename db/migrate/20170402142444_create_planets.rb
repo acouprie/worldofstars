@@ -6,7 +6,6 @@ class CreatePlanets < ActiveRecord::Migration[5.0]
       t.string :name, default: "Terre"
       t.integer :conso_tot, default: 0
       t.float :food_tot
-      t.integer :place_1
       t.timestamps
     end
   end
