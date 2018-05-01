@@ -36,11 +36,10 @@
       + <%= @planet.food_production %> par heure<br />
 			- 0 par heure<br />
 		</aside>
-		<aside class="col-md-9">
-			<h2>Planète <%= @planet.name %></h2>
-      <div id="planet"><%= link_to image_tag("planet_img.jpg", alt: "Ma planète") %>
-			</div>
-		</aside>
+    <aside class="col-md-9">
+      <h2>Planète <%= @planet.name %></h2>
+      <%= render 'planets/caneva' %>
+    </aside>
 	</div>
 	<div class="row">
 		<div class="row">

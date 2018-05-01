@@ -1,0 +1,14 @@
+
+<canvas width = "620" height = "496" id = "planet_caneva">
+  <%= image_tag("planet_caneva_1.png", id: "planet_map", alt: "Ma planète") %>
+</canvas>
+
+<script type = "text/javascript" charset = "utf-8">
+    // Get a handle to the canvas object
+    var canvas = document.getElementById('planet_caneva');
+    // Get the image context for this canvas
+    var context = canvas.getContext('2d');
+    // Our drawing code here. . .
+    var image = document.getElementById('planet_map');
+    context.drawImage(image,10,10)
+</script>
