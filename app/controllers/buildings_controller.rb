@@ -6,50 +6,6 @@ class BuildingsController < ApplicationController
   def show
   end
 
-  # GET /buildings/new
-  def new
-    @building = Building.new
-  end
-
-  # POST /buildings
-  # POST /buildings.json
-  def create
-    #@building = Building.new(building_params)
-    #respond_to do |format|
-    #  if @building.save
-    #    format.html { redirect_to @building, notice: 'Building was successfully created.' }
-    #    format.json { render :show, status: :created, location: @building }
-    #  else
-    #    format.html { render :new }
-    #    format.json { render json: @building.errors, status: :unprocessable_entity }
-    #  end
-    #end
-  end
-
-  # PATCH/PUT /buildings/1
-  # PATCH/PUT /buildings/1.json
-  def update
-    respond_to do |format|
-      if @building.update(building_params)
-        format.html { redirect_to @building, notice: 'Building was successfully updated.' }
-        format.json { render :show, status: :ok, location: @building }
-      else
-        format.html { render :edit }
-        format.json { render json: @building.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /buildings/1
-  # DELETE /buildings/1.json
-  def destroy
-    @building.destroy
-    respond_to do |format|
-      format.html { redirect_to buildings_url, notice: 'Building was successfully destroyed.' }
-      format.json { head :no_content }
-    end
-  end
-
   private
 
   # Use callbacks to share common setup or constraints between actions.
@@ -59,6 +15,6 @@ class BuildingsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def building_params
-    params.require(:building).permit(:name, :planet_id, :price, :lvl, :conso_power, :time_to_build, :production)
+    params.require(:building).permit(:name, :planet_id, :food_price, :metal_price, :thorium_price, :lvl, :conso_power, :time_to_build, :production, :position)
   end
 end

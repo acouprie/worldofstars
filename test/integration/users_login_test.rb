@@ -18,14 +18,17 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
 	    post login_path, params: { session: { email:    @user.email,
 	                                          password: 'password' } }
 	    assert is_logged_in?
-	    assert_redirected_to @user
+      assert_redirected_to @user.planets.first
 	    follow_redirect!
-	    assert_template 'users/show'
+      assert_template 'planets/_caneva'
+      assert_template 'planets/show'
+      assert_template 'layouts/_header'
+      assert_template 'layouts/_footer'
+      assert_template 'layouts/application'
 
 	    assert_select "a[href=?]", root_path
 	    assert_select "a[href=?]", users_path
-	    assert_select "a[href=?]", user_path
-	   	assert_select "a[href=?]", contact_path
+      assert_select "a[href=?]", contact_path
 	    assert_select "a[href=?]", user_path(@user)
 	    assert_select "a[href=?]", logout_path
 
@@ -40,18 +43,19 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
 	    follow_redirect!
 	    assert_select "a[href=?]", login_path
 	    assert_select "a[href=?]", signup_path
-	   	assert_select "a[href=?]", contact_path
+      assert_select "a[href=?]", contact_path
 
 	    assert_select "a[href=?]", users_path, count: 0
 	    assert_select "a[href=?]", user_path(@user), count: 0
 	    assert_select "a[href=?]", logout_path,      count: 0
 
-  	end
+    end
 
   test "login with remembering" do
     log_in_as(@user, remember_me: '1')
     assert_not_empty cookies['remember_token']
   end
+
   test "login without remembering" do
     # Log in to set the cookie.
     log_in_as(@user, remember_me: '1')

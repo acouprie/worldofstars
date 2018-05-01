@@ -6,7 +6,7 @@ class AccountActivationsController < ApplicationController
 			user.update_attribute(:activated_at, Time.zone.now)
 			log_in user
 			flash[:success] = "Compte activé, l'aventure commence !"
-			redirect_to planet
+      redirect_to user.planets.first
 		else
 			flash[:danger] = "Lien d'activation incorrect, contactez l'administrateur"
 			redirect_to root_url

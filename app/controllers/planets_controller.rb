@@ -6,9 +6,7 @@ class PlanetsController < ApplicationController
   # GET /planets/1.json
   def show
     @planet = Planet.find(params[:id])
-    @user = User.find(params[:id])
-    # to fix : bug when visit other planet
-    redirect_to root_url and return unless @planet == current_user.planets.find(@planet)
+    @user = current_user
   end
 
   # GET /planets/new
@@ -46,16 +44,6 @@ class PlanetsController < ApplicationController
         format.html { render :edit }
         format.json { render json: @planet.errors, status: :unprocessable_entity }
       end
-    end
-  end
-
-  # DELETE /planets/1
-  # DELETE /planets/1.json
-  def destroy
-    @planet.destroy
-    respond_to do |format|
-      format.html { redirect_to planets_url, notice: 'Planet was successfully destroyed.' }
-      format.json { head :no_content }
     end
   end
 

@@ -10,6 +10,7 @@
 
 # ADMIN
 Frodo:
+  id: 1
   name: Frodo
   email: frodo@admin.com
   password_digest: <%= User.digest('password') %>
@@ -21,6 +22,7 @@ Frodo:
 
 # NON ADMIN
 ObiWan:
+  id: 2
   name: Obi Wan
   email: obi@1.gov
   password_digest: <%= User.digest('password') %>
@@ -31,6 +33,7 @@ ObiWan:
 
 # NON ACTIVATED
 JohnSnow:
+  id: 3
   name: John Snow
   email: john@snow.gov
   password_digest: <%= User.digest('password') %>
@@ -41,10 +44,11 @@ JohnSnow:
 
 # NON ACTIF
 LukeSkywalker:
+  id: 4
   name: LukeSkywalker
   email: luke@skywalker.com
   password_digest: <%= User.digest('password') %>
   activated: true
   activated_at: <%= Time.zone.now %>
   actif: false
-  last_connection: <%= Time.zone.now %>
+  last_connection: <%= 3.weeks.ago %>

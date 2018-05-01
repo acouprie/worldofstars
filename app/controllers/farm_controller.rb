@@ -5,8 +5,6 @@ class FarmController < ApplicationController
 
   def create
     @farm = Farm.new(name: 'Centrale Solaire', planet_id: self.id, lvl: 1, conso_power: 0, production: 55)
-    puts 'aaaa'
-    puts @farm.inspect
     respond_to do |format|
       if @farm.save
         format.html { redirect_to @farm, notice: 'Building was successfully created.' }

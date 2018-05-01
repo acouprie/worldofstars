@@ -9,8 +9,8 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
   	test "invalid signup information" do
 		get signup_path
 		assert_no_difference 'User.count' do
-			post users_path, params: { 
-				user: { 
+			post users_path, params: {
+				user: {
 					name: "",
 					email: "user@invalid",
 					password: "foo",
@@ -46,7 +46,11 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
 		get edit_account_activation_path(user.activation_token, email: user.email)
 		assert user.reload.activated?
 		follow_redirect!
-		assert_template 'users/show'
+		assert_template 'planets/_caneva'
+		assert_template 'planets/show'
+		assert_template 'layouts/_header'
+		assert_template 'layouts/_footer'
+		assert_template 'layouts/application'
 		assert is_logged_in?
 	end
 end

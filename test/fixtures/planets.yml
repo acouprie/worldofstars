@@ -4,8 +4,43 @@
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-one: {}
+#one: {}
 # column: value
 #
-two: {}
+#two: {}
 # column: value
+Terre:
+  user_id: 1
+  name: Terre
+  conso_tot: 0
+  food_tot: 0
+  created_at: <%= Time.zone.now %>
+  updated_at: <%= Time.zone.now %>
+  user_id: 1
+
+Venus:
+  user_id: 1
+  name: Venus
+  conso_tot: 0
+  food_tot: 0
+  created_at: <%= Time.zone.now %>
+  updated_at: <%= Time.zone.now %>
+  user_id: 2
+
+Jupiter:
+  user_id: 1
+  name: Jupiter
+  conso_tot: 0
+  food_tot: 0
+  created_at: <%= Time.zone.now %>
+  updated_at: <%= Time.zone.now %>
+  user_id: 3
+
+Pluton:
+  user_id: 1
+  name: Pluton
+  conso_tot: 0
+  food_tot: 0
+  created_at: <%= Time.zone.now %>
+  updated_at: <%= Time.zone.now %>
+  user_id: 4

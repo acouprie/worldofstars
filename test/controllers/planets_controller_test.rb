@@ -2,47 +2,33 @@ require 'test_helper'
 
 class PlanetsControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @planet = planets(:one)
+    @user = users(:Frodo)
+    @planet = planets(:Terre)
   end
 
-  test "should get index" do
-    get planets_url
-    assert_response :success
-  end
-
-  test "should get new" do
+  test "should redirect login get new when not logged in" do
     get new_planet_url
-    assert_response :success
+    assert_not flash.empty?
+    assert_redirected_to login_url
   end
 
-  test "should create planet" do
-    assert_difference('Planet.count') do
-      post planets_url, params: { planet: {  } }
+  test "should redirect login create planet when not logged in" do
+    assert_no_difference('Planet.count') do
+      post planets_url, params: { planet: { name: @planet.name, user_id: @user.id } }
     end
-
-    assert_redirected_to planet_url(Planet.last)
+    assert_not flash.empty?
+    assert_redirected_to login_url
   end
 
-  test "should show planet" do
+  test "should redirect login show planet when not logged in" do
     get planet_url(@planet)
-    assert_response :success
+    assert_not flash.empty?
+    assert_redirected_to login_url
   end
 
-  test "should get edit" do
+  test "should redirect login get edit when not logged in" do
     get edit_planet_url(@planet)
-    assert_response :success
-  end
-
-  test "should update planet" do
-    patch planet_url(@planet), params: { planet: {  } }
-    assert_redirected_to planet_url(@planet)
-  end
-
-  test "should destroy planet" do
-    assert_difference('Planet.count', -1) do
-      delete planet_url(@planet)
-    end
-
-    assert_redirected_to planets_url
+    assert_not flash.empty?
+    assert_redirected_to login_url
   end
 end

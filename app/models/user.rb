@@ -21,12 +21,15 @@ class User < ApplicationRecord
 	has_many :planets
 	accepts_nested_attributes_for :planets
 
-	def actifs
-		update_columns(last_connection: Time.zone.now)
-	end
+  def update_last_connection
+    update_columns(last_connection: Time.zone.now)
+    update_columns(actif: true)
+  end
 
-  def actif_expired?
-    last_connection < 2.weeks.ago
+  def actif?
+    return true unless last_connection < 2.weeks.ago
+    update_columns(actif: false)
+    false
   end
 
 	# Returns the hash digest of the given string.
