@@ -1,2 +1,0 @@
-class Farm < Building
-end

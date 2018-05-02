@@ -1,10 +1,6 @@
-require 'buildings/farm.rb'
-require 'buildings/solar.rb'
-
 class Planet < ApplicationRecord
   validates :name, presence: true, length: { maximum: 25 }
   belongs_to :user
-  has_one :solar
   has_many :buildings
   accepts_nested_attributes_for :buildings
 
