@@ -1,21 +1,21 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  name: MyString
+champs:
+  name: Champs
   planet_id: 1
-  food_price: 
+  food_price:
   lvl: 1
-  conso_power: 
-  time_to_build: 
-  production: 
+  conso_power: 18
+  time_to_build:
+  production: 100
   position: 1
 
 two:
   name: MyString
   planet_id: 1
-  food_price: 
+  food_price:
   lvl: 1
-  conso_power: 
-  time_to_build: 
-  production: 
+  conso_power:
+  time_to_build:
+  production:
   position: 2
