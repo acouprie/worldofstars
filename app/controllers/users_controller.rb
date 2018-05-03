@@ -14,7 +14,6 @@ class UsersController < ApplicationController
 	def new
 		@user = User.new
     @planet = Planet.create(name: 'Vulcain')
-		#@user.add_planet_to_user("Terre")
 	end
 
 	def create

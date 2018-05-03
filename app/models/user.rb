@@ -44,9 +44,9 @@ class User < ApplicationRecord
  		SecureRandom.urlsafe_base64
 	end
 
- 	def add_planet_to_user
+  def add_planet_to_user
     Planet.create(user_id: self.id, name: 'Mars')
- 	end
+  end
 
 	# Remembers a user in the database for use in persistent sessions.
 	 def remember

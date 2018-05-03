@@ -4,6 +4,12 @@ class Planet < ApplicationRecord
   has_many :buildings
   accepts_nested_attributes_for :buildings
 
+  STOCK_MINI = 1600
+
+  def farm
+    self.buildings.farm
+  end
+
   def exist?
     Planet
   end
@@ -35,22 +41,34 @@ class Planet < ApplicationRecord
 
   def create_farm
     return unless self.buildings.farm.nil?
-    Building.create(name: 'Champs', planet_id: self.id, lvl: 1, conso_power: 18, production: 100, position: 3)
+    Building.create_farm(self.id)
+  end
+
+  def create_stock_food
+    return unless self.buildings.stock_food.nil?
+    Building.create(name: 'Entrepôt de nourriture', planet_id: self.id, lvl: 1, conso_power: 0, production: 21000, position: 4)
   end
 
   def food_production
-    return 0 unless self.buildings.farm
-    self.buildings.farm.production
+    return 0 unless farm
+    farm.production
   end
 
-  def food_stock
+  def current_food
     #$redis.set("#{self.id}-food", 0)
     #$redis.set("#{self.id}-food-time", Time.now.to_datetime)
     return 0 unless self.buildings.farm
     stock_saved = ($redis.get("#{self.id}-food")).to_i
     gap = (Time.now.to_datetime - ($redis.get("#{self.id}-food-time"))&.to_datetime) * 1.days
     prod = food_production.to_f / 3600 * gap.to_f
-    stock_saved + prod
+    total = stock_saved + prod
+    return STOCK_MINI if total > STOCK_MINI
+    total.to_i
+  end
+
+  def max_food
+    return 1600 if self.buildings.stock_food.nil?
+    self.buildings.stock_food.production
   end
 
   def metal_production

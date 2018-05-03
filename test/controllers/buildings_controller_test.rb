@@ -8,7 +8,6 @@ class BuildingsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should build new farm" do
-    puts @user.planets.first.buildings.inspect
     assert_difference('Building.count') do
       @user.planets.first.create_farm
     end
