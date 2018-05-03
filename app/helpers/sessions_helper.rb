@@ -30,6 +30,13 @@ module SessionsHelper
 		end
 	end
 
+	# Returns the current planet (if any).
+	def current_planet
+		if (planet_id = current_user.planets.first.id)
+			@current_planet ||= Planet.find_by(id: planet_id)
+		end
+	end
+
 	# Returns true if the user is logged in, false otherwise.
 	def logged_in?
 		!current_user.nil?

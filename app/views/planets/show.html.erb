@@ -82,8 +82,8 @@
               <option value="farm">Champs</option>
               <option value="solar">Centrale solaire</option>
             </select>
-            <%= button_to "Construire champs", farm_new_path(:id => @planet.id) %><br />
-            <%= button_to "Construire centrale solaire", solar_new_path(:id => @planet.id) %><br />
+            <%= button_to "Construire champs", farm_new_path %><br />
+            <%= button_to "Construire centrale solaire", solar_new_path %><br />
 						<ul>
 							<% @planet.buildings.each do |i| %>
 								<li><%= i.name %></li>

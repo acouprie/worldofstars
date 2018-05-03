@@ -24,14 +24,17 @@ class Planet < ApplicationRecord
   end
 
   def create_headquarter
+    return unless self.buildings.headquarter.nil?
     Building.create(name: 'Centre de commandement', planet_id: self.id, lvl: 1, conso_power: 0, production: 0, position: 1)
   end
 
   def create_solar
+    return unless self.buildings.solar.nil?
     Building.create(name: 'Centrale Solaire', planet_id: self.id, lvl: 1, conso_power: 0, production: 55, position: 2)
   end
 
   def create_farm
+    return unless self.buildings.farm.nil?
     Building.create(name: 'Champs', planet_id: self.id, lvl: 1, conso_power: 18, production: 100, position: 3)
   end
 
@@ -41,6 +44,8 @@ class Planet < ApplicationRecord
   end
 
   def food_stock
+    #$redis.set("#{self.id}-food", 0)
+    #$redis.set("#{self.id}-food-time", Time.now.to_datetime)
     return 0 unless self.buildings.farm
     stock_saved = ($redis.get("#{self.id}-food")).to_i
     gap = (Time.now.to_datetime - ($redis.get("#{self.id}-food-time"))&.to_datetime) * 1.days
