@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170402153221) do
+ActiveRecord::Schema.define(version: 20180526221224) do
 
   create_table "buildings", force: :cascade do |t|
     t.string   "name"
@@ -29,11 +29,17 @@ ActiveRecord::Schema.define(version: 20170402153221) do
 
   create_table "planets", force: :cascade do |t|
     t.integer  "user_id"
-    t.string   "name",       default: "Terre"
-    t.integer  "conso_tot",  default: 0
+    t.string   "name",          default: "Terre"
+    t.integer  "conso_tot",     default: 0
     t.float    "food_tot"
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.float    "food_stock",    default: 0
+    t.datetime "food_time",     default: Time.now
+    t.float    "metal_stock",   default: 0
+    t.datetime "metal_time",    default: Time.now
+    t.float    "thorium_stock", default: 0
+    t.datetime "thorium_time",  default: Time.now
     t.index ["user_id"], name: "index_planets_on_user_id"
   end
 

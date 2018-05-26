@@ -131,9 +131,6 @@ GEM
     rb-fsevent (0.9.8)
     rb-inotify (0.9.7)
       ffi (>= 0.5.0)
-    redis (4.0.1)
-    redis-namespace (1.6.0)
-      redis (>= 3.0.4)
     ruby-progressbar (1.8.1)
     sass (3.4.23)
     sass-rails (5.0.6)
@@ -193,8 +190,6 @@ DEPENDENCIES
   puma (= 3.11.4)
   rails (= 5.0.1)
   rails-controller-testing
-  redis
-  redis-namespace
   sass-rails (~> 5.0)
   spring
   spring-watcher-listen (~> 2.0.0)

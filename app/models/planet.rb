@@ -55,11 +55,9 @@ class Planet < ApplicationRecord
   end
 
   def current_food
-    #$redis.set("#{self.id}-food", 0)
-    #$redis.set("#{self.id}-food-time", Time.now.to_datetime)
     return 0 unless self.buildings.farm
-    stock_saved = ($redis.get("#{self.id}-food")).to_i
-    gap = (Time.now.to_datetime - ($redis.get("#{self.id}-food-time"))&.to_datetime) * 1.days
+    stock_saved = self.food_stock
+    gap = (Time.now.to_datetime - (self.food_time)&.to_datetime) * 1.days
     prod = food_production.to_f / 3600 * gap.to_f
     total = stock_saved + prod
     return STOCK_MINI if total > STOCK_MINI
@@ -78,8 +76,8 @@ class Planet < ApplicationRecord
 
   def metal_stock
     return 0 unless self.buildings.metal
-    stock_saved = ($redis.get("#{self.id}-metal")).to_i
-    gap = (Time.now.to_datetime - ($redis.get("#{self.id}-metal-time"))&.to_datetime) * 1.days
+    stock_saved = self.metal_stock
+    gap = (Time.now.to_datetime - (self.metal_time)&.to_datetime) * 1.days
     prod = metal_production.to_f / 3600 * gap.to_f
     stock_saved + prod
   end
@@ -91,10 +89,8 @@ class Planet < ApplicationRecord
 
   def thorium_stock
     return 0 unless self.buildings.metal
-    #$redis.set("#{self.id}-thorium", 0)
-    #$redis.set("#{self.id}-thorium-time", Time.now.to_datetime)
-    stock_saved = ($redis.get("#{self.id}-thorium")).to_i
-    gap = (Time.now.to_datetime - ($redis.get("#{self.id}-thorium-time"))&.to_datetime) * 1.days
+    stock_saved = self.thorium_stock
+    gap = (Time.now.to_datetime - (self.thorium_time)&.to_datetime) * 1.days
     prod = metal_production.to_f / 3600 * gap.to_f
     stock_saved + prod
   end
