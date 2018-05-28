@@ -1,9 +1,9 @@
 require 'test_helper'
 
 class UserTest < ActiveSupport::TestCase
-  	def setup
-		@user = users(:LukeSkywalker)
-	end
+  def setup
+    @user = users(:LukeSkywalker)
+  end
 	test "should be valid" do
 		assert @user.valid?
 	end

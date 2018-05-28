@@ -7,13 +7,13 @@
 			Energie: <%= @planet.power_stock %><br />
 		</span>
 		<span class="col-md-3">
-			Métaux: <%= @planet.metal_stock %><br />
+			Métaux: <%= @planet.current_metal %> / <%= @planet.metal_stock %><br />
 		</span>
 		<span class="col-md-3">
-      Thorium: <%= @planet.thorium_stock %><br />
+      Thorium: <%= @planet.current_thorium %> / <%= @planet.thorium_stock %><br />
 		</span>
 		<span class="col-md-3">
-      Nourriture: <%= @planet.current_food %> / <%= @planet.max_food %><br />
+      Nourriture: <%= @planet.current_food %> / <%= @planet.food_stock %><br />
 		</span>
 	</div>
 	<div class="row">
