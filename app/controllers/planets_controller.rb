@@ -48,7 +48,14 @@ class PlanetsController < ApplicationController
   end
 
   def upgrade_building
-    current_planet.upgrade_building(params[:name])
+    id = params[:id]
+    building_lvl = Building.find_by(id: id).lvl
+    current_planet.upgrade_building(id)
+    @building = Building.find_by(id: id)
+    if @building.lvl == building_lvl + 1
+      flash[:info] = "Batiment en cours de construction"
+    end
+    flash[:warning] = "Erreur"
   end
 
   private

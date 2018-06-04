@@ -82,7 +82,7 @@ class Building < ApplicationRecord
 
   HEADQUARTER_NAME = 'Centre de commandement'.freeze
   HEADQUARTER = [
-
+    { lvl: 1, metal_price: 600, food_price: 150, thorium_price: 300, time_to_build: 15 },
   ].freeze
 
   STOCK_FOOD_NAME = 'Entrepôt de nourriture'.freeze
@@ -113,6 +113,21 @@ class Building < ApplicationRecord
       self.update(FARM[self.lvl])
     elsif self.name == SOLAR_NAME && self.lvl < 2
       self.update(SOLAR[self.lvl])
+    end
+  end
+
+  def time_to_build
+    case self.name
+      when HEADQUARTER_NAME
+        HEADQUARTER[self.lvl].dig(:time_to_build)
+      when SOLAR_NAME
+        SOLAR[self.lvl].dig(:time_to_build)
+      when FARM_NAME
+        FARM[self.lvl].dig(:time_to_build)
+      when METAL_NAME
+        METAL[self.lvl].dig(:time_to_build)
+      when THORIUM_NAME
+        THORIUM[self.lvl].dig(:time_to_build)
     end
   end
 
@@ -151,6 +166,6 @@ class Building < ApplicationRecord
   private
 
   def check_uniqueness
-    self.name != Building.find_by(name: self.name).first
+    self.name != Building.find_by(name: self.name)
   end
 end

@@ -1,6 +1,22 @@
-<% @planet.buildings.each do |i| %>
-  <li><%= i.name %></li>
+Batiments :
+<br />
+<% @planet.buildings.each do |building| %>
+    <div>
+      Nom : <%= building.name %><br />
+      Niveau actuel : <%= building.lvl %><br />
+      <div>
+        Nourriture : <%= building.food_price %> -
+        Metal : <%= building.metal_price %> -
+        Thorium : <%= building.thorium_price %>
+      </div>
+      <div>
+        Production : <%= building.production %> -
+        Conso. électricité : <%= building.conso_power %> -
+      </div>
+      <div>
+        Temps de construction : <%= building.time_to_build %> secondes
+      </div>
+      <%= button_to "Améliorer #{building.name}", building_upgrade_path(id: building.id), method: :post %><br />
+    </div>
 <% end %>
-<%= button_to "Améliorer champs", building_upgrade_path, params: { name: 'Champs' } %><br />
-<%= button_to "Améliorer solar", building_upgrade_path, params: { name: 'Centrale Solaire' } %><br />
 

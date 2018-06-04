@@ -1,8 +1,9 @@
 class BuildingsController < ApplicationController
   before_action :set_building, only: [:show, :update, :destroy]
-  # GET /buildings/1
-  # GET /buildings/1.json
-  def show
+  before_action :logged_in_user
+
+  def index
+    @buildings = Building.paginate(page: params[:page])
   end
 
   private

@@ -12,9 +12,9 @@ class Planet < ApplicationRecord
     Planet
   end
 
-  def upgrade_building(name)
-  building = self.buildings.find_by(name: name)
-  building.upgrade(power_conso,power_production)
+  def upgrade_building(id)
+    building = self.buildings.find_by(id: id)
+    building.upgrade(power_conso,power_production)
   end
 
   def food_production
