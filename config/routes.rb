@@ -16,8 +16,7 @@ Rails.application.routes.draw do
   get 'sessions/new'
 
   get 'users/new'
-  post 'farm/new', to: 'planets#create_farm'
-  post 'solar/new', to: 'planets#create_solar'
+  post 'building/upgrade', to: 'planets#upgrade_building'
 
   # URL contact information
   get '/contact', to: 'static_pages#contact'

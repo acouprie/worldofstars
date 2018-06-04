@@ -74,23 +74,11 @@
 					<div class="col-md-6">
 						Unités :<br />
 
-					</div>
-					<div class="col-md-6">
-            Batiments :<br />
-            <select id="type" name="type" onchange="alert(self.options[selectCtrl.selectedIndex];)">
-              <option value="headquarter">Centre de commandement</option>
-              <option value="farm">Champs</option>
-              <option value="solar">Centrale solaire</option>
-            </select>
-            <%= button_to "Construire champs", farm_new_path %><br />
-            <%= button_to "Construire centrale solaire", solar_new_path %><br />
-						<ul>
-							<% @planet.buildings.each do |i| %>
-								<li><%= i.name %></li>
-							<% end %>
-						</ul>
-					</div>
-				</div>
+          </div>
+          <div class="col-md-6">
+            <%= render 'buildings/show' %>
+          </div>
+        </div>
 				<div class="row">
 					<div class="col-md-6">
 						Vaisseaux :<br />

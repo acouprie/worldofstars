@@ -3,6 +3,7 @@ class Planet < ApplicationRecord
   belongs_to :user
   has_many :buildings
   accepts_nested_attributes_for :buildings
+  after_create :add_buildings_to_planet
 
   STOCK_MINI = 1600
   HOUR = 3600
@@ -11,24 +12,9 @@ class Planet < ApplicationRecord
     Planet
   end
 
-  def create_headquarter
-    return unless headquarter.nil?
-    Building.create(name: 'Centre de commandement', planet_id: self.id, lvl: 1, conso_power: 0, production: 0, position: 1)
-  end
-
-  def create_solar
-    return unless solar.nil?
-    Building.create_solar(self.id)
-  end
-
-  def create_farm
-    return unless farm.nil? && (power_conso + 18 < power_stock)
-    Building.create_farm(self.id)
-  end
-
-  def create_stock_food
-    return unless stock_food.nil?
-    Building.create(name: 'Entrepôt de nourriture', planet_id: self.id, lvl: 1, conso_power: 0, production: 21000, position: 4)
+  def upgrade_building(name)
+  building = self.buildings.find_by(name: name)
+  building.upgrade(power_conso,power_production)
   end
 
   def food_production
@@ -103,34 +89,38 @@ class Planet < ApplicationRecord
   private
 
   def headquarter
-    self.buildings.headquarter.first
+    self.buildings.headquarter
   end
 
   def farm
-    self.buildings.farm.first
+    self.buildings.farm
   end
 
   def solar
-    self.buildings.solar.first
+    self.buildings.solar
   end
 
   def metal
-    self.buildings.metal.first
+    self.buildings.metal
   end
 
   def thorium
-    self.buildings.thorium.first
+    self.buildings.thorium
   end
 
   def stock_food
-    self.buildings.stock_food.first
+    self.buildings.stock_food
   end
 
   def stock_metal
-    self.buildings.stock_metal.first
+    self.buildings.stock_metal
   end
 
   def stock_thorium
-    self.buildings.stock_thorium.first
+    self.buildings.stock_thorium
+  end
+
+  def add_buildings_to_planet
+    Building.add_buildings_to_planet(self.id)
   end
 end

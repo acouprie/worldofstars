@@ -1,0 +1,6 @@
+<% @planet.buildings.each do |i| %>
+  <li><%= i.name %></li>
+<% end %>
+<%= button_to "Améliorer champs", building_upgrade_path, params: { name: 'Champs' } %><br />
+<%= button_to "Améliorer solar", building_upgrade_path, params: { name: 'Centrale Solaire' } %><br />
+

@@ -47,12 +47,8 @@ class PlanetsController < ApplicationController
     end
   end
 
-  def create_farm
-    current_planet.create_farm
-  end
-
-  def create_solar
-    current_planet.create_solar
+  def upgrade_building
+    current_planet.upgrade_building(params[:name])
   end
 
   private

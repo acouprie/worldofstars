@@ -20,10 +20,10 @@ ActiveRecord::Schema.define(version: 20180526221224) do
     t.integer  "food_price",    default: 0
     t.integer  "metal_price",   default: 0
     t.integer  "thorium_price", default: 0
-    t.integer  "lvl",           default: 1
+    t.integer  "lvl",           default: 0
     t.integer  "conso_power",   default: 0
     t.integer  "time_to_build", default: 0
-    t.integer  "production",    default: 1
+    t.integer  "production",    default: 0
     t.integer  "position"
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false

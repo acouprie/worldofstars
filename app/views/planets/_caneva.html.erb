@@ -23,7 +23,9 @@
   <% while i < 16 do %>
     context.drawImage(point_off,position_x[<%= i %>],position_y[<%= i %>])
     <% @planet.buildings.each do |building| %>
-      context.drawImage(point_on,position_x[<%= building.position %>],position_y[<%= building.position %>])
+      <% unless building.position.nil? %>
+        context.drawImage(point_on,position_x[<%= building.position %>],position_y[<%= building.position %>])
+      <% end %>
     <% end %>
     <% i += 1 %>
   <% end %>
