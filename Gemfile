@@ -46,7 +46,12 @@ gem 'rails-controller-testing'
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
 # make sample users with semi-realistics name
- gem 'faker'
+gem 'faker'
+
+# Delayed jobs
+gem 'resque'
+gem 'redis'
+gem 'redis-namespace'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

@@ -120,6 +120,10 @@ class Building < ApplicationRecord
     self.create(name: THORIUM_NAME, planet_id: planet_id) # t2b = 49
   end
 
+  def async_update_building
+    Resque.enqueue(TimeToBuild, self.id, Time.now+15)
+  end
+
   def upgrade(power_conso, power_production)
     if self.name == FARM_NAME && self.lvl < 21 && (power_conso + FARM[self.lvl].dig(:conso_power) < power_production)
       self.update(FARM[self.lvl])

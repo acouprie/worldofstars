@@ -14,7 +14,7 @@ class Planet < ApplicationRecord
 
   def upgrade_building(id)
     building = self.buildings.find_by(id: id)
-    building.upgrade(power_conso,power_production)
+    building.async_update_building
   end
 
   def food_production
