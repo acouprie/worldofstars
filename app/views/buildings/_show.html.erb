@@ -1,9 +1,7 @@
-Batiments :
-<br />
+<h3>Batiments :</h3><br />
 <% @planet.buildings.each do |building| %>
     <div>
-      Nom : <%= building.name %><br />
-      Niveau actuel : <%= building.lvl %><br />
+      <%= building.name %> niveau <%= building.lvl %><br />
       <div>
         Nourriture : <%= building.food_price %> -
         Metal : <%= building.metal_price %> -
@@ -11,7 +9,7 @@ Batiments :
       </div>
       <div>
         Production : <%= building.production %> -
-        Conso. électricité : <%= building.conso_power %> -
+        Conso. électricité : <%= building.conso_power %>
       </div>
       <div>
         Temps de construction : <%= building.time_to_build %> secondes
