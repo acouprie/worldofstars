@@ -113,18 +113,24 @@ class Building < ApplicationRecord
   ].freeze
 
   def self.add_buildings_to_planet(planet_id)
-    self.create(name: HEADQUARTER_NAME, planet_id: planet_id) # t2b = 15
-    self.create(name: SOLAR_NAME, planet_id: planet_id) # t2b = 90
-    self.create(name: FARM_NAME, planet_id: planet_id) # t2b = 53
-    self.create(name: METAL_NAME, planet_id: planet_id) # t2b = 45
-    self.create(name: THORIUM_NAME, planet_id: planet_id) # t2b = 49
+    self.create(name: HEADQUARTER_NAME, planet_id: planet_id)
+    self.create(name: SOLAR_NAME, planet_id: planet_id)
+    self.create(name: FARM_NAME, planet_id: planet_id)
+    self.create(name: METAL_NAME, planet_id: planet_id)
+    self.create(name: THORIUM_NAME, planet_id: planet_id)
   end
 
-  def upgrade(power_conso, power_production)
+  def async_update_building
+    Resque.enqueue_at(Time.now+55, TimeToBuild, self.id)
+  end
+
+  def upgrade
     if self.name == FARM_NAME && self.lvl < 21 && (power_conso + FARM[self.lvl].dig(:conso_power) < power_production)
       self.update(FARM[self.lvl])
     elsif self.name == SOLAR_NAME && self.lvl < 2
       self.update(SOLAR[self.lvl])
+    elsif self.name == HEADQUARTER_NAME && self.lvl < 14
+      self.update(HEADQUARTER[self.lvl])
     end
   end
 

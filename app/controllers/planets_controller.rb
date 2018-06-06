@@ -56,6 +56,7 @@ class PlanetsController < ApplicationController
       flash[:info] = "Batiment en cours de construction"
     end
     flash[:warning] = "Erreur"
+    redirect_to :back
   end
 
   private
