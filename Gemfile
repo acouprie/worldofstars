@@ -50,6 +50,7 @@ gem 'faker'
 
 # Delayed jobs
 gem 'resque'
+gem 'resque-scheduler'
 gem 'redis'
 gem 'redis-namespace'
 
