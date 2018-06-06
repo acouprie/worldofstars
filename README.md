@@ -1,24 +1,29 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Description
 
-Things you may want to cover:
+World of Stars est un jeu de gestion par navigateur.
+Le joueur aura pour but de gérer les ressources de sa planète pour construire des batiments, des unités ainsi que des vaisseaux spatiaux afin de se défendre et d'attaquer les autres joueurs grâce aux vaisseaux ou par un réseau de trous de ver entre les planètes des joueurs.
 
-* Ruby version
+## Clone the repo
+$ git clone https://github.com/acouprie/worldofstars.git
 
-* System dependencies
+## System dependencies
+$ bundle install
 
-* Configuration
+## Database creation
+$ rails db:migrate
 
-* Database creation
+## Database initialization
+$ rails db:seed
 
-* Database initialization
+## Launch the server
+$ rails s <br />
+Connect to localhost:3000/
 
-* How to run the test suite
+## How to run the test suite
+$ rails t
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## Credentials
+User : test@test.com<br />
+Pwd : Test1234
