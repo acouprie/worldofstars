@@ -112,40 +112,28 @@ class Building < ApplicationRecord
 
   ].freeze
 
-  def self.add_buildings_to_planet(planet_id)
-    self.create(name: HEADQUARTER_NAME, planet_id: planet_id)
-    self.create(name: SOLAR_NAME, planet_id: planet_id)
-    self.create(name: FARM_NAME, planet_id: planet_id)
-    self.create(name: METAL_NAME, planet_id: planet_id)
-    self.create(name: THORIUM_NAME, planet_id: planet_id)
+  def planet
+    @planet = Planet.find(self.planet_id)
   end
 
-  def async_update_building
-    Resque.enqueue_at(Time.now+55, TimeToBuild, self.id)
-  end
-
-  def upgrade
-    if self.name == FARM_NAME && self.lvl < 21 && (power_conso + FARM[self.lvl].dig(:conso_power) < power_production)
-      self.update(FARM[self.lvl])
-    elsif self.name == SOLAR_NAME && self.lvl < 2
-      self.update(SOLAR[self.lvl])
-    elsif self.name == HEADQUARTER_NAME && self.lvl < 14
-      self.update(HEADQUARTER[self.lvl])
-    end
-  end
-
-  def time_to_build
+  def define_type
     case self.name
       when HEADQUARTER_NAME
-        HEADQUARTER[self.lvl].dig(:time_to_build)
+        HEADQUARTER
       when SOLAR_NAME
-        SOLAR[self.lvl].dig(:time_to_build)
+        SOLAR
       when FARM_NAME
-        FARM[self.lvl].dig(:time_to_build)
+        FARM
       when METAL_NAME
-        METAL[self.lvl].dig(:time_to_build)
+        METAL
       when THORIUM_NAME
-        THORIUM[self.lvl].dig(:time_to_build)
+        THORIUM
+      when STOCK_FOOD_NAME
+        STOCK_FOOD
+      when STOCK_THORIUM_NAME
+        STOCK_THORIUM
+      when STOCK_METAL_NAME
+        STOCK_METAL
     end
   end
 
@@ -179,6 +167,43 @@ class Building < ApplicationRecord
 
   def self.stock_thorium
     self.find_by(name: STOCK_THORIUM_NAME)
+  end
+
+  def self.add_buildings_to_planet(planet_id)
+    self.create(name: HEADQUARTER_NAME, planet_id: planet_id)
+    self.create(name: SOLAR_NAME, planet_id: planet_id)
+    self.create(name: FARM_NAME, planet_id: planet_id)
+    self.create(name: METAL_NAME, planet_id: planet_id)
+    self.create(name: THORIUM_NAME, planet_id: planet_id)
+  end
+
+  def async_update_building
+    Resque.enqueue_at(Time.now + time_to_build, TimeToBuild, self.id)
+  end
+
+  def upgrade
+    return unless check_power_availability
+    if self.name == FARM_NAME && self.lvl < 21
+      puts FARM.inspect
+      self.update(FARM[self.lvl])
+    elsif self.name == SOLAR_NAME && self.lvl < 2
+      self.update(SOLAR[self.lvl])
+    elsif self.name == HEADQUARTER_NAME && self.lvl < 14
+      self.update(HEADQUARTER[self.lvl])
+    end
+  end
+
+  def time_to_build
+    self.define_type[self.lvl]&.dig(:time_to_build)
+  end
+
+  def building_conso_power
+    self.define_type[self.lvl]&.dig(:conso_power)
+  end
+
+  def check_power_availability
+    return true unless building_conso_power
+    planet.power_conso + building_conso_power < planet.power_stock
   end
 
   private

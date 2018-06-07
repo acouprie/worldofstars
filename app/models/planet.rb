@@ -77,8 +77,11 @@ class Planet < ApplicationRecord
   end
 
   def power_conso
-    return 0 unless farm
-    farm.conso_power
+    total = 0
+    self.buildings.each do |building|
+      total += building.conso_power
+    end
+    total
   end
 
   def power_stock
