@@ -169,6 +169,30 @@ class Building < ApplicationRecord
     self.find_by(name: STOCK_THORIUM_NAME)
   end
 
+  def next_level
+    define_type[self.lvl]
+  end
+
+  def time_to_build
+    next_level&.dig(:time_to_build).to_i
+  end
+
+  def conso_power_next_level
+    next_level&.dig(:conso_power).to_i ||= 0
+  end
+
+  def thorium_next_level
+    next_level&.dig(:thorium_price).to_i
+  end
+
+  def metal_next_level
+    next_level&.dig(:metal_price).to_i
+  end
+
+  def food_next_level
+    next_level&.dig(:food_price).to_i
+  end
+
   def self.add_buildings_to_planet(planet_id)
     self.create(name: HEADQUARTER_NAME, planet_id: planet_id)
     self.create(name: SOLAR_NAME, planet_id: planet_id)
@@ -182,28 +206,31 @@ class Building < ApplicationRecord
   end
 
   def upgrade
-    return unless check_power_availability
-    if self.name == FARM_NAME && self.lvl < 21
-      puts FARM.inspect
-      self.update(FARM[self.lvl])
-    elsif self.name == SOLAR_NAME && self.lvl < 2
-      self.update(SOLAR[self.lvl])
-    elsif self.name == HEADQUARTER_NAME && self.lvl < 14
-      self.update(HEADQUARTER[self.lvl])
+    return unless check_power_availability && check_ressources_availability
+    if self.lvl <= define_type.count
+      if self.update(next_level)
+        self.substract_ressources_to_total
+      end
     end
   end
 
-  def time_to_build
-    self.define_type[self.lvl]&.dig(:time_to_build)
-  end
-
-  def building_conso_power
-    self.define_type[self.lvl]&.dig(:conso_power)
+  def substract_ressources_to_total
+    food = planet.total_food_stock - self.food_price
+    metal = planet.total_metal_stock - self.metal_price
+    thorium = planet.total_thorium_stock - self.thorium_price
+    planet.update(total_food_stock: food, total_metal_stock: metal, total_thorium_stock: thorium)
   end
 
   def check_power_availability
-    return true unless building_conso_power
-    planet.power_conso + building_conso_power < planet.power_stock
+    return true unless conso_power_next_level
+    planet.power_conso + conso_power_next_level < planet.power_stock
+  end
+
+  def check_ressources_availability
+    return false unless (planet.current_thorium - thorium_next_level) > 0 &&
+      (planet.current_metal - metal_next_level) > 0 &&
+      (planet.current_food - food_next_level) > 0
+    true
   end
 
   private

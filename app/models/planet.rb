@@ -23,10 +23,9 @@ class Planet < ApplicationRecord
   end
 
   def current_food
-    return 0 unless farm
     gap = (Time.now.to_datetime - (self.food_time)&.to_datetime) * 1.days
-    total = food_production.to_f / HOUR * gap.to_f
-    return STOCK_MINI if total > STOCK_MINI
+    total = food_production.to_f / HOUR * gap.to_f + self.total_food_stock
+    total = STOCK_MINI if total > STOCK_MINI
     total.to_i
   end
 
@@ -46,10 +45,9 @@ class Planet < ApplicationRecord
   end
 
   def current_metal
-    return 0 unless metal
     gap = (Time.now.to_datetime - (self.metal_time)&.to_datetime) * 1.days
-    total = metal_production.to_f / HOUR * gap.to_f
-    return STOCK_MINI if total > STOCK_MINI
+    total = metal_production.to_f / HOUR * gap.to_f + self.total_metal_stock
+    total = STOCK_MINI if total > STOCK_MINI
     total.to_i
   end
 
@@ -64,10 +62,9 @@ class Planet < ApplicationRecord
   end
 
   def current_thorium
-    return 0 unless thorium
     gap = (Time.now.to_datetime - (self.thorium_time)&.to_datetime) * 1.days
-    total = metal_production.to_f / HOUR * gap.to_f
-    return STOCK_MINI if total > STOCK_MINI
+    total = thorium_production.to_f / HOUR * gap.to_f + self.total_thorium_stock
+    total = STOCK_MINI if total > STOCK_MINI
     total.to_i
   end
 
