@@ -1,20 +1,23 @@
+</script>
 <h3>Batiments :</h3><br />
 <% @planet.buildings.each do |building| %>
-    <div>
-      <%= building.name %> niveau <%= building.lvl %><br />
-      <div>
-        Nourriture : <%= building.food_next_level %> -
-        Metal : <%= building.metal_next_level %> -
-        Thorium : <%= building.thorium_next_level %>
+      <div class="building_name">
+        <%= building.name %> niveau <%= building.lvl %><br />
       </div>
-      <div>
-        Production : <%= building.production_next_level %> -
-        Conso. électricité : <%= building.conso_power_next_level %>
-      </div>
-      <div>
-        Temps de construction : <%= building.time_to_build %> secondes
-      </div>
+      <ul style="list-style-type:square" class="ressources_infos">
+        <li>
+          Nourriture : <%= building.food_next_level %> -
+          Metal : <%= building.metal_next_level %> -
+          Thorium : <%= building.thorium_next_level %>
+        </li>
+        <li>
+          Production : <%= building.production_next_level %> -
+          Conso. électricité : <%= building.conso_power_next_level %>
+        </li>
+        <li>
+          Temps de construction : <%= building.time_to_build %> secondes
+        </li>
+      </ul>
       <%= button_to "Améliorer #{building.name}", building_upgrade_path(id: building.id), method: :post %><br />
-    </div>
 <% end %>
 

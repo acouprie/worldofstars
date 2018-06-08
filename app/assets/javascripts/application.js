@@ -19,3 +19,10 @@
 // tree must be last
 //= require_tree .
 
+$(document).ready(function(){
+  $(".ressources_infos").hide();
+  $(".building_name").click(function(){
+    $(this).next().toggle();
+  });
+});
+
