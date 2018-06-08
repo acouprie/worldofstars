@@ -181,6 +181,10 @@ class Building < ApplicationRecord
     next_level&.dig(:conso_power).to_i ||= 0
   end
 
+  def production_next_level
+    next_level&.dig(:production).to_i ||= 0
+  end
+
   def thorium_next_level
     next_level&.dig(:thorium_price).to_i
   end
