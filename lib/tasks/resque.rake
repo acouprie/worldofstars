@@ -4,7 +4,8 @@ require 'resque/scheduler/tasks'
 namespace :resque do
   task :setup => :environment do
     require 'resque'
-    Resque.redis = 'localhost:6379'
+    require 'resque-scheduler'
+    Resque.redis = $redis
   end
 
   task :setup_schedule => :setup do

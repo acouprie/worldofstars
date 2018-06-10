@@ -1,0 +1,34 @@
+version: '3'
+services:
+  web:
+    image: worldofstars
+    command: bundle exec rails s -p 3000 -b '0.0.0.0'
+    build: .
+    ports:
+    - "3000:3000"
+    volumes:
+    - .:/code
+    - logvolume01:/var/log
+    links:
+    - redis
+    env_file:
+      - ".env"
+
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"
+
+  worker:
+    build: .
+    command: bundle exec rake environment resque:work
+    links:
+      - redis
+
+  scheduler:
+    build: .
+    command: bundle exec rake resque:setup
+    links:
+      - redis
+volumes:
+  logvolume01: {}

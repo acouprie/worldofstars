@@ -10,9 +10,6 @@ RUN apt-get clean && apt-get update -y \
       && apt-get install -y --no-install-recommends git-core build-essential sudo libffi-dev libxml2-dev libssl-dev \
       && rm -rf /var/lib/apt/lists/*
 
-RUN useradd -ms /bin/bash ether
-RUN echo '%ether ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
-
 RUN mkdir -p /app
 RUN mkdir -p /bundle
 
@@ -20,24 +17,11 @@ WORKDIR /app
 
 COPY Gemfile /app/
 COPY Gemfile.lock /app/
-COPY vendor/gems/ /app/vendor/gems/
 
-RUN chown -hR ether:ether /app
-RUN chown -hR ether:ether /bundle
-
-USER ether
-
-ENV BUNDLE_JOBS=10 \
-    BUNDLE_PATH=/bundle \
-    BUNDLE_APP_CONFIG=/app/.bundle-docker/
-
-RUN bundle config #frozen 1
-RUN bundle install --clean
+RUN bundle install
 
 COPY . /app/
 
 # unicorn
 EXPOSE 3000
 ENV PORT 3000
-
-
