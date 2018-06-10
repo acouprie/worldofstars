@@ -3,7 +3,10 @@ module TimeToBuild
 
   def self.perform(id)
     building = Building.find(id)
-    building.upgrade
-    puts "--- building upgraded ---"
+    if building.upgrade
+      puts "--- building upgraded for id: #{id} ---"
+    else
+      puts "--- building upgrade failed for id: #{id} ---"
+    end
   end
 end

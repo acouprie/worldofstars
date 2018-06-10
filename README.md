@@ -19,6 +19,9 @@ $ rails db:seed
 
 ## Launch the server
 $ rails s <br />
+$ bundle exec rake environment resque:scheduler
+$ QUEUE=* rake environment resque:work
+
 Connect to localhost:3000/
 
 ## How to run the test suite

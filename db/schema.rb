@@ -29,17 +29,17 @@ ActiveRecord::Schema.define(version: 20180526221224) do
 
   create_table "planets", force: :cascade do |t|
     t.integer  "user_id"
-    t.string   "name",          default: "Terre"
-    t.integer  "conso_tot",     default: 0
+    t.string   "name",                default: "Terre"
+    t.integer  "conso_tot",           default: 0
     t.float    "food_tot"
-    t.datetime "created_at",                                    null: false
-    t.datetime "updated_at",                                    null: false
+    t.datetime "created_at",                                          null: false
+    t.datetime "updated_at",                                          null: false
     t.float    "total_food_stock",    default: 600.0
-    t.datetime "food_time",     default: '2018-06-07 20:11:34'
+    t.datetime "food_time",           default: '2018-06-07 20:11:34'
     t.float    "total_metal_stock",   default: 600.0
-    t.datetime "metal_time",    default: '2018-06-07 20:11:34'
+    t.datetime "metal_time",          default: '2018-06-07 20:11:34'
     t.float    "total_thorium_stock", default: 600.0
-    t.datetime "thorium_time",  default: '2018-06-07 20:11:34'
+    t.datetime "thorium_time",        default: '2018-06-07 20:11:34'
     t.index ["user_id"], name: "index_planets_on_user_id"
   end
 

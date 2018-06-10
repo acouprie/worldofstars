@@ -206,7 +206,7 @@ class Building < ApplicationRecord
   end
 
   def async_update_building
-    Resque.enqueue_at(Time.now + time_to_build, TimeToBuild, self.id)
+    Resque.enqueue_at_with_queue('time2build', Time.now + time_to_build, TimeToBuild, self.id)
   end
 
   def upgrade
@@ -226,8 +226,8 @@ class Building < ApplicationRecord
   end
 
   def check_power_availability
-    return true unless conso_power_next_level
-    planet.power_conso + conso_power_next_level < planet.power_stock
+    return true if planet.power_conso + conso_power_next_level <= planet.power_stock
+    false
   end
 
   def check_ressources_availability
