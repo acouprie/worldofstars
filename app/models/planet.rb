@@ -1,5 +1,6 @@
 class Planet < ApplicationRecord
   validates :name, presence: true, length: { maximum: 25 }
+  validates :user_id, presence: true
   belongs_to :user
   has_many :buildings
   accepts_nested_attributes_for :buildings

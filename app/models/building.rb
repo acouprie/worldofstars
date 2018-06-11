@@ -1,5 +1,8 @@
 class Building < ApplicationRecord
   before_create :check_uniqueness
+  before_save :check_power_availability
+  before_save :check_ressources_availability
+  validates :planet_id, presence: true
 
   SOLAR_NAME = 'Centrale Solaire'.freeze
   SOLAR = [
@@ -206,23 +209,29 @@ class Building < ApplicationRecord
   end
 
   def async_update_building
+    return unless check_ressources_availability && check_power_availability
+    self.substract_ressources_to_total
     Resque.enqueue_in_with_queue('time2build', time_to_build, TimeToBuild, self.id)
   end
 
   def upgrade
-    return unless check_power_availability && check_ressources_availability
+    return unless check_ressources_availability && check_power_availability
     unless next_level.nil?
-      if self.update(next_level)
-        self.substract_ressources_to_total
-      end
+      self.update(next_level)
     end
   end
 
   def substract_ressources_to_total
-    food = planet.total_food_stock - self.food_price
-    metal = planet.total_metal_stock - self.metal_price
-    thorium = planet.total_thorium_stock - self.thorium_price
+    food = planet.total_food_stock - food_next_level
+    metal = planet.total_metal_stock - metal_next_level
+    thorium = planet.total_thorium_stock - thorium_next_level
     planet.update(total_food_stock: food, food_time: Time.now, total_metal_stock: metal, metal_time: Time.now, total_thorium_stock: thorium, thorium_time: Time.now)
+  end
+
+  private
+
+  def check_uniqueness
+    self.name != Building.find_by(name: self.name)
   end
 
   def check_power_availability
@@ -235,11 +244,5 @@ class Building < ApplicationRecord
       (planet.current_metal - metal_next_level) > 0 &&
       (planet.current_food - food_next_level) > 0
     true
-  end
-
-  private
-
-  def check_uniqueness
-    self.name != Building.find_by(name: self.name)
   end
 end

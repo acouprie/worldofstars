@@ -11,21 +11,20 @@ class UsersController < ApplicationController
     @user = current_user
   end
 
-	def new
-		@user = User.new
-    @planet = Planet.create(name: 'Vulcain')
-	end
+  def new
+    @user = User.new
+  end
 
-	def create
-		@user = User.new(user_params)
-		if @user.save
-			@user.send_activation_email
-			flash[:info] = "Activez votre compte via le lien reçu par e-mail."
-			redirect_to root_url
-		else
-			render 'new'
-		end
-	end
+  def create
+    @user = User.new(user_params)
+    if @user.save
+      @user.send_activation_email
+      flash[:info] = "Activez votre compte via le lien reçu par e-mail."
+      redirect_to root_url
+    else
+      render 'new'
+    end
+  end
 
   def edit
     @planet = @user.planets.first
