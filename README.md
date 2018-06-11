@@ -9,6 +9,7 @@ Le joueur aura pour but de gérer les ressources de sa planète pour construire 
 $ git clone https://github.com/acouprie/worldofstars.git
 
 ## System dependencies
+$ gem install bundler<br />
 $ bundle install
 
 ## Database creation
@@ -18,8 +19,8 @@ $ rails db:migrate
 $ rails db:seed
 
 ## Launch the server
-$ rails s <br />
-$ bundle exec rake environment resque:scheduler
+$ rails s<br />
+$ bundle exec rake environment resque:scheduler<br />
 $ QUEUE=* rake environment resque:work
 
 Connect to localhost:3000/
