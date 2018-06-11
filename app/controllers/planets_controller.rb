@@ -49,9 +49,15 @@ class PlanetsController < ApplicationController
 
   def upgrade_building
     id = params[:id]
-    current_planet.upgrade_building(id)
-    @building = Building.find_by(id: id)
-    flash[:info] = "Batiment en cours de construction"
+    building = Building.find(id)
+    if !building.check_power_availability
+      flash[:info] = "Energie insuffisante"
+    elsif !building.check_ressources_availability
+      flash[:info] = "Nous manquons de ressources"
+    else
+      current_planet.upgrade_building(id)
+      flash[:info] = "Batiment en cours de construction"
+    end
     redirect_to :back
   end
 

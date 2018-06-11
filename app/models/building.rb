@@ -228,12 +228,6 @@ class Building < ApplicationRecord
     planet.update(total_food_stock: food, food_time: Time.now, total_metal_stock: metal, metal_time: Time.now, total_thorium_stock: thorium, thorium_time: Time.now)
   end
 
-  private
-
-  def check_uniqueness
-    self.name != Building.find_by(name: self.name)
-  end
-
   def check_power_availability
     return true if planet.power_conso + conso_power_next_level <= planet.power_stock
     false
@@ -244,5 +238,11 @@ class Building < ApplicationRecord
       (planet.current_metal - metal_next_level) > 0 &&
       (planet.current_food - food_next_level) > 0
     true
+  end
+
+  private
+
+  def check_uniqueness
+    self.name != Building.find_by(name: self.name)
   end
 end
