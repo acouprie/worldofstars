@@ -83,7 +83,7 @@ class Planet < ApplicationRecord
 
   def power_stock
     return 0 if solar.nil?
-    (solar.production || 0) - (farm&.conso_power || 0)
+    solar.production - power_conso
   end
 
   private

@@ -206,12 +206,12 @@ class Building < ApplicationRecord
   end
 
   def async_update_building
-    Resque.enqueue_at_with_queue('time2build', Time.now + time_to_build, TimeToBuild, self.id)
+    Resque.enqueue_in_with_queue('time2build', time_to_build, TimeToBuild, self.id)
   end
 
   def upgrade
     return unless check_power_availability && check_ressources_availability
-    if self.lvl <= define_type.count
+    unless next_level.nil?
       if self.update(next_level)
         self.substract_ressources_to_total
       end
@@ -222,7 +222,7 @@ class Building < ApplicationRecord
     food = planet.total_food_stock - self.food_price
     metal = planet.total_metal_stock - self.metal_price
     thorium = planet.total_thorium_stock - self.thorium_price
-    planet.update(total_food_stock: food, total_metal_stock: metal, total_thorium_stock: thorium)
+    planet.update(total_food_stock: food, food_time: Time.now, total_metal_stock: metal, metal_time: Time.now, total_thorium_stock: thorium, thorium_time: Time.now)
   end
 
   def check_power_availability

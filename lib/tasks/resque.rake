@@ -9,6 +9,7 @@ namespace :resque do
 
   task :setup_schedule => :setup do
     require 'resque-scheduler'
+    require 'resque/scheduler/server'
 
     # If you want to be able to dynamically change the schedule,
     # uncomment this line.  A dynamic schedule can be updated via the
@@ -20,14 +21,7 @@ namespace :resque do
 
     # The schedule doesn't need to be stored in a YAML, it just needs to
     # be a hash.  YAML is usually the easiest.
-    #Resque.schedule = (
-    #  {time2build: {
-    #    description: 'Upgrade buildings',
-    #     queue: 'time2build',
-    #     every: '1s',
-    #     first_in: '1s' }
-    #   }
-    #)
+    Resque.schedule = YAML.load_file('resque_schedule.yml')
 
     # If your schedule already has +queue+ set for each job, you don't
     # need to require your jobs.  This can be an advantage since it's
