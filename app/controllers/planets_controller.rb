@@ -1,6 +1,7 @@
 class PlanetsController < ApplicationController
   before_action :set_planet, only: [:show, :edit, :update, :destroy]
   before_action :logged_in_user
+  before_action :check_user_id
 
   # GET /planets/1
   # GET /planets/1.json
@@ -75,6 +76,9 @@ class PlanetsController < ApplicationController
 
     # Before filters
 
+    def check_user_id
+      redirect_to(current_user.planets.first) unless current_user.id == set_planet.user_id
+    end
     # Confirms a logged-in user.
     def logged_in_user
       unless logged_in?

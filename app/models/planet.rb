@@ -87,6 +87,10 @@ class Planet < ApplicationRecord
     solar.production - power_conso
   end
 
+  def update_stocks
+    self.update(total_food_stock: current_food, food_time: Time.now, total_metal_stock: current_metal, metal_time: Time.now, total_thorium_stock: current_thorium, thorium_time: Time.now)
+  end
+
   private
 
   def headquarter
