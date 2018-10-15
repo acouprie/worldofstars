@@ -234,9 +234,9 @@ class Building < ApplicationRecord
   end
 
   def check_ressources_availability
-    return false unless (planet.current_thorium - thorium_next_level) > 0 &&
-      (planet.current_metal - metal_next_level) > 0 &&
-      (planet.current_food - food_next_level) > 0
+    return false unless (planet.define_current_stock('thorium') - thorium_next_level) > 0 &&
+      (planet.define_current_stock('metal') - metal_next_level) > 0 &&
+      (planet.define_current_stock('food') - food_next_level) > 0
     true
   end
 
