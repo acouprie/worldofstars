@@ -19,6 +19,7 @@ $ rails db:migrate
 $ rails db:seed
 
 ## Launch the server
+Run a [redis server](https://redis.io/)<br />
 $ rails s<br />
 $ bundle exec rake environment resque:scheduler<br />
 $ QUEUE=* rake environment resque:work
