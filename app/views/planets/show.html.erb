@@ -7,13 +7,13 @@
 			Energie: <%= @planet.power_stock %><br />
 		</span>
 		<span class="col-md-3">
-			Métaux: <%= @planet.current_metal %> / <%= @planet.metal_stock %><br />
+			Métaux: <%= @planet.define_current_stock('metal') %> / <%= @planet.max_stock('metal') %><br />
 		</span>
 		<span class="col-md-3">
-      Thorium: <%= @planet.current_thorium %> / <%= @planet.thorium_stock %><br />
+      Thorium: <%= @planet.define_current_stock('thorium') %> / <%= @planet.max_stock('thorium') %><br />
 		</span>
 		<span class="col-md-3">
-      Nourriture: <%= @planet.current_food %> / <%= @planet.food_stock %><br />
+      Nourriture: <%= @planet.define_current_stock('food') %> / <%= @planet.max_stock('food') %><br />
 		</span>
 	</div>
 	<div class="row">
@@ -21,19 +21,19 @@
 			<h2>Production / Conso.</h2><br />
 			<br />
 			Energie:<br />
-      + <%= @planet.power_production %> par heure<br />
+      + <%= @planet.production('solar') %> par heure<br />
       - <%= @planet.power_conso %> par heure<br />
 			<br />
 			Métaux:<br />
-      + <%= @planet.metal_production %> par heure<br />
+      + <%= @planet.production('metal') %> par heure<br />
 			- 0 par heure<br />
 			<br />
 			Thorium:<br />
-      + <%= @planet.thorium_production %> par heure<br />
+      + <%= @planet.production('thorium') %> par heure<br />
 			- 0 par heure<br />
 			<br />
 			Nourriture:<br />
-      + <%= @planet.food_production %> par heure<br />
+      + <%= @planet.production('food') %> par heure<br />
 			- 0 par heure<br />
 		</aside>
     <aside class="col-md-9">

@@ -7,11 +7,11 @@ class CreatePlanets < ActiveRecord::Migration[5.0]
       t.integer :conso_tot, default: 0
       t.float :food_tot
       t.integer :total_food_stock, default: 1000
-      t.datetime :food_time, :datetime
+      t.datetime :food_time, :datetime, default: Time.now
       t.integer :total_metal_stock, default: 1000
-      t.datetime :metal_time, :datetime
+      t.datetime :metal_time, :datetime, default: Time.now
       t.integer :total_thorium_stock, default: 1000
-      t.datetime :thorium_time, :datetime
+      t.datetime :thorium_time, :datetime, default: Time.now
       t.timestamps
     end
   end

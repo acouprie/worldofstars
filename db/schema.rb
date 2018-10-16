@@ -21,7 +21,7 @@ ActiveRecord::Schema.define(version: 20180526221224) do
     t.integer  "lvl",           default: 1
     t.integer  "conso_power",   default: 0
     t.integer  "time_to_build", default: 0
-    t.integer  "production",    default: 1
+    t.integer  "production",    default: 0
     t.integer  "position"
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
@@ -34,12 +34,12 @@ ActiveRecord::Schema.define(version: 20180526221224) do
     t.float    "food_tot"
     t.datetime "created_at",                                          null: false
     t.datetime "updated_at",                                          null: false
-    t.integer  "total_food_stock",    default: 1000.0
-    t.datetime "food_time",           default: '2018-06-07 20:11:34'
-    t.integer  "total_metal_stock",   default: 1000.0
-    t.datetime "metal_time",          default: '2018-06-07 20:11:34'
-    t.integer  "total_thorium_stock", default: 1000.0
-    t.datetime "thorium_time",        default: '2018-06-07 20:11:34'
+    t.integer  "total_food_stock",    default: 1000
+    t.datetime "food_time",           default: Time.now
+    t.integer  "total_metal_stock",   default: 1000
+    t.datetime "metal_time",          default: Time.now
+    t.integer  "total_thorium_stock", default: 1000
+    t.datetime "thorium_time",        default: Time.now
     t.index ["user_id"], name: "index_planets_on_user_id"
   end
 

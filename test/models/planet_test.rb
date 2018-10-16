@@ -24,9 +24,9 @@ class PlanetTest < ActiveSupport::TestCase
 
   test "should have minimum stocks" do
     bool_minimum_ressources = false
-    if @planet.current_food == MINIMUM_RESSOURCES &&
-       @planet.current_metal == MINIMUM_RESSOURCES &&
-       @planet.current_thorium == MINIMUM_RESSOURCES
+    if @planet.define_current_stock('food') == MINIMUM_RESSOURCES &&
+       @planet.define_current_stock('metal') == MINIMUM_RESSOURCES &&
+       @planet.define_current_stock('thorium') == MINIMUM_RESSOURCES
       bool_minimum_ressources = true
     end
     assert bool_minimum_ressources
