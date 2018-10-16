@@ -59,7 +59,6 @@ class PlanetsController < ApplicationController
       current_planet.upgrade_building(id)
       flash[:info] = "Batiment en cours de construction"
     end
-    redirect_to :back
   end
 
   private

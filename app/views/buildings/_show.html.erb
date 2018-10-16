@@ -17,6 +17,10 @@
           Temps de construction : <%= building.time_to_build %> secondes
         </li>
       </ul>
-      <%= button_to "Améliorer #{building.name}", building_upgrade_path(id: building.id), method: :post %><br />
+      <%= button_to "Améliorer #{building.name}",
+        building_upgrade_path(id: building.id),
+        method: :post,
+        id: :upgrade_building_button
+      %><br />
 <% end %>
 
