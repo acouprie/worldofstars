@@ -20,7 +20,8 @@
 //= require_tree .
 
 var ready = function(){
-  $(".ressources_infos").hide();
+  // TODO fix toogle issue
+  //$(".ressources_infos").hide();
   $(".building_name").click(function(){
     $(this).next().toggle();
   });

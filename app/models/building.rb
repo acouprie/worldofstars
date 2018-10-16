@@ -215,7 +215,6 @@ class Building < ApplicationRecord
   end
 
   def upgrade
-    return unless check_ressources_availability && check_power_availability
     unless next_level.nil?
       self.update(next_level)
     end
