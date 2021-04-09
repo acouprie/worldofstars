@@ -24,7 +24,7 @@ class PasswordResetsController < ApplicationController
 		if params[:user][:password].empty?
 			@user.errors.add(:password, "ne peut être vide")
 			render 'edit'
-		elsif @user.update_attributes(user_params)
+		elsif @user.update(user_params)
 			log_in @user
 			@user.update_attribute(:reset_digest, nil)
 			flash[:success] = "Mot de passe réinitialiser."

@@ -210,8 +210,8 @@ class Building < ApplicationRecord
 
   def async_update_building
     return unless check_ressources_availability && check_power_availability
-    self.substract_ressources_to_total
     Resque.enqueue_in_with_queue('time2build', time_to_build, TimeToBuild, self.id)
+    self.substract_ressources_to_total
   end
 
   def upgrade

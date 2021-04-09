@@ -1,1 +1,4 @@
-$redis = Redis::Namespace.new("my_app", :redis => Redis.new)
+# Connection to the redis database
+Redis.current = Redis.new(url:  ENV['REDIS_URL'],
+    port: ENV['REDIS_PORT'],
+    db:   ENV['REDIS_DB'])

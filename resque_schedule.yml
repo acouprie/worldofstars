@@ -1,5 +1,8 @@
 CancelAbandonedOrders:
   cron: "*/5 * * * *"
+  queue: cancelAbandonedOrders
+  args:
+  description: "This job queues the buildings bein cancelled"
 
 queue_buildings_for_upgrade:
   cron: "0 0 * * *"
