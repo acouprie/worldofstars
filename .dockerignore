@@ -1,2 +1,3 @@
 .git
 “Gemfile.lock”
+tmp/cache/webpacker

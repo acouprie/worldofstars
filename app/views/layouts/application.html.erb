@@ -5,23 +5,22 @@
 		<meta http-equiv = "Content-type" content = "text/html; charset = utf-8">
 		<meta keyword = "World of Stars, World of Stargate">
 		<title ><%= yield(:title) %></title>
-		<%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-		<%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+		<%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+		<%= stylesheet_pack_tag 'stylesheets', media: 'all', 'data-turbolinks-track': 'reload' %>
 	</head>
 	<body>
+
 		<%= render 'layouts/header' %>
 
-
-    <p id="notice">
-    <% flash.each do |message_type, message| %>
-      <%= content_tag(:div, message, class: "alert alert-#{message_type}") %>
-    <% end %>
-    </p>
+		<p id="notice">
+			<% flash.each do |message_type, message| %>
+				<%= content_tag(:div, message, class: "alert alert-#{message_type}") %>
+			<% end %>
+		</p>
 
 		<%= yield %>
 
 		<%= debug(params) if Rails.env.development? %>
 		<%= render 'layouts/footer' %>
-
 	</body>
 </html>

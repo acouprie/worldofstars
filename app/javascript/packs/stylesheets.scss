@@ -1,0 +1,8 @@
+$icon-font-path: '~bootstrap-sass/assets/fonts/bootstrap/';
+/*$icon-font-path: "../../../node_modules/bootstrap/fonts/";*/
+@import "bootstrap-sass/assets/stylesheets/bootstrap";
+@import '../src/stylesheets/custom.scss';
+@import '../src/stylesheets/planets.scss';
+@import '../src/stylesheets/scaffolds.scss';
+@import '../src/stylesheets/static_pages.scss';
+

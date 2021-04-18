@@ -20,3 +20,13 @@
 .byebug_history
 Gemfile.lock
 .env
+
+/public/packs
+/public/packs-test
+/node_modules
+/yarn-error.log
+yarn-debug.log*
+.yarn-integrity
+
+/vendor/cache
+/vendor/yarn

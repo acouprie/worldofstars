@@ -10,8 +10,19 @@ services:
     depends_on:
       - db
       - redis
+#      - webpacker
     env_file:
       - '.env'
+
+#  webpacker:
+#    build: .
+#    command: bash -c "rm -rf /myapp/public/packs; /myapp/bin/webpack-dev-server"
+#    volumes:
+#      - .:/myapp
+#    ports:
+#      - "3035:3035"
+#    env_file:
+#      - '.env'
 
   db:
     image: postgres
@@ -29,7 +40,9 @@ services:
       - './redis-data:/data'
 
   worker:
-    <<: *web
+    # if image does not exist replace image: line by:
+    # <<: *web
+    image: worldofstars_worker
     command: bin/rails environment resque:work
     environment:
       QUEUE: "*"
@@ -38,7 +51,9 @@ services:
       - '.env'
 
   scheduler:
-    <<: *web
+    # if image does not exist replace image: line by:
+    # <<: *web
+    image: worldofstars_scheduler
     command: bin/rake environment resque:scheduler
     ports: []
 

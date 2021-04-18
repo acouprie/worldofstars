@@ -1,0 +1,14 @@
+<div id="resources" class="row">
+    <span class="col-md-3">
+        Energie: <%= @planet.power_stock %><br />
+    </span>
+    <span class="col-md-3">
+        Métaux: <%= @planet.define_current_stock('metal') %> / <%= @planet.max_stock('metal') %><br />
+    </span>
+    <span class="col-md-3">
+        Thorium: <%= @planet.define_current_stock('thorium') %> / <%= @planet.max_stock('thorium') %><br />
+    </span>
+    <span class="col-md-3">
+        Nourriture: <%= @planet.define_current_stock('food') %> / <%= @planet.max_stock('food') %><br />
+    </span>
+</div>
