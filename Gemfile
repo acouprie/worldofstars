@@ -26,7 +26,7 @@ gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder'
 # JS compiler
-gem 'webpacker', '~> 6.0.0.pre.2'
+gem 'webpacker', '~> 6.0.0-beta.7'
 
 # personnal gems
 # to use bootstrap

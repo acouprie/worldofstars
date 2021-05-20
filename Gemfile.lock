@@ -125,7 +125,7 @@ GEM
     mustermann (1.1.1)
       ruby2_keywords (~> 0.0.1)
     nio4r (2.5.7)
-    nokogiri (1.11.3-x86_64-linux)
+    nokogiri (1.11.4-x86_64-linux)
       racc (~> 1.4)
     pg (1.2.3)
     puma (5.2.2)
@@ -276,7 +276,7 @@ DEPENDENCIES
   tzinfo-data
   uglifier
   web-console
-  webpacker (~> 6.0.0.pre.2)
+  webpacker (~> 6.0.0.pre.beta.7)
   will_paginate
 
 BUNDLED WITH

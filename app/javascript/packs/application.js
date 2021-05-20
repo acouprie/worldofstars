@@ -15,7 +15,7 @@ import * as ActiveStorage from "@rails/activestorage"
 // import "channels"
 import 'jquery'
 import 'bootstrap';
-// import './stylesheets.scss';
+import './stylesheets.scss';
 import '../src/javascript/update_resources.js';
 
 Rails.start()

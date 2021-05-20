@@ -10,19 +10,19 @@ services:
     depends_on:
       - db
       - redis
-#      - webpacker
+      - webpacker
     env_file:
       - '.env'
 
-#  webpacker:
-#    build: .
-#    command: bash -c "rm -rf /myapp/public/packs; /myapp/bin/webpack-dev-server"
-#    volumes:
-#      - .:/myapp
-#    ports:
-#      - "3035:3035"
-#    env_file:
-#      - '.env'
+  webpacker:
+    build: .
+    command: bash -c "rm -rf /myapp/public/packs; /myapp/bin/webpack-dev-server"
+    volumes:
+      - .:/myapp
+    ports:
+      - "3035:3035"
+    env_file:
+      - '.env'
 
   db:
     image: postgres

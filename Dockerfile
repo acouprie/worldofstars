@@ -1,5 +1,5 @@
 FROM ruby:3
-RUN curl -fsSL https://deb.nodesource.com/setup_12.x | bash -
+RUN curl -fsSL https://deb.nodesource.com/setup_14.x | bash -
 RUN apt-get update -qq && apt-get install -y --no-install-recommends nodejs postgresql-client
 
 WORKDIR /myapp
