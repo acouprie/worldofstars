@@ -1,31 +1,29 @@
-// This is a manifest file that'll be compiled into application.js, which will include all the files
-// listed below.
-//
-// Any JavaScript/Coffee file within this directory, lib/assets/javascripts, vendor/assets/javascripts,
-// or any plugin's vendor/assets/javascripts directory can be referenced here using a relative path.
-//
-// It's not advisable to add code directly here, but if you do, it'll appear at the bottom of the
-// compiled file. JavaScript code in this file should be added after the last require_* statement.
-//
-// Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
-// about supported directives.
-//
 // jquery must be first
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
-//= require bootstrap
 //= require bootstrap-sprockets
 // tree must be last
 //= require_tree .
 
-var ready = function(){
-  // TODO fix toogle issue
-  //$(".ressources_infos").hide();
+var toggle = function(){
   $(".building_name").click(function(){
     $(this).next().toggle();
   });
 };
 
-$(document).ready(ready);
-$(document).on('turbolinks:load', ready);
+// update resources on /planets every 15 sec
+var update_resources = function() {
+  $(document).ready(function() {
+      setInterval(function() {
+      jQuery.ajax({
+          url: window.UPDATE_URL,
+          type: "GET",
+          dataType: "script"
+      });
+      }, 15000); // In every 15 seconds
+  });
+}
+
+$(document).ready(toggle, update_resources);
+$(document).on('turbolinks:load', update_resources);

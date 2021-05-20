@@ -1,12 +1,15 @@
 # Description
 
-World of Stars est un jeu de gestion par navigateur.
+World of Stars is a browser-based game.
 
-Le joueur aura pour but de gérer les ressources de sa planète pour construire des batiments, des unités ainsi que des vaisseaux spatiaux afin de se défendre et d'attaquer les autres joueurs grâce aux vaisseaux ou par un réseau de trous de ver entre les planètes des joueurs.
+The player shall manage its planet's resources to build new buildings, units and spaceships in order to defend and attack the other players with the spaceships or through wormholes connecting the planets together.
+
+This project use a set of innovative technologies such as Rails 6, Docker, Postgresql and Redis for the queuing system. Ajax calls are also made during the execution.
 
 # Initialisation
 
 ## Clone the repo
+
 ```
 $ git clone https://github.com/acouprie/worldofstars.git
 ```
@@ -21,24 +24,36 @@ $ docker-compose run web rake db:migrate
 $ docker-compose run web rake db:seed
 ```
 
-## Run without docker
+## Tests
+
+```
+$ docker-compose run web rails db:test:prepare
+$ docker-compose run web rails test
+```
+
+## Run without docker (obsolete, possibly outdated)
+
 ### System dependencies
+
 ```
 $ gem install bundler
 $ bundle install
 ```
 
 ### Database creation
+
 ```
 $ rails db:migrate
 ```
 
 ### Database initialization
+
 ```
 $ rails db:seed
 ```
 
 ### Launch the server
+
 Run a [redis server](https://redis.io/)
 ```
 $ rails s
@@ -49,11 +64,13 @@ $ QUEUE=* rake environment resque:work
 Connect to localhost:3000/
 
 ### How to run the test suite
+
 ```
 $ rails t
 ```
 
 ## Credentials
+
 User : test@test.com
 
 Pwd : Test1234
