@@ -1,5 +1,12 @@
-<h3>Batiments :</h3><br />
-<% @planet.buildings.each do |building| %>
+<h3>Batiments :</h3>
+
+<div id="flash">
+  <% if notice.present? %>
+    <%= render partial: "buildings/building_messages" %>
+  <% end %>
+</div>
+
+<% @planet.buildings.order(:name).each do |building| %>
       <div class="building_name">
         <%= building.name %> niveau <%= building.lvl %><br />
       </div>
@@ -20,7 +27,7 @@
       <%= button_to "Améliorer #{building.name}",
         building_upgrade_path(id: building.id),
         method: :post,
-        id: :upgrade_building_button
+        id: :upgrade_building_button,
+        remote: true
       %><br />
 <% end %>
-

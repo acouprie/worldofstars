@@ -56,12 +56,18 @@ class PlanetsController < ApplicationController
     id = params[:id]
     building = Building.find(id)
     if !building.check_power_availability
-      flash[:info] = "Energie insuffisante"
+      respond_to do |format|
+        format.js { flash.now[:warning] = "Energie insuffisante" }
+      end
     elsif !building.check_ressources_availability
-      flash[:info] = "Nous manquons de ressources"
+      respond_to do |format|
+        format.js { flash.now[:warning] = "Nous manquons de ressources" }
+      end
     else
       current_planet.upgrade_building(id)
-      flash[:info] = "Batiment en cours de construction"
+      respond_to do |format|
+        format.js { flash.now[:success] = "Batiment en cours de construction" }
+      end
     end
   end
 
