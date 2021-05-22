@@ -1,8 +1,4 @@
 class PlanetsController < ApplicationController
-  before_action :set_planet, only: [:show, :edit, :update, :destroy]
-  before_action :logged_in_user
-  before_action :check_user_id
-
   # GET /planets/1
   # GET /planets/1.json
   def show
@@ -55,7 +51,11 @@ class PlanetsController < ApplicationController
   def upgrade_building
     id = params[:id]
     building = Building.find(id)
-    if !building.check_power_availability
+    if building.nil?
+      respond_to do |format|
+        format.js { flash.now[:danger] = "Erreur 0x01, contactez l'administrateur." }
+      end
+    elsif !building.check_power_availability
       respond_to do |format|
         format.js { flash.now[:warning] = "Energie insuffisante" }
       end
@@ -76,23 +76,5 @@ class PlanetsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def planet_params
       params.fetch(:user_id, :name)
-    end
-
-    # Before filters
-    # Use callbacks to share common setup or constraints between actions.
-    def set_planet
-      @planet = Planet.find(params[:id])
-    end
-
-    def check_user_id
-      redirect_to(current_user.planets.first) unless current_user.id == set_planet.user_id
-    end
-    # Confirms a logged-in user.
-    def logged_in_user
-      unless logged_in?
-        store_location
-        flash[:danger] = "Veuillez vous connecter pour effectuer cette action."
-        redirect_to login_url
-      end
     end
 end
