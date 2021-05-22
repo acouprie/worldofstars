@@ -21,7 +21,7 @@ var update_resources = function() {
           type: "GET",
           dataType: "script"
       });
-      }, 15000); // In every 15 seconds
+      }, 120000); // In every 120 seconds
   });
 }
 
