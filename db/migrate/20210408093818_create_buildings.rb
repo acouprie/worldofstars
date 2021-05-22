@@ -11,6 +11,7 @@ class CreateBuildings < ActiveRecord::Migration[6.1]
       t.integer :time_to_build, default: 0
       t.integer :production, default: 0
       t.integer :position
+      t.datetime :upgrade_start, default: nil
 
       t.timestamps
     end

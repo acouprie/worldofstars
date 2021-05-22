@@ -21,7 +21,11 @@
 
 Gemfile.lock
 .env
+
 node_modules
+
 vendor/cache/
 redis-data/
 db/schema.rb
+
+.idea/

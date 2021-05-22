@@ -1,0 +1,18 @@
+<% b = building ||= @building %>
+<% unless b.upgrade_start.nil? %>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            // call refreshProgress every 3 seconds
+            setInterval(refreshProgress, 3000)
+        });
+
+        // get the percentage
+        function refreshProgress() {
+            $.ajax({
+                url: "<%= building_percent_path(id: b.id) %>"
+            })
+        }
+    </script>
+<% end %>
+<% @percent ||= 0 %>
+<progress id="build_progress_<%= b.id %>" max="100" value="<%= @percent %>"> <%= @percent %>% </progress>

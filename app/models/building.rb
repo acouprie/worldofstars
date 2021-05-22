@@ -210,6 +210,8 @@ class Building < ApplicationRecord
 
   def async_update_building
     return unless check_ressources_availability && check_power_availability
+    # TODO: enclose with try catch
+    puts "--- Building " + self.id.to_s + " in queue time2build ---"
     Resque.enqueue_in_with_queue('time2build', time_to_build, TimeToBuild, self.id)
     self.substract_ressources_to_total
   end
@@ -220,6 +222,7 @@ class Building < ApplicationRecord
     end
   end
 
+  # TODO: this shall be planet model responsibility
   def substract_ressources_to_total
     food = planet.total_food_stock - food_next_level
     metal = planet.total_metal_stock - metal_next_level
