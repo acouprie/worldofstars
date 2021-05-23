@@ -16,8 +16,8 @@ Rails.application.routes.draw do
   get 'sessions/new'
 
   get 'users/new'
-  post 'building/upgrade', to: 'planets#upgrade_building'
-  get 'building/percent', to: 'planets#percent_bar'
+  post 'building/upgrade', to: 'buildings#upgrade_building'
+  get 'building/percent', to: 'buildings#percent_bar'
 
   # URL contact information
   get '/contact', to: 'static_pages#contact'
