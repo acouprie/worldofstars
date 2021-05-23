@@ -10,6 +10,7 @@
 #two: {}
 # column: value
 Terre:
+  id: 1
   user_id: 1
   name: Terre
   conso_tot: 0
@@ -17,6 +18,7 @@ Terre:
   updated_at: <%= Time.zone.now %>
 
 Venus:
+  id: 2
   user_id: 2
   name: Venus
   conso_tot: 0
@@ -24,6 +26,7 @@ Venus:
   updated_at: <%= Time.zone.now %>
 
 Jupiter:
+  id: 3
   user_id: 3
   name: Jupiter
   conso_tot: 0
@@ -31,8 +34,17 @@ Jupiter:
   updated_at: <%= Time.zone.now %>
 
 Pluton:
+  id: 4
   user_id: 4
   name: Pluton
+  conso_tot: 0
+  created_at: <%= Time.zone.now %>
+  updated_at: <%= Time.zone.now %>
+
+Mercure:
+  id: 5
+  user_id: 5
+  name: Mercure
   conso_tot: 0
   created_at: <%= Time.zone.now %>
   updated_at: <%= Time.zone.now %>

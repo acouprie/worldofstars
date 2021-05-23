@@ -1,4 +1,6 @@
 class SessionsController < ApplicationController
+  protect_from_forgery except: :destroy
+
   def new
   end
 
@@ -8,7 +10,7 @@ class SessionsController < ApplicationController
       if user.activated?
         log_in user
         params[:session][:remember_me] == '1' ? remember(user) : forget(user)
-        redirect_back_or current_user.planets.first
+        redirect_to planet_url(user.id)
       else
         message = "Votre compte n'est pas activé. "
         message += "Consultez vos mail pour activer votre compte."

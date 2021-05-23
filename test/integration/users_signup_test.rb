@@ -5,8 +5,8 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
 	def setup
 		ActionMailer::Base.deliveries.clear
 	end
-  	# Enregistrement échoué
-  	test "invalid signup information" do
+	# Enregistrement échoué
+	test "invalid signup information" do
 		get signup_path
 		assert_no_difference 'User.count' do
 			post users_path, params: {
@@ -21,6 +21,7 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
 		assert_select 'div#error_explanation'
 		assert_select 'div.field_with_errors'
 	end
+
 	# Enregistrement réussi
 	test "valid signup information with account activation" do
 		get signup_path
@@ -46,11 +47,11 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
 		get edit_account_activation_path(user.activation_token, email: user.email)
 		assert user.reload.activated?
 		follow_redirect!
-		assert_template 'planets/_caneva'
-		assert_template 'planets/show'
+		assert is_logged_in?
 		assert_template 'layouts/_header'
 		assert_template 'layouts/_footer'
 		assert_template 'layouts/application'
-		assert is_logged_in?
+		assert_template 'planets/show'
+		assert_template 'planets/_caneva'
 	end
 end

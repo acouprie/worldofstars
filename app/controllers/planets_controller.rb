@@ -2,8 +2,10 @@ class PlanetsController < ApplicationController
   # GET /planets/1
   # GET /planets/1.json
   def show
-    @planet = Planet.find(params[:id])
     @user = current_user
+    return redirect_to login_url if @user.nil?
+    @planet = Planet.find(params[:id])
+    return redirect_to planet_url(@user.id) unless @planet.id == @user.id
     respond_to do |format|
       format.js
       format.html

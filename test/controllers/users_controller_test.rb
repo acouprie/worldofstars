@@ -4,6 +4,8 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
 	def setup
 		@user = users(:Frodo)
     @other_user = users(:ObiWan)
+    @planet = planets(:Terre)
+    @other_planet = planets(:Venus)
 	end
 
   test "should get new" do
@@ -16,7 +18,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to login_url
   end
 
-  test "should redirect login  edit when not logged in" do
+  test "should redirect login edit when not logged in" do
     get edit_user_path(@user)
     assert_redirected_to login_url
   end
@@ -67,4 +69,14 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to root_url
   end
 
+  test "should redirect login when not logged in access planet" do
+    get planet_url(@planet.id)
+    assert_redirected_to login_url
+  end
+
+  test "should redirect user when other planet" do
+    log_in_as(@other_user)
+    get planet_url(@planet.id)
+    assert_redirected_to planet_url(@other_planet.id)
+  end
 end
