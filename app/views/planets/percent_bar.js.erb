@@ -1,1 +1,6 @@
+// get upgrade percentage progress
 $("#build_progress_<%= @building.id %>").val("<%= @percent %>");
+// trigger when upgrade_start is finished
+<% if @building.upgrade_start.nil? %>
+$("#building_<%= @building.id %>").html('<%= j render partial: "buildings/building_detail", :locals => {:building => @building} %>');
+<% end %>

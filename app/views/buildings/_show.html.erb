@@ -7,30 +7,14 @@
 </div>
 
 <% @planet.buildings.order(:name).each do |building| %>
-      <div class="building_name">
-        <%= building.name %> niveau <%= building.lvl %><br />
-      </div>
-      <ul style="list-style-type:square" class="ressources_infos">
-        <li>
-          Nourriture : <%= building.food_next_level %> -
-          Metal : <%= building.metal_next_level %> -
-          Thorium : <%= building.thorium_next_level %>
-        </li>
-        <li>
-          Production : <%= building.production_next_level %> -
-          Conso. électricité : <%= building.conso_power_next_level %>
-        </li>
-        <li>
-          Temps de construction : <%= building.time_to_build %> secondes
-        </li>
-      </ul>
-      <div id="progress_bar_<%= building.id %>">
-          <%= render partial: "buildings/progress_bar", locals: {building: building} %>
-      </div>
-      <%= button_to "Améliorer #{building.name}",
-        building_upgrade_path(id: building.id),
-        method: :post,
-        class: :upgrade_building_button,
-        remote: true
-      %><br />
+  <% @building = building %>
+  <div id="building_<%= @building.id %>">
+    <%= raw(render('buildings/building_detail')) %>
+  </div>
+  <%= button_to "Améliorer #{@building.name}",
+    building_upgrade_path(id: @building.id),
+    method: :post,
+    class: :upgrade_building_button,
+    remote: true
+  %><br />
 <% end %>
