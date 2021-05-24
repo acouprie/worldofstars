@@ -6,6 +6,7 @@ class BuildingsController < ApplicationController
   def cancel_upgrade_building
     id = params[:id]
     @building = Building.find(id)
+    return if @building.planet_id != current_user.id
     if @building.nil?
       respond_to do |format|
         format.js { flash.now[:danger] = "Erreur 0x02, contactez l'administrateur avec ce code." }
@@ -43,6 +44,7 @@ class BuildingsController < ApplicationController
   def upgrade_building
     id = params[:id]
     @building = Building.find_by(id: id)
+    redirect_to planet_url(current_user.id) if @building.planet_id != current_user.id
     @planet = Planet.find(@building.planet_id)
     if @building.nil?
       respond_to do |format|
@@ -99,6 +101,7 @@ class BuildingsController < ApplicationController
   def percent_bar
     id = params[:id]
     @building = Building.find(id)
+    return if @building.planet_id != current_user.id
     @planet = Planet.find(@building.planet_id)
     @percent = compute_remaining_percent(@building)
     respond_to do |format|
