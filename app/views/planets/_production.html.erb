@@ -1,19 +1,19 @@
 <aside class="col-md-3">
     <h2>Production / Conso.</h2><br />
     <br />
-    Energie:<br />
+    Energie :<br />
     + <%= @planet.production('solar') %> par heure<br />
     - <%= @planet.power_conso %> par heure<br />
     <br />
-    Métaux:<br />
+    Nourriture :<br />
+    + <%= @planet.production('food') %> par heure<br />
+    - 0 par heure<br />
+    <br />
+    Métaux :<br />
     + <%= @planet.production('metal') %> par heure<br />
     - 0 par heure<br />
     <br />
-    Thorium:<br />
+    Thorium :<br />
     + <%= @planet.production('thorium') %> par heure<br />
-    - 0 par heure<br />
-    <br />
-    Nourriture:<br />
-    + <%= @planet.production('food') %> par heure<br />
     - 0 par heure<br />
 </aside>

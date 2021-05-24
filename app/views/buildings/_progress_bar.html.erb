@@ -4,6 +4,10 @@
 <script type="text/javascript">
     // update progress at start 
     refreshProgress_<%= @building.id %>();
+    var bar = document.getElementById("build_progress_<%= @building.id %>").value;
+    if(bar.value != 0) {
+        schedule_<%= @building.id %>();
+    }
     var interval_<%= @building.id %>;
     // call refreshProgress every 3 seconds
     function schedule_<%= @building.id %>() {
@@ -17,7 +21,6 @@
     }
     // stop the interval
     function cancelInterval_<%= @building.id %>() {
-        var bar = document.getElementById("build_progress_<%= @building.id %>").value;
         if(bar === 0 || bar === 100) {
             clearInterval(interval_<%= @building.id %>);
         }
