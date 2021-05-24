@@ -231,7 +231,7 @@ class Building < ApplicationRecord
   end
 
   def check_power_availability
-    return true if planet.power_conso + conso_power_next_level <= planet.power_stock
+    return true if conso_power_next_level <= planet.power_stock
     false
   end
 
