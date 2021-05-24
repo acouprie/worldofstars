@@ -1,7 +1,9 @@
 <div class="container">
 	<div class="row">
 		<%= raw(render('planets/resources')) %>
-		<%= raw(render('planets/production')) %>
+		<div id="aside_resources">
+			<%= raw(render('planets/production')) %>
+		</div>
 		<aside class="col-md-9">
 			<h2>Planète <%= @planet.name %></h2>
 			<%= render 'planets/caneva' %>

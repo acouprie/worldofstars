@@ -6,10 +6,6 @@ class Building < ApplicationRecord
 
   include BuildingsHelper
 
-  def planet
-    @planet = Planet.find(self.planet_id)
-  end
-
   def define_type
     case self.name
       when HEADQUARTER_NAME
@@ -99,12 +95,18 @@ class Building < ApplicationRecord
     self.create(name: THORIUM_NAME, planet_id: planet_id)
   end
 
+  def upgrade_building(id)
+    building = Building.find_by(id: id)
+    building.async_update_building
+    building.update(upgrade_start: Time.now, conso_power: conso_power_next_level)
+    self.substract_ressources_to_total
+    return building
+  end
+
   def async_update_building
-    return unless check_ressources_availability && check_power_availability
     # TODO: enclose with try catch
     puts "--- Building " + self.id.to_s + " in queue time2build ---"
     Resque.enqueue_in_with_queue('time2build', time_to_build, TimeToBuild, self.id)
-    self.substract_ressources_to_total
   end
 
   def upgrade
@@ -134,6 +136,10 @@ class Building < ApplicationRecord
   end
 
   private
+
+  def planet
+    @planet = Planet.find(self.planet_id)
+  end
 
   def check_uniqueness
     self.name != Building.find_by(name: self.name)

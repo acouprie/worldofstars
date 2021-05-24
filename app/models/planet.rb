@@ -13,13 +13,6 @@ class Planet < ApplicationRecord
     Planet
   end
 
-  def upgrade_building(id)
-    building = self.buildings.find_by(id: id)
-    building.async_update_building
-    building.update(upgrade_start: Time.now)
-    return building
-  end
-
   def define_current_stock(name)
     time = self.send "#{name}_time"
     production = self.send "production", name

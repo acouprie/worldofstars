@@ -6,4 +6,7 @@ $("#build_progress_<%= @building.id %>").val("<%= @percent %>");
 $("#building_<%= @building.id %>").html('<%= j render partial: "buildings/building_detail", :locals => {:building => @building} %>');
 // cancel the ajax calls
 $(function() { cancelInterval_<%= @building.id %>(); });
+// update resources
+$('#resources').html("<%= j (render partial: 'planets/resources', :locals => {:planet => @planet}) %>")
+$('#aside_resources').html("<%= j (render partial: 'planets/production', :locals => {:planet => @planet}) %>")
 <% end %>

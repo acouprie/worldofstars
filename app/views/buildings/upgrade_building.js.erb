@@ -1,4 +1,6 @@
 $("#flash").html('<%= j render partial: "shared/flash_messages" %>');
+$('#resources').html("<%= j (render partial: 'planets/resources', :locals => {:planet => @planet}) %>")
+$('#aside_resources').html("<%= j (render partial: 'planets/production', :locals => {:planet => @planet}) %>")
 <% unless @building.nil? %>
 // start recurrent ajax calls
 $(function() { schedule_<%= @building.id %>(); });

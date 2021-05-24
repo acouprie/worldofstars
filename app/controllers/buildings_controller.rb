@@ -19,10 +19,16 @@ class BuildingsController < ApplicationController
         format.js { flash.now[:warning] = "Nous manquons de ressources" }
       end
     else
-      @building = current_planet.upgrade_building(id)
+      @building = building.upgrade_building(id)
+      @planet = Planet.find(building.planet_id)
       respond_to do |format|
         format.js { flash.now[:success] = "Batiment en cours de construction" }
-        format.json { render json: @building }
+        format.json { render json:
+          {
+            :building => @building,
+            :planet => @planet
+          }
+        }
       end
     end
   end
@@ -39,10 +45,17 @@ class BuildingsController < ApplicationController
   def percent_bar
     id = params[:id]
     @building = Building.find(id)
+    @planet = Planet.find(@building.planet_id)
     @percent = compute_remaining_percent(@building)
     respond_to do |format|
       format.js
-      format.json { render json: @percent }
+      format.json { render json:
+        {
+          :percent => @percent,
+          :building => @building,
+          :planet => @planet
+        }
+      }
     end
   end
 end
