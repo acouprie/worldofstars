@@ -11,6 +11,9 @@
   <div id="building_<%= @building.id %>">
     <%= raw(render('buildings/building_detail')) %>
   </div>
+  <div id="progress_bar_<%= @building.id %>">
+    <%= render partial: "buildings/progress_bar", locals: {building: @building, :percent => @percent} %>
+  </div>
   <%= button_to "Améliorer #{@building.name}",
     building_upgrade_path(id: @building.id),
     method: :post,

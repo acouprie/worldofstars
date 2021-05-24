@@ -1,18 +1,25 @@
-<% b = building ||= @building %>
-<% unless b.upgrade_start.nil? %>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            // call refreshProgress every 3 seconds
-            setInterval(refreshProgress, 3000)
-        });
-
-        // get the percentage
-        function refreshProgress() {
-            $.ajax({
-                url: "<%= building_percent_path(id: b.id) %>"
-            })
-        }
-    </script>
-<% end %>
 <% @percent ||= 0 %>
-<progress id="build_progress_<%= b.id %>" max="100" value="<%= @percent %>"> <%= @percent %>% </progress>
+<progress id="build_progress_<%= @building.id %>" max="100" value="<%= @percent %>"> <%= @percent %>% </progress>
+
+<script type="text/javascript">
+    // update progress at start 
+    refreshProgress_<%= @building.id %>();
+    var interval_<%= @building.id %>;
+    // call refreshProgress every 3 seconds
+    function schedule_<%= @building.id %>() {
+        interval_<%= @building.id %> = setInterval(refreshProgress_<%= @building.id %>, 3000);
+    }
+    // get the percentage
+    function refreshProgress_<%= @building.id %>() {
+        $.ajax({
+            url: "<%= building_percent_path(id: @building.id) %>"
+        })
+    }
+    // stop the interval
+    function cancelInterval_<%= @building.id %>() {
+        var bar = document.getElementById("build_progress_<%= @building.id %>").value;
+        if(bar === 0 || bar === 100) {
+            clearInterval(interval_<%= @building.id %>);
+        }
+    }
+</script>

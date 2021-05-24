@@ -1,4 +1,5 @@
 $("#flash").html('<%= j render partial: "buildings/building_messages" %>');
 <% unless @building.nil? %>
-$("#progress_bar_<%= @building.id %>").html('<%= j render partial: "buildings/progress_bar", :locals => {:building => @building} %>');
+// start recurrent ajax calls
+$(function() { schedule_<%= @building.id %>(); });
 <% end %>

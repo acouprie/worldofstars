@@ -1,6 +1,4 @@
 class BuildingsController < ApplicationController
-  before_action :building_params
-
   def index
     @buildings = Building.paginate(page: params[:page])
   end
@@ -30,6 +28,7 @@ class BuildingsController < ApplicationController
   end
 
   def compute_remaining_percent(b)
+    return 0 if b.upgrade_start.nil?
     time_remaining = Time.now - (b.upgrade_start + b.time_to_build)
     percent = time_remaining * 100 / b.time_to_build
     percent = percent + 100
@@ -40,18 +39,10 @@ class BuildingsController < ApplicationController
   def percent_bar
     id = params[:id]
     @building = Building.find(id)
-    return if @building.upgrade_start.nil?
     @percent = compute_remaining_percent(@building)
     respond_to do |format|
       format.js
       format.json { render json: @percent }
     end
-  end
-
-  private
-
-  # Never trust parameters from the scary internet, only allow the white list through.
-  def building_params
-    params.require(:building).permit(:name, :planet_id, :food_price, :metal_price, :thorium_price, :lvl, :conso_power, :time_to_build, :production, :position)
   end
 end
