@@ -1,9 +1,3 @@
-CancelAbandonedOrders:
-  cron: "*/5 * * * *"
-  queue: cancelAbandonedOrders
-  args:
-  description: "This job queues the buildings bein cancelled"
-
 queue_buildings_for_upgrade:
   cron: "0 0 * * *"
   # you can use rufus-scheduler "every" syntax in place of cron if you prefer
@@ -11,4 +5,3 @@ queue_buildings_for_upgrade:
   queue: time2build
   args:
   description: "This job queues all buildings for upgrade"
-

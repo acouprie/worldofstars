@@ -17,6 +17,7 @@ Rails.application.routes.draw do
 
   get 'users/new'
   post 'building/upgrade', to: 'buildings#upgrade_building'
+  post 'building/cancel', to: 'buildings#cancel_upgrade_building'
   get 'building/percent', to: 'buildings#percent_bar'
 
   # URL contact information

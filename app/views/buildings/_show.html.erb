@@ -12,6 +12,14 @@
   <div id="progress_bar_<%= @building.id %>">
     <%= render partial: "buildings/progress_bar", locals: {building: @building, :percent => @percent} %>
   </div>
+  <div id="cancel_btn_<%= @building.id %>">
+    <%= button_to "Annuler #{@building.name}",
+      building_cancel_path(id: @building.id),
+      method: :post,
+      class: :cancel_building_button,
+      remote: true
+    %><br />
+  </div>
   <%= button_to "Améliorer #{@building.name}",
     building_upgrade_path(id: @building.id),
     method: :post,

@@ -3,24 +3,78 @@ class BuildingsController < ApplicationController
     @buildings = Building.paginate(page: params[:page])
   end
 
-  def upgrade_building
+  def cancel_upgrade_building
     id = params[:id]
-    building = Building.find(id)
-    if building.nil?
+    @building = Building.find(id)
+    if @building.nil?
       respond_to do |format|
-        format.js { flash.now[:danger] = "Erreur 0x01, contactez l'administrateur." }
+        format.js { flash.now[:danger] = "Erreur 0x02, contactez l'administrateur avec ce code." }
+        format.json { render json:
+          {
+            :building => @building,
+            :planet => @planet
+          }
+        }
       end
-    elsif !building.check_power_availability
+    elsif @building.upgrade_start.nil?
       respond_to do |format|
-        format.js { flash.now[:warning] = "Energie insuffisante" }
-      end
-    elsif !building.check_ressources_availability
-      respond_to do |format|
-        format.js { flash.now[:warning] = "Nous manquons de ressources" }
+        format.js { flash.now[:warning] = "Le batiment n'est pas en amélioration." }
+        format.json { render json:
+          {
+            :building => @building,
+            :planet => @planet
+          }
+        }
       end
     else
-      @building = building.upgrade_building(id)
-      @planet = Planet.find(building.planet_id)
+      @building.cancel_upgrading
+      respond_to do |format|
+        format.js { flash.now[:warning] = "L'amélioration du batiment est annulée." }
+        format.json { render json:
+          {
+            :building => @building,
+            :planet => @planet
+          }
+        }
+      end
+    end
+  end
+
+  def upgrade_building
+    id = params[:id]
+    @building = Building.find_by(id: id)
+    @planet = Planet.find(@building.planet_id)
+    if @building.nil?
+      respond_to do |format|
+        format.js { flash.now[:danger] = "Erreur 0x01, contactez l'administrateur avec ce code." }
+      end
+    elsif !@building.upgrade_start.nil?
+      respond_to do |format|
+        format.js { flash.now[:warning] = "Ce batiment est déjà en cours d'amélioration" }
+      end
+    elsif !@building.check_power_availability
+      respond_to do |format|
+        format.js { flash.now[:warning] = "Energie insuffisante" }
+        format.json { render json:
+          {
+            :building => @building,
+            :planet => @planet
+          }
+        }
+      end
+    elsif !@building.check_ressources_availability
+      respond_to do |format|
+        format.js { flash.now[:warning] = "Nous manquons de ressources" }
+        format.json { render json:
+          {
+            :building => @building,
+            :planet => @planet
+          }
+        }
+      end
+    else
+      @building.upgrading
+      @planet = Planet.find(@building.planet_id)
       respond_to do |format|
         format.js { flash.now[:success] = "Batiment en cours de construction" }
         format.json { render json:
