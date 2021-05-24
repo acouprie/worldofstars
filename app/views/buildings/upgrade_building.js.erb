@@ -1,4 +1,4 @@
-$("#flash").html('<%= j render partial: "buildings/building_messages" %>');
+$("#flash").html('<%= j render partial: "shared/flash_messages" %>');
 <% unless @building.nil? %>
 // start recurrent ajax calls
 $(function() { schedule_<%= @building.id %>(); });

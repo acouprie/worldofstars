@@ -1,9 +1,7 @@
 <h3>Batiments :</h3>
 
 <div id="flash">
-  <% if notice.present? %>
-    <%= render partial: "buildings/building_messages" %>
-  <% end %>
+  <%= render partial: "shared/flash_messages" %>
 </div>
 
 <% @planet.buildings.order(:name).each do |building| %>
