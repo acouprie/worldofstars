@@ -13,6 +13,12 @@ class Planet < ApplicationRecord
     Planet
   end
 
+  # to get planets by name
+  # /planets/:name
+  def to_param
+    name
+  end
+
   def define_current_stock(name)
     time = self.send "#{name}_time"
     production = self.send "production", name

@@ -1,7 +1,7 @@
 class PlanetsController < ApplicationController
   before_action :is_owner?, only: [:show, :edit, :update]
-  # GET /planets/1
-  # GET /planets/1.json
+  # GET /planets/:name
+  # GET /planets/:name.json
   def show
     respond_to do |format|
       format.js
@@ -14,7 +14,7 @@ class PlanetsController < ApplicationController
     @planet = Planet.new
   end
 
-  # GET /planets/1/edit
+  # GET /planets/:name/edit
   def edit
   end
 
@@ -33,8 +33,8 @@ class PlanetsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /planets/1
-  # PATCH/PUT /planets/1.json
+  # PATCH/PUT /planets/:name
+  # PATCH/PUT /planets/:name.json
   def update
     respond_to do |format|
       if @planet.update(planet_params)
@@ -57,7 +57,8 @@ class PlanetsController < ApplicationController
     def is_owner?
       @user = current_user
       return redirect_to login_url if @user.nil?
-      @planet = Planet.find(params[:id])
+      @planet = Planet.find_by(name: params[:name])
+      return redirect_to root_url if @planet.nil?
       redirect_to planet_url(@user.id) unless @user.id == @planet.id
     end
 end
