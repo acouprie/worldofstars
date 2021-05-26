@@ -1,27 +1,28 @@
 
-<canvas width = "620" height = "496" id = "planet_caneva">
-  <%= image_tag("planet_caneva_1.png", id: "planet_map", alt: "Ma planète") %>
-  <%= image_tag("point_on.png", id: "point_on") %>
-  <%= image_tag("point_off.png", id: "point_off") %>
-</canvas>
+<canvas width = "620" height = "496" id = "planet_caneva"></canvas>
 
 <script type = "text/javascript" charset = "utf-8">
-    // Get a handle to the canvas object
-    var canvas = document.getElementById('planet_caneva');
-    // Get the image context for this canvas
-    var context = canvas.getContext('2d');
-    // Our drawing code here. . .
-    var image = document.getElementById('planet_map');
+  // Get a handle to the canvas object
+  var canvas = document.getElementById('planet_caneva');
+  // Get the image context for this canvas
+  var context = canvas.getContext('2d');
+
+  var image = new Image();
+  image.src = "<%= image_url("planet_caneva_1.png") %>";
+  var point_on = new Image();
+  point_on.src = "<%= image_url("point_on.png") %>";
+  var point_off = new Image();
+  point_off.src = "<%= image_url("point_off.png") %>";
+
+  var position_x = [500, 480, 500, 430, 440, 410, 420, 370, 380, 350, 360, 370, 390, 325, 345, 355];
+  var position_y = [250, 260, 270, 195, 205, 205, 215, 255, 265, 265, 275, 380, 390, 390, 380, 360];
+
+  image.onload = function() {
     context.drawImage(image,10,10);
-    var point_on = document.getElementById('point_on');
-    var point_off = document.getElementById('point_off');
-
-    var position_x = [500, 480, 500, 430, 440, 410, 420, 370, 380, 350, 360, 370, 390, 325, 345, 355];
-    var position_y = [250, 260, 270, 195, 205, 205, 215, 255, 265, 265, 275, 380, 390, 390, 380, 360];
-
     <% i = 0 %>
     <% @planet.buildings.each do |building| %>
-      context.drawImage(point_off,position_x[<%= i %>],position_y[<%= i %>]);
-      <% i += 1 %>
+    context.drawImage(point_off,position_x[<%= i %>],position_y[<%= i %>]);
+    <% i += 1 %>
     <% end %>
+  }
 </script>
