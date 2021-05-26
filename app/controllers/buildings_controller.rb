@@ -7,22 +7,21 @@ class BuildingsController < ApplicationController
     id = params[:id]
     @building = Building.find(id)
     return if @building.planet_id != current_user.id
+    @planet = Planet.find(@building.planet_id)
     if @building.nil?
       respond_to do |format|
-        format.js { flash.now[:danger] = "Erreur 0x02, contactez l'administrateur avec ce code." }
+        format.js { flash.now[:danger] = "Erreur 0x02, contactez l'administrateur avec ce code" }
         format.json { render json:
           {
-            :building => @building,
             :planet => @planet
           }
         }
       end
     elsif @building.upgrade_start.nil?
       respond_to do |format|
-        format.js { flash.now[:warning] = "Le batiment n'est pas en amélioration." }
+        format.js { flash.now[:warning] = "Le batiment n'est pas en amélioration" }
         format.json { render json:
           {
-            :building => @building,
             :planet => @planet
           }
         }
@@ -30,10 +29,9 @@ class BuildingsController < ApplicationController
     else
       @building.cancel_upgrading
       respond_to do |format|
-        format.js { flash.now[:warning] = "L'amélioration du batiment est annulée." }
+        format.js { flash.now[:success] = "L'amélioration du batiment est annulée" }
         format.json { render json:
           {
-            :building => @building,
             :planet => @planet
           }
         }
