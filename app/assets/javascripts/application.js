@@ -25,5 +25,27 @@ var update_resources = function() {
   });
 }
 
+// display upgrade btn
+// hide progress bar and cancel btn
+function display_upgrade_btn(btn_id) {
+  var upgrade_btn = "upgrade_btn_" + btn_id;
+  var cancel_btn = "cancel_btn_" + btn_id;
+  var progess_bar = "progress_bar_" + btn_id;
+  document.getElementById(upgrade_btn).style.display = "inline";
+  document.getElementById(cancel_btn).style.display = "none";
+  document.getElementById(progess_bar).style.display = "none";
+}
+
+// display cancel btn and progress bar
+// hide upgrade btn
+function display_cancel_btn(btn_id) {
+  var upgrade_btn = "upgrade_btn_" + btn_id;
+  var cancel_btn = "cancel_btn_" + btn_id;
+  var progess_bar = "progress_bar_" + btn_id;
+  document.getElementById(upgrade_btn).style.display = "none";
+  document.getElementById(cancel_btn).style.display = "inline";
+  document.getElementById(progess_bar).style.display = "inline";
+}
+
 $(document).ready(toggle, update_resources);
 $(document).on('turbolinks:load', update_resources);

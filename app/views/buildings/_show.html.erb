@@ -9,21 +9,25 @@
   <div id="building_<%= @building.id %>">
     <%= raw(render('buildings/building_detail')) %>
   </div>
-  <div id="progress_bar_<%= @building.id %>">
-    <%= render partial: "buildings/progress_bar", locals: {building: @building, :percent => @percent} %>
-  </div>
-  <div id="cancel_btn_<%= @building.id %>">
+  <div id="building_btn_<%= @building.id %>" class="row">
+    <div id="cancel_btn_<%= @building.id %>" class="col-md-6 cancel_btn" style="display: none" onclick="display_upgrade_btn('<%= @building.id %>')">
     <%= button_to "Annuler #{@building.name}",
       building_cancel_path(id: @building.id),
       method: :post,
       class: :cancel_building_button,
       remote: true
-    %><br />
+    %>
+    </div>
+    <div id="progress_bar_<%= @building.id %>" class="col-md-6" style="display: none">
+      <%= render partial: "buildings/progress_bar", locals: {building: @building, :percent => @percent} %>
+    </div>
+    <div id="upgrade_btn_<%= @building.id %>" class="col-md-12 upgrade_btn" onclick="display_cancel_btn('<%= @building.id %>')">
+      <%= button_to "Améliorer #{@building.name}",
+        building_upgrade_path(id: @building.id),
+        method: :post,
+        class: :upgrade_building_button,
+        remote: true
+      %>
+    </div>
   </div>
-  <%= button_to "Améliorer #{@building.name}",
-    building_upgrade_path(id: @building.id),
-    method: :post,
-    class: :upgrade_building_button,
-    remote: true
-  %><br />
 <% end %>

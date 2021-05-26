@@ -9,4 +9,7 @@ $(function() { cancelInterval_<%= @building.id %>(); });
 // update resources
 $('#resources').html("<%= j (render partial: 'planets/resources', :locals => {:planet => @planet}) %>")
 $('#aside_resources').html("<%= j (render partial: 'planets/production', :locals => {:planet => @planet}) %>")
+<% else %>
+// display the cancel btn and progres bar
+$(function() { display_cancel_btn(<%= @building.id %>); });
 <% end %>
