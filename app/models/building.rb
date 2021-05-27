@@ -24,6 +24,10 @@ class Building < ApplicationRecord
         STOCK_THORIUM
       when STOCK_METAL_NAME
         STOCK_METAL
+      when TRAINING_NAME
+        TRAINING
+      when CAMP_NAME
+        CAMP
     end
   end
 
@@ -93,6 +97,11 @@ class Building < ApplicationRecord
     self.create(name: FARM_NAME, planet_id: planet_id)
     self.create(name: METAL_NAME, planet_id: planet_id)
     self.create(name: THORIUM_NAME, planet_id: planet_id)
+    self.create(name: STOCK_FOOD_NAME, planet_id: planet_id)
+    self.create(name: STOCK_METAL_NAME, planet_id: planet_id)
+    self.create(name: STOCK_THORIUM_NAME, planet_id: planet_id)
+    self.create(name: TRAINING_NAME, planet_id: planet_id)
+    self.create(name: CAMP_NAME, planet_id: planet_id)
   end
 
   def cancel_upgrading

@@ -26,10 +26,6 @@ class UsersController < ApplicationController
     end
   end
 
-  def edit
-    @planet = @user.planets.first
-  end
-
   def update
     if @user.update(user_params)
       flash[:success] = "Profil mis à jour !"

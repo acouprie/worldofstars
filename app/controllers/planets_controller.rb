@@ -49,16 +49,15 @@ class PlanetsController < ApplicationController
 
   private
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def planet_params
-      params.fetch(:user_id, :name)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def planet_params
+    params.fetch(:user_id, :name)
+  end
 
-    def is_owner?
-      @user = current_user
-      return redirect_to login_url if @user.nil?
-      @planet = Planet.find_by(name: params[:name])
-      return redirect_to root_url if @planet.nil?
-      redirect_to planet_url(@user.id) unless @user.id == @planet.id
-    end
+  def is_owner?
+    @user = current_user
+    return redirect_to login_url if @user.nil?
+    @planet = Planet.find_by(name: params[:name])
+    redirect_to planet_url(@user.id) if @planet.nil? || @user.id != @planet.id
+  end
 end
