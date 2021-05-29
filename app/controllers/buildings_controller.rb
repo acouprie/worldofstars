@@ -94,8 +94,7 @@ class BuildingsController < ApplicationController
 
   def compute_remaining_percent(b)
     return 0 if b.upgrade_start.nil?
-    time_remaining = Time.now - (b.upgrade_start + b.time_to_build)
-    percent = time_remaining * 100 / b.time_to_build
+    percent = b.time_remaining * 100 / b.time_to_build
     percent = percent + 100
     percent = 100 if percent > 100
     return percent.nil? ? 0 : percent.abs

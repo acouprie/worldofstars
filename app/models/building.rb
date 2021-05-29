@@ -133,6 +133,17 @@ class Building < ApplicationRecord
     planet.check_ressources_availability(thorium_next_level, metal_next_level, food_next_level)
   end
 
+  # time in seconds
+  def time_remaining
+    return nil if self.upgrade_start.nil?
+    Time.now - (self.upgrade_start + self.time_to_build)
+  end
+
+  def finish_at
+    return nil if self.upgrade_start.nil?
+    self.upgrade_start + self.time_to_build
+  end
+
   private
 
   def planet
