@@ -13,14 +13,10 @@
   var position_x = [500, 480, 500, 425, 440, 410, 425, 400, 380, 390, 360, 370, 390, 325, 345, 355];
   var position_y = [250, 260, 270, 225, 235, 235, 245, 270, 270, 285, 275, 380, 390, 390, 380, 360];
 
-  var elem = document.getElementById('planet_canvas'),
-    context = elem.getContext('2d'),
-    elements = [],
-    color_on = '#25cc00',
-    color_off = '#c22222';
+  var elements = [];
 
   // Add event listener for `click` events.
-  elem.addEventListener('click', function(event) {
+  canvas.addEventListener('click', function(event) {
     var rect = event.target.getBoundingClientRect();
     var x = event.clientX - rect.left;
     var y = event.clientY - rect.top;
@@ -28,29 +24,51 @@
     elements.forEach(function(element) {
       if (y < element.center_y + 5 && y > element.center_y - 5 
         && x < element.center_x + 5 && x > element.center_x - 5) {
-        alert(element.id);
+        location.href = '<%= building_new_path %>' + "?planet_id=" + <%= current_user.id %> + "&position=" + element.id;
       }
     });
   }, false);
 
   image.onload = function() {
     context.drawImage(image,10,10);
+
     <% i = 0 %>
     <% @planet.buildings.each do |building| %>
     elements.push({
-      color: color_off,
+      color: 'red',
       id: <%= i %>,
       center_x: position_x[<%= i %>],
       center_y: position_y[<%= i %>]
     });
     <% i += 1 %>
     <% end %>
+
+    var paths = [];
+    var mouse = {x:0, y:0, overPath: null}; 
+
     // Render elements.
     elements.forEach(function(element) {
-      context.fillStyle = element.color;
-      context.beginPath();
-      context.arc(element.center_x, element.center_y, 5, 0, 2 * Math.PI);
-      context.fill();
+      // Create circle
+      const circle = new Path2D();
+      circle.arc(element.center_x, element.center_y, 5, 0, 2 * Math.PI);
+      context.fillStyle = 'red';
+      context.fill(circle);
+      paths.push(circle);
     });
+
+    canvas.addEventListener("mousemove", (e) => {
+      mouse.x = e.offsetX;
+      mouse.y = e.offsetY;
+      checkMouseOver(paths);
+      canvas.style.cursor = mouse.overPath ? "pointer" : "default"; 
+    });
+
+    function checkMouseOver(paths) {
+      var over;
+      for(const p of paths) { context.isPointInPath(p, mouse.x, mouse.y) && (over = p) }
+      if (over !== mouse.overPath) {
+        mouse.overPath = over;
+      }
+    }
   }
 </script>

@@ -5,6 +5,22 @@ class BuildingsController < ApplicationController
     @buildings = Building.paginate(page: params[:page])
   end
 
+  # GET /building/new?planet_id=1&position=1
+  def new
+    id = params[:planet_id]
+    position = params[:position]
+    @planet = Planet.find_by(id: id)
+    @buildings = Building.where(["planet_id = ? and lvl = ?", id, 0]).order(:id)
+    respond_to do |format|
+      format.html
+      format.json { render json:
+        {
+          :buildings => @buildings
+        }
+      }
+    end
+  end
+
   def cancel_upgrade_building
     id = params[:id]
     @building = Building.find_by(id: id)

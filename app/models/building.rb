@@ -1,4 +1,5 @@
 class Building < ApplicationRecord
+  belongs_to :planet
   before_create :check_uniqueness
   before_save :check_power_availability
   before_save :check_ressources_availability

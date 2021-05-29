@@ -3,9 +3,15 @@ class PlanetsController < ApplicationController
   # GET /planets/:name
   # GET /planets/:name.json
   def show
+    @buildings = Building.where(["planet_id = ? and lvl != ?", @planet.id, 0]).order(:id)
     respond_to do |format|
       format.js
       format.html
+      format.json { render json:
+        {
+          :buildings => @buildings
+        }
+      }
     end
   end
 
