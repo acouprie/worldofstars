@@ -8,9 +8,7 @@ class PlanetTest < ActiveSupport::TestCase
   MINIMUM_RESSOURCES = 1000
 
   def setup
-    @planet = planets(:Terre)
-    @champs = buildings(:champs)
-    @champs.planet_id = @planet.id
+    @planet = planets(:Venus)
   end
 
   test "should be valid" do

@@ -108,7 +108,7 @@ class Building < ApplicationRecord
     puts "--- Building " + self.id.to_s + " removed from queue time2build ---"
     Resque.remove_delayed(TimeToBuild, self.id)
     self.update(upgrade_start: nil, conso_power: self.conso_power - conso_power_next_level)
-    self.add_resources_to_total
+    planet.add_resources_to_total(self)
   end
 
   def upgrading
@@ -116,7 +116,7 @@ class Building < ApplicationRecord
     puts "--- Building " + self.id.to_s + " in queue time2build ---"
     Resque.enqueue_in_with_queue('time2build', time_to_build, TimeToBuild, self.id)
     self.update(upgrade_start: Time.now, conso_power: conso_power_next_level)
-    self.substract_resources_to_total
+    planet.substract_resources_to_total(self)
   end
 
   def upgrade
@@ -125,31 +125,12 @@ class Building < ApplicationRecord
     end
   end
 
-  # TODO: this shall be planet model responsibility
-  def add_resources_to_total
-    food = planet.total_food_stock + food_next_level
-    metal = planet.total_metal_stock + metal_next_level
-    thorium = planet.total_thorium_stock + thorium_next_level
-    planet.update(total_food_stock: food, food_time: Time.now, total_metal_stock: metal, metal_time: Time.now, total_thorium_stock: thorium, thorium_time: Time.now)
-  end
-
-  def substract_resources_to_total
-    food = planet.total_food_stock - food_next_level
-    metal = planet.total_metal_stock - metal_next_level
-    thorium = planet.total_thorium_stock - thorium_next_level
-    planet.update(total_food_stock: food, food_time: Time.now, total_metal_stock: metal, metal_time: Time.now, total_thorium_stock: thorium, thorium_time: Time.now)
-  end
-
   def check_power_availability
-    return true if conso_power_next_level <= planet.power_stock
-    false
+    planet.check_power_availability(conso_power_next_level)
   end
 
   def check_ressources_availability
-    return false unless (planet.define_current_stock('thorium') - thorium_next_level) > 0 &&
-      (planet.define_current_stock('metal') - metal_next_level) > 0 &&
-      (planet.define_current_stock('food') - food_next_level) > 0
-    true
+    planet.check_ressources_availability(thorium_next_level, metal_next_level, food_next_level)
   end
 
   private

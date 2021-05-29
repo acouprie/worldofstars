@@ -31,7 +31,7 @@ class Planet < ApplicationRecord
 
   def max_stock(name)
     stock = self.send "stock_#{name}"
-    return STOCK_MINI if stock.nil?
+    return STOCK_MINI if stock.nil? || stock.lvl == 0
     stock.production
   end
 
@@ -65,7 +65,33 @@ class Planet < ApplicationRecord
       )
   end
 
-  private
+  # refund
+  def add_resources_to_total(building)
+    food = self.total_food_stock + building.food_next_level
+    metal = self.total_metal_stock + building.metal_next_level
+    thorium = self.total_thorium_stock + building.thorium_next_level
+    self.update(total_food_stock: food, food_time: Time.now, total_metal_stock: metal, metal_time: Time.now, total_thorium_stock: thorium, thorium_time: Time.now)
+  end
+
+  # pay
+  def substract_resources_to_total(building)
+    food = self.total_food_stock - building.food_next_level
+    metal = self.total_metal_stock - building.metal_next_level
+    thorium = self.total_thorium_stock - building.thorium_next_level
+    self.update(total_food_stock: food, food_time: Time.now, total_metal_stock: metal, metal_time: Time.now, total_thorium_stock: thorium, thorium_time: Time.now)
+  end
+
+  def check_power_availability(conso_power_next_level)
+    return true if conso_power_next_level <= self.power_stock
+    false
+  end
+
+  def check_ressources_availability(thorium_next_level, metal_next_level, food_next_level)
+    return false unless (self.define_current_stock('thorium') - thorium_next_level) > 0 &&
+      (self.define_current_stock('metal') - metal_next_level) > 0 &&
+      (self.define_current_stock('food') - food_next_level) > 0
+    true
+  end
 
   def headquarter
     self.buildings.headquarter
@@ -98,6 +124,8 @@ class Planet < ApplicationRecord
   def stock_thorium
     self.buildings.stock_thorium
   end
+
+  private
 
   def add_buildings_to_planet
     Building.add_buildings_to_planet(self.id)

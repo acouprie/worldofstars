@@ -1,36 +1,69 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 #
-champs:
-  name: Champs
-  food_price: 20
-  metal_price: 20
-  thorium_price: 20
+headquarter:
+  id: 1
+  name: Centre de commandement
+  food_price: 600
+  metal_price: 150
+  thorium_price: 300
   lvl: 0
   conso_power: 18
-  time_to_build:
   production: 100
+  planet_id: 1
   position: 1
 
 solar:
+  id: 2
   name: Centrale Solaire
   food_price: 20
   metal_price: 20
   thorium_price: 20
   lvl: 0
-  conso_power: 18
-  time_to_build:
   production: 100
-  position: 1
+  planet_id: 1
+  position: 2
 
-power_abuse:
+farm:
+  id: 3
   name: Champs
-  conso_power: 1800
+  food_price: 20
+  metal_price: 20
+  thorium_price: 20
+  lvl: 0
+  conso_power: 18
+  production: 100
+  planet_id: 1
+  position: 3
 
 overpriced:
+  id: 11
   name: Champs
   food_price: 20000
   metal_price: 20000
   thorium_price: 20000
+  conso_power: 0
+  planet_id: 1
+
+power_abuse:
+  id: 12
+  name: Champs
+  food_price: 10
+  metal_price: 10
+  thorium_price: 10
+  conso_power: 1800
+
+upgrading:
+  id: 10
+  name: Mine de thorium
+  food_price: 10
+  metal_price: 10
+  thorium_price: 10
+  lvl: 0
+  upgrade_start: <%= Time.now %>
+  conso_power: 0
+  production: 100
+  planet_id: 1
+  position: 1
 
 #two:
 #  name: MyString

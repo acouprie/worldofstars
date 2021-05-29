@@ -6,33 +6,22 @@ class BuildingTest < ActiveSupport::TestCase
   # end
   def setup
     @planet = planets(:Terre)
+    @headquarter = buildings(:headquarter)
     @solar = buildings(:solar)
-    @solar.planet_id = @planet.id
-    @champs = buildings(:champs)
-    @champs.planet_id = @planet.id
+    @farm = buildings(:farm)
     @overpriced = buildings(:overpriced)
-    @overpriced.planet_id = @planet.id
     @power_abuse = buildings(:power_abuse)
-    @power_abuse.planet_id = @planet.id
+  end
+  # called after every single test
+  teardown do
+    # when controller is using cache it may be a good idea to reset it afterwards
+    Rails.cache.clear
+    Resque.remove_delayed(TimeToBuild, 1)
   end
 
   test "should upgrade" do
-    current_lvl = @solar.lvl
-    @solar.upgrade
-    assert @solar.lvl == current_lvl + 1
-  end
-
-  test "should not upgrade : lack of power" do
-    current_lvl = @power_abuse.lvl
-    @power_abuse.update(conso_power: @power_abuse.conso_power)
-    assert_not @power_abuse.lvl == current_lvl + 1
-  end
-
-  test "should not upgrade : lack of ressources" do
-    current_lvl = @overpriced.lvl
-    @overpriced.update(food_price: @overpriced.food_price,
-                       metal_price: @overpriced.metal_price,
-                       thorium_price: @overpriced.thorium_price)
-    assert_not @overpriced.lvl == current_lvl + 1
+    current_lvl = @headquarter.lvl
+    @headquarter.upgrade
+    assert @headquarter.lvl == current_lvl + 1
   end
 end
