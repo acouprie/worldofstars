@@ -25,7 +25,7 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
 		assert_template 'layouts/_header'
 		assert_template 'layouts/_footer'
 		assert_template 'layouts/application'
-		assert_template 'planets/_caneva'
+		assert_template 'planets/_canvas'
 		assert_template 'planets/show'
 
 		# nav menu

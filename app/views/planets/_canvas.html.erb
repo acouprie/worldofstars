@@ -1,0 +1,56 @@
+
+<canvas width = "620" height = "496" id = "planet_canvas"></canvas>
+
+<script type = "text/javascript" charset = "utf-8">
+  // Get a handle to the canvas object
+  var canvas = document.getElementById('planet_canvas');
+  // Get the image context for this canvas
+  var context = canvas.getContext('2d');
+
+  var image = new Image();
+  image.src = "<%= image_url("planet_canvas.png") %>";
+
+  var position_x = [500, 480, 500, 425, 440, 410, 425, 400, 380, 390, 360, 370, 390, 325, 345, 355];
+  var position_y = [250, 260, 270, 225, 235, 235, 245, 270, 270, 285, 275, 380, 390, 390, 380, 360];
+
+  var elem = document.getElementById('planet_canvas'),
+    context = elem.getContext('2d'),
+    elements = [],
+    color_on = '#25cc00',
+    color_off = '#c22222';
+
+  // Add event listener for `click` events.
+  elem.addEventListener('click', function(event) {
+    var rect = event.target.getBoundingClientRect();
+    var x = event.clientX - rect.left;
+    var y = event.clientY - rect.top;
+    // Collision detection between clicked offset and element.
+    elements.forEach(function(element) {
+      if (y < element.center_y + 5 && y > element.center_y - 5 
+        && x < element.center_x + 5 && x > element.center_x - 5) {
+        alert(element.id);
+      }
+    });
+  }, false);
+
+  image.onload = function() {
+    context.drawImage(image,10,10);
+    <% i = 0 %>
+    <% @planet.buildings.each do |building| %>
+    elements.push({
+      color: color_off,
+      id: <%= i %>,
+      center_x: position_x[<%= i %>],
+      center_y: position_y[<%= i %>]
+    });
+    <% i += 1 %>
+    <% end %>
+    // Render elements.
+    elements.forEach(function(element) {
+      context.fillStyle = element.color;
+      context.beginPath();
+      context.arc(element.center_x, element.center_y, 5, 0, 2 * Math.PI);
+      context.fill();
+    });
+  }
+</script>

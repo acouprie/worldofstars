@@ -52,6 +52,6 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
 		assert_template 'layouts/_footer'
 		assert_template 'layouts/application'
 		assert_template 'planets/show'
-		assert_template 'planets/_caneva'
+		assert_template 'planets/_canvas'
 	end
 end
