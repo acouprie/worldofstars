@@ -1,3 +1,13 @@
 <div class="container">
-    <%= raw(render('buildings/building_detail')) %>
+    <div class="row">
+        <%= raw(render('planets/resources')) %>
+    </div>
+    <div class="row">
+        <div id="aside_resources" class="col-md-2">
+            <%= raw(render('planets/production')) %>
+        </div>
+        <div class="col-md-10">
+            <%= raw(render('buildings/building_detail')) %>
+        </div>
+    </div>
 </div>

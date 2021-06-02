@@ -3,7 +3,7 @@ $("#build_progress_<%= @building.id %>").val("<%= @percent %>");
 <% if @building.upgrade_start.nil? %>
 // trigger when upgrade_start is finished
 // reload building infos
-$("#building_<%= @building.id %>").html('<%= j render partial: "buildings/building_detail", :locals => {:building => @building} %>');
+$("#building_<%= @building.id %>").html('<%= j render partial: "buildings/building_detail", :locals => {:buildings => @buildings = @building} %>');
 // cancel the ajax calls
 $(function() { cancelInterval_<%= @building.id %>(); });
 // update resources

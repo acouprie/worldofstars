@@ -1,4 +1,7 @@
-<div class="container"><h3>Batiments :</h3></div>
+<div class="container">
+  <h3>Batiments :</h3>
+</div>
+
 <% @buildings.each do |building| %>
 <div id="building_<%= building.id %>">
   <div class="building_name">
@@ -10,33 +13,36 @@
   </div>
 
   <div id="building_description_<%= building.id %>" class="row">
-    <div class="col">
-      <div id="img_<%= building.image_name %>" class="col">
-        <%= link_to image_tag("buildings/".concat(building.image_name).concat(".jpg"), alt: building.name, :class => "building_image") %>
+    <%= image_tag("buildings/".concat(building.image_name).concat(".jpg"), alt: building.name, :id => "img_" + building.image_name, :class => "building_image") %>
+    <ul class="ressources_infos">
+      <li>
+      Nourriture : <%= building.food_next_level %> -
+      Metal : <%= building.metal_next_level %> -
+      Thorium : <%= building.thorium_next_level %>
+      </li>
+      <li>
+      Production : <%= building.production_next_level %> -
+      Conso. électricité : <%= building.conso_power_next_level %>
+      </li>
+      <li>
+      Temps de construction : <%= building.time_to_build %> secondes
+      </li>
+    </ul>
+
+  </div>
+
+  <div class="row">
+
+    <div id="cancel_<%= building.id %>" style="display: none">
+      <div id="cancel_btn_<%= building.id %>" class="col-md-3 cancel_btn" onclick="display_upgrade_btn('<%= building.id %>')">
+      <%= button_to "Annuler #{building.name}",
+        building_cancel_path(id: building.id),
+        method: :post,
+        class: :cancel_building_button,
+        remote: true
+      %>
       </div>
-      <ul style="list-style-type:square" class="ressources_infos">
-        <li>
-        Nourriture : <%= building.food_next_level %> -
-        Metal : <%= building.metal_next_level %> -
-        Thorium : <%= building.thorium_next_level %>
-        </li>
-        <li>
-        Production : <%= building.production_next_level %> -
-        Conso. électricité : <%= building.conso_power_next_level %>
-        </li>
-        <li>
-        Temps de construction : <%= building.time_to_build %> secondes
-        </li>
-      </ul>
-      <div id="cancel_<%= building.id %>" style="display: none">
-        <div id="cancel_btn_<%= building.id %>" class="col-md-3 cancel_btn" onclick="display_upgrade_btn('<%= building.id %>')">
-        <%= button_to "Annuler #{building.name}",
-          building_cancel_path(id: building.id),
-          method: :post,
-          class: :cancel_building_button,
-          remote: true
-        %>
-        </div>
+      <div class="col-md-9">
         <span id="building_finish_at_<%= building.id %>">
           Termine le <%= building.finish_at %>
         </span>
@@ -44,15 +50,17 @@
           <progress id="build_progress_<%= building.id %>" max="100" value="0"> 0% </progress>
         </div>
       </div>
-      <div id="upgrade_btn_<%= building.id %>" class="col-md-6 upgrade_btn" onclick="display_cancel_btn('<%= building.id %>', <%= !building.upgrade_start.nil? %>)">
-        <%= button_to "Améliorer #{building.name}",
-          building_upgrade_path(id: building.id),
-          method: :post,
-          class: :upgrade_building_button,
-          remote: true
-        %>
-      </div>
     </div>
+
+    <div id="upgrade_btn_<%= building.id %>" class="col-md-9 upgrade_btn" onclick="display_cancel_btn('<%= building.id %>', <%= !building.upgrade_start.nil? %>)">
+      <%= button_to "Améliorer #{building.name}",
+        building_upgrade_path(id: building.id),
+        method: :post,
+        class: :upgrade_building_button,
+        remote: true
+      %>
+    </div>
+
   </div>
 </div>
 
