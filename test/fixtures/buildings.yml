@@ -14,7 +14,7 @@ headquarter:
 
 solar:
   id: 2
-  name: Centrale Solaire
+  name: Centrale solaire
   food_price: 20
   metal_price: 20
   thorium_price: 20

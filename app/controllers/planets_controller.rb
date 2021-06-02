@@ -1,9 +1,9 @@
 class PlanetsController < ApplicationController
   before_action :is_owner?, only: [:show, :edit, :update]
+  before_action :buildings
   # GET /planets/:name
   # GET /planets/:name.json
   def show
-    @buildings = Building.where(["planet_id = ? and lvl != ?", @planet.id, 0]).order(:id)
     respond_to do |format|
       format.js
       format.html
@@ -65,5 +65,9 @@ class PlanetsController < ApplicationController
     return redirect_to login_url if @user.nil?
     @planet = Planet.find_by(name: params[:name])
     redirect_to planet_url(@user.id) if @planet.nil? || @user.id != @planet.id
+  end
+
+  def buildings
+    @buildings = Building.where(["planet_id = ? and lvl != ?", @planet.id, 0]).order(:id)
   end
 end

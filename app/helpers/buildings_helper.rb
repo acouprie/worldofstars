@@ -1,5 +1,5 @@
 module BuildingsHelper
-  SOLAR_NAME = 'Centrale Solaire'.freeze
+  SOLAR_NAME = 'Centrale solaire'.freeze
   SOLAR = [
     { lvl: 1, metal_price: 50, food_price: 25, production: 55, time_to_build: 90 },
     { lvl: 2, metal_price: 75, food_price: 37, production: 108, time_to_build: 171 },

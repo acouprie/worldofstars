@@ -92,6 +92,10 @@ class Building < ApplicationRecord
     next_level&.dig(:food_price).to_i
   end
 
+  def image_name
+    self.name.downcase.tr(" ", "_").tr("ô", "o").tr("é", "e").tr("'", "_")
+  end
+
   def self.add_buildings_to_planet(planet_id)
     self.create(name: HEADQUARTER_NAME, planet_id: planet_id)
     self.create(name: SOLAR_NAME, planet_id: planet_id)
