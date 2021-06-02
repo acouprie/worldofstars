@@ -1,9 +1,0 @@
-<h3>Batiments :</h3>
-
-<div id="flash">
-  <%= render partial: "shared/flash_messages" %>
-</div>
-
-<% @buildings.each do |building| %>
-  <%= render partial: "buildings/building_detail", :locals => {:building => @building = building} %>
-<% end %>
