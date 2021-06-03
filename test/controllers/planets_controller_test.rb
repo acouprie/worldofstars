@@ -8,9 +8,7 @@ class PlanetsControllerTest < ActionDispatch::IntegrationTest
     @headquarter = buildings(:headquarter)
     @solar = buildings(:solar)
     @farm = buildings(:farm)
-    @upgrading = buildings(:upgrading)
     @overpriced = buildings(:overpriced)
-    @power_abuse = buildings(:power_abuse)
   end
 
   # called after every single test
@@ -27,7 +25,7 @@ class PlanetsControllerTest < ActionDispatch::IntegrationTest
 
   test "should upgrade" do
     log_in_as(@user)
-    post building_upgrade_path, params: {id: @headquarter.id, format: :js}
+    post building_upgrade_path, params: {id: @farm.id, format: :js}
     assert_equal "Batiment en cours de construction !", flash[:success]
   end
 
@@ -49,14 +47,16 @@ class PlanetsControllerTest < ActionDispatch::IntegrationTest
 
   test "should upgrade headquarter first" do
     log_in_as(@user)
+    @headquarter.update(lvl: 0)
     post building_upgrade_path, params: {id: @solar.id, format: :js}
     assert_equal "Améliorez d'abord le Centre de commandemant !", flash[:warning]
   end
 
   test "should not upgrade already upgrading" do
     log_in_as(@user)
-    @headquarter.upgrade
-    post building_upgrade_path, params: {id: @upgrading.id, format: :js}
+    post building_upgrade_path, params: {id: @farm.id, format: :js}
+    assert_equal "Batiment en cours de construction !", flash[:success]
+    post building_upgrade_path, params: {id: @farm.id, format: :js}
     assert_equal "Ce batiment est déjà en cours d'amélioration", flash[:warning]
   end
 
@@ -67,12 +67,22 @@ class PlanetsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to planet_url(@other_user.id)
   end
 
-  test "should not upgrade lack of power" do
+  test "should not upgrade energy" do
     log_in_as(@user)
-    @headquarter.upgrade
-    @power_abuse.update(planet_id: 1)
+    @solar.update(production: 21)
     post building_upgrade_path, params: {id: @farm.id, format: :js}
     assert_equal "Energie insuffisante", flash[:warning]
+    @solar.update(lvl: 1, conso_power: 46)
+    @solar.update(production: 45)
+    post building_upgrade_path, params: {id: @farm.id, format: :js}
+    assert_equal "Energie insuffisante", flash[:warning]
+  end
+
+  test "should upgrade energy" do
+    log_in_as(@user)
+    @solar.update(production: 22)
+    post building_upgrade_path, params: {id: @farm.id, format: :js}
+    assert_equal "Batiment en cours de construction !", flash[:success]
   end
 
   test "should not cancel not upgrading" do
@@ -83,9 +93,9 @@ class PlanetsControllerTest < ActionDispatch::IntegrationTest
 
   test "should cancel upgrading" do
     log_in_as(@user)
-    post building_upgrade_path, params: {id: @headquarter.id, format: :js}
+    post building_upgrade_path, params: {id: @farm.id, format: :js}
     assert_equal "Batiment en cours de construction !", flash[:success]
-    post building_cancel_path, params: {id: @headquarter.id, format: :js}
+    post building_cancel_path, params: {id: @farm.id, format: :js}
     assert_equal "L'amélioration du batiment est annulée", flash[:success]
   end
 end

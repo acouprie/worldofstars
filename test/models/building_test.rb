@@ -10,7 +10,6 @@ class BuildingTest < ActiveSupport::TestCase
     @solar = buildings(:solar)
     @farm = buildings(:farm)
     @overpriced = buildings(:overpriced)
-    @power_abuse = buildings(:power_abuse)
   end
   # called after every single test
   teardown do
@@ -20,8 +19,27 @@ class BuildingTest < ActiveSupport::TestCase
   end
 
   test "should upgrade" do
-    current_lvl = @headquarter.lvl
-    @headquarter.upgrade
-    assert @headquarter.lvl == current_lvl + 1
+    current_lvl = @farm.lvl
+    @farm.set_position(1)
+    assert @farm.position == 1
+    @farm.upgrade
+    assert @farm.lvl == current_lvl + 1
+  end
+
+  test "should not upgrade without position" do
+    current_lvl = @farm.lvl
+    @farm.upgrade
+    assert @farm.lvl == current_lvl
+  end
+
+  test "should set position" do
+    assert @farm.position.nil?
+    @farm.set_position(1)
+    assert @farm.position == 1
+  end
+
+  test "should not set position already position" do
+    @headquarter.set_position(2)
+    assert @headquarter.position == 1
   end
 end

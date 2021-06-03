@@ -35,7 +35,11 @@
     <% i = 0 %>
     <% @planet.buildings.each do |building| %>
     elements.push({
+      <% if building.position.nil? %>
       color: 'red',
+      <% else %>
+      color: 'green',
+      <% end %>
       id: <%= i %>,
       center_x: position_x[<%= i %>],
       center_y: position_y[<%= i %>]
@@ -51,7 +55,7 @@
       // Create circle
       const circle = new Path2D();
       circle.arc(element.center_x, element.center_y, 5, 0, 2 * Math.PI);
-      context.fillStyle = 'red';
+      context.fillStyle = element.color;
       context.fill(circle);
       paths.push(circle);
     });

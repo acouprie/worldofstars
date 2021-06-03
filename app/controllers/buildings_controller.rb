@@ -55,8 +55,9 @@ class BuildingsController < ApplicationController
     @planet = Planet.find(@building.planet_id) unless @building.nil?
     flash_message = nil
     status = nil
+
     if @building.nil?
-      unexpected_error(1)
+      return unexpected_error(1)
     elsif @building.planet_id != current_user.id
       return redirect_to planet_url(current_user.id)
     elsif @planet.headquarter.lvl == 0 && @planet.headquarter != @building
@@ -72,11 +73,15 @@ class BuildingsController < ApplicationController
       flash_message = "Nous manquons de ressources"
       status = "warning"
     else
+      position ||= params[:position].to_i
+      if @building.lvl == 0 && !position.nil?
+        @building.set_position(position)
+      end
       @building.upgrading
-      @planet = Planet.find(@building.planet_id)
       flash_message = "Batiment en cours de construction !"
       status = "success"
     end
+
     respond_to do |format|
       format.js { flash.now[status] = flash_message }
       format.json { render json:

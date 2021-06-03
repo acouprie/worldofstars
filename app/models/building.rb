@@ -109,6 +109,11 @@ class Building < ApplicationRecord
     self.create(name: CAMP_NAME, planet_id: planet_id)
   end
 
+  def set_position(position)
+    return if !self.position.nil? || self.lvl != 0 || position.nil?
+    self.update(position: position)
+  end
+
   def cancel_upgrading
     puts "--- Building " + self.id.to_s + " removed from queue time2build ---"
     Resque.remove_delayed(TimeToBuild, self.id)
@@ -125,9 +130,10 @@ class Building < ApplicationRecord
   end
 
   def upgrade
-    unless next_level.nil?
+    unless next_level.nil? || self.position.nil?
       self.update(next_level)
     end
+    self.update(upgrade_start: nil)
   end
 
   def check_power_availability

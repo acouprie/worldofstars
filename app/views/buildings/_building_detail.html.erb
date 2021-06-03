@@ -32,7 +32,6 @@
   </div>
 
   <div class="row">
-
     <div id="cancel_<%= building.id %>" style="display: none">
       <div id="cancel_btn_<%= building.id %>" class="col-md-3 cancel_btn" onclick="display_upgrade_btn('<%= building.id %>')">
       <%= button_to "Annuler #{building.name}",
@@ -54,7 +53,7 @@
 
     <div id="upgrade_btn_<%= building.id %>" class="col-md-9 upgrade_btn" onclick="display_cancel_btn('<%= building.id %>', <%= !building.upgrade_start.nil? %>)">
       <%= button_to "Améliorer #{building.name}",
-        building_upgrade_path(id: building.id),
+        building_upgrade_path(id: building.id, position: building.position.nil? ? params[:position] : building.position),
         method: :post,
         class: :upgrade_building_button,
         remote: true

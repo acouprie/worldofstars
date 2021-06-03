@@ -44,7 +44,7 @@ class Planet < ApplicationRecord
   def power_conso
     total = 0
     self.buildings.each do |building|
-      total += building.conso_power
+      total += building.conso_power if building.lvl != 0
     end
     total
   end
@@ -82,7 +82,7 @@ class Planet < ApplicationRecord
   end
 
   def check_power_availability(conso_power_next_level)
-    return true if conso_power_next_level <= self.power_stock
+    return true if conso_power_next_level + power_conso <= self.power_stock
     false
   end
 
