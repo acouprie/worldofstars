@@ -110,7 +110,7 @@ class Building < ApplicationRecord
   end
 
   def set_position(position)
-    return if !self.position.nil? || self.lvl != 0 || position.nil?
+    return if !self.position.nil? || self.lvl != 0
     self.update(position: position)
   end
 
@@ -119,6 +119,7 @@ class Building < ApplicationRecord
     Resque.remove_delayed(TimeToBuild, self.id)
     self.update(upgrade_start: nil, conso_power: self.conso_power - conso_power_next_level)
     planet.add_resources_to_total(self)
+    self.set_position(nil) if self.lvl == 0
   end
 
   def upgrading

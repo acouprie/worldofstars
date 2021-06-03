@@ -13,9 +13,9 @@
 <div class="row">
 	<div class="col-md-2">
 		<aside>
-			<h2>Niveau</h2>
+			<h3>Niveau</h3>
 			<p>
-			<h3>Expérience</h3>
+			<h4>Expérience</h4>
 			Niveau: 1<br />
 			Points de stratégie:<br />
 			<div class="progress">
@@ -27,7 +27,7 @@
 			00 / 00 <br />
 			</p>
 			<p>
-			<h3>Exploration</h3>
+			<h4>Exploration</h4>
 			Niveau: 1<br />
 			Points d'exploration:<br />
 			<div class="progress">
@@ -40,18 +40,18 @@
 			</p>
 		</aside>
 		<aside>
-			<h2>Mon compte</h2>
+			<h3>Mon compte</h3>
 			<%=  %><br />
 			<%=  %><br />
 		</aside>
 		<aside>
-			<h2>Messagerie</h2>
+			<h3>Messagerie</h3>
 		</aside>
 		<aside>
-			<h2>Mes unités</h2>
+			<h3>Mes unités</h3>
 		</aside>
-		<aside>
-			<h2>Mes bâtiments</h2>
+		<aside id="building_grid_view">
+			<%= raw(render('buildings/grid_view')) %>
 		</aside>
 		<aside>
 			<h2>Soutiens</h2>
@@ -61,24 +61,19 @@
 		<h2>Page</h2>
 		<div class="row">
 			<div class="col-md-6">
-				<h3>Unités :</h3><br />
+				<h3>Unités</h3><br />
 			</div>
 			<div class="col-md-6">
-				<%= raw(render('buildings/building_detail')) %>
+				<%= raw(render('buildings/grid_view')) %>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-md-6">
-				<h3>Vaisseaux :</h3><br />
+				<h3>Vaisseaux</h3><br />
 			</div>
 			<div class="col-md-6">
-				<h3>Actions en cours :</h3><br />
-				<div class="progress">
-					<div id="bar" class="progress-bar" role="progressbar" aria-valuenow="70"
-						aria-valuemin="0" aria-valuemax="100" style="width:10px">
-						<span class="sr-only">70% Complete</span>
-					</div>
-				</div>
+				<h3>Actions en cours</h3>
+				<%= raw(render('buildings/building_detail')) %>
 			</div>
 		</div>
 	</aside>

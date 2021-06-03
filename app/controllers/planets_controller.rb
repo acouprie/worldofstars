@@ -9,7 +9,8 @@ class PlanetsController < ApplicationController
       format.html
       format.json { render json:
         {
-          :buildings => @buildings
+          :buildings => @buildings,
+          :buildings_finished => @buildings_finished
         }
       }
     end
@@ -68,6 +69,7 @@ class PlanetsController < ApplicationController
   end
 
   def buildings
-    @buildings = Building.where(["planet_id = ? and lvl != ?", @planet.id, 0]).order(:id)
+    @buildings_finished = Building.where(["planet_id = ? and lvl != ?", @planet.id, 0]).order(:id)
+    @buildings = Building.where(["planet_id = ? and upgrade_start is not ?", @planet.id, nil]).order(:id)
   end
 end

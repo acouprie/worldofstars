@@ -10,6 +10,7 @@ class BuildingsController < ApplicationController
   def upgrade
     if request.get?
       position = params[:position]
+      return planet_url(planet.id) if position.nil?
       @buildings = Building.where(["planet_id = ? and position = ?", planet.id, position]).to_a
       @buildings = Building.where(["planet_id = ? and lvl = ?", planet.id, 0]).order(:id) if @buildings.empty?
       respond_to do |format|
@@ -97,12 +98,14 @@ class BuildingsController < ApplicationController
     return if @building.planet_id != current_user.id
     @planet = Planet.find(@building.planet_id)
     @percent = compute_remaining_percent(@building)
+    @buildings_finished = Building.where(["planet_id = ? and lvl != ?", @planet.id, 0]).order(:id)
     respond_to do |format|
       format.js
       format.json { render json:
         {
           :percent => @percent,
           :building => @building,
+          :buildings_finished => @buildings_finished,
           :planet => @planet
         }
       }

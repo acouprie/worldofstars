@@ -1,14 +1,10 @@
-<div class="container">
-  <h3>Batiments :</h3>
-</div>
-
 <% @buildings.each do |building| %>
 <div id="building_<%= building.id %>">
   <div class="building_name">
     <%= building.name %> niveau <%= building.lvl %><br />
   </div>
 
-  <div id="flash">
+  <div id="flash_<%= building.id %>" class="flash_messages">
     <%= render partial: "shared/flash_messages" %>
   </div>
 
@@ -64,12 +60,13 @@
 </div>
 
 <script type="text/javascript">
-    // update progress at start 
-    var bar = document.getElementById("build_progress_<%= building.id %>").value;
-    console.log(bar);
-    if(bar != 0 && bar.value != 0) {
-        schedule_<%= building.id %>();
-    }
+    // update progress at start
+    <% unless building.upgrade_start.nil? %>
+      refreshProgress_<%= building.id %>();
+      schedule_<%= building.id %>();
+    <% else %>
+      clearInterval(interval_<%= building.id %>);
+    <% end %>
     var interval_<%= building.id %>;
     // call refreshProgress every 3 seconds
     function schedule_<%= building.id %>() {
@@ -80,12 +77,6 @@
         $.ajax({
             url: "<%= building_percent_path(id: building.id) %>"
         })
-    }
-    // stop the interval
-    function cancelInterval_<%= building.id %>() {
-        if(bar === 0 || bar === 100) {
-            clearInterval(interval_<%= building.id %>);
-        }
     }
 </script>
 <% end %>

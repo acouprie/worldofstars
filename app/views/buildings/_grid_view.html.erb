@@ -1,0 +1,4 @@
+<h3>Mes bâtiments</h3>
+<% @buildings_finished.each do |building| %>
+<%= link_to image_tag("buildings/".concat(building.image_name).concat(".jpg"), alt: building.name, :class => "building_image_mini"), building_upgrade_path(position: building.position) %>
+<% end %>
