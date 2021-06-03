@@ -3,7 +3,6 @@ class CreatePlanets < ActiveRecord::Migration[6.1]
     create_table :planets do |t|
       t.belongs_to :user, index: true
       t.string :name, default: "Terre"
-      t.integer :conso_tot, default: 0
       t.float :food_tot
       t.integer :total_food_stock, default: 1000
       t.datetime :food_time, default: Time.now

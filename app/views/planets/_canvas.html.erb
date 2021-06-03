@@ -24,7 +24,7 @@
     elements.forEach(function(element) {
       if (y < element.center_y + 5 && y > element.center_y - 5 
         && x < element.center_x + 5 && x > element.center_x - 5) {
-        location.href = '<%= building_new_path %>' + "?planet_id=" + <%= current_user.id %> + "&position=" + element.id;
+        location.href = '<%= building_upgrade_path %>' + "?position=" + element.id;
       }
     });
   }, false);
@@ -35,10 +35,10 @@
     <% i = 0 %>
     <% @planet.buildings.each do |building| %>
     elements.push({
-      <% if building.position.nil? %>
-      color: 'red',
-      <% else %>
+      <% if @planet.buildings.find_by(planet_id: building.planet_id, position: i) %>
       color: 'green',
+      <% else %>
+      color: 'red',
       <% end %>
       id: <%= i %>,
       center_x: position_x[<%= i %>],

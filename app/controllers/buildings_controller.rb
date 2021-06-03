@@ -1,30 +1,72 @@
 class BuildingsController < ApplicationController
-  before_action :logged_in_user
+  before_action :logged_in_user, :building, :planet
 
   def index
     @buildings = Building.paginate(page: params[:page])
   end
 
-  # GET /building/new?planet_id=1&position=1
-  def new
-    id = params[:planet_id]
-    position = params[:position]
-    @planet = Planet.find_by(id: id)
-    @buildings = Building.where(["planet_id = ? and lvl = ?", id, 0]).order(:id)
-    respond_to do |format|
-      format.html
-      format.json { render json:
-        {
-          :buildings => @buildings
+  # POST /building/upgrade, params[:id]
+  # GET /building/upgrade?planet_id=1&position=1
+  def upgrade
+    if request.get?
+      position = params[:position]
+      @buildings = Building.where(["planet_id = ? and position = ?", planet.id, position]).to_a
+      @buildings = Building.where(["planet_id = ? and lvl = ?", planet.id, 0]).order(:id) if @buildings.empty?
+      respond_to do |format|
+        format.html
+        format.json { render json:
+          {
+            :buildings => @buildings
+          }
         }
-      }
+      end
+    end
+    if request.post?
+      id = params[:id]
+      flash_message = nil
+      status = nil
+
+      if @building.nil?
+        return unexpected_error(1)
+      elsif @building.planet_id != current_user.id
+        return redirect_to planet_url(current_user.id)
+      elsif @planet.headquarter.lvl == 0 && @planet.headquarter != @building
+        flash_message = "Améliorez d'abord le Centre de commandemant !"
+        status = "warning"
+      elsif !@building.upgrade_start.nil?
+        flash_message = "Ce batiment est déjà en cours d'amélioration"
+        status = "warning"
+      elsif !@planet.check_power_availability(@building.conso_power_next_level)
+        flash_message = "Energie insuffisante"
+        status = "warning"
+      elsif !@planet.check_ressources_availability(@building.thorium_next_level, @building.metal_next_level, @building.food_next_level)
+        flash_message = "Nous manquons de ressources"
+        status = "warning"
+      else
+        position ||= params[:position].to_i
+        if @building.lvl == 0 && !position.nil?
+          @building.set_position(position)
+          redirect_to planet_url(@planet)
+        end
+        @building.upgrading
+        flash_message = "Batiment en cours de construction !"
+        status = "success"
+      end
+
+      respond_to do |format|
+        format.js { flash.now[status] = flash_message }
+        format.json { render json:
+          {
+            :building => @building,
+            :planet => @planet
+          }
+        }
+      end
     end
   end
 
   def cancel_upgrade_building
     id = params[:id]
-    @building = Building.find_by(id: id)
-    @planet = Planet.find(@building.planet_id) unless @building.nil?
     flash_message = nil
     status = nil
     if @building.nil?
@@ -43,51 +85,6 @@ class BuildingsController < ApplicationController
       format.js { flash.now[status] = flash_message }
       format.json { render json:
         {
-          :planet => @planet
-        }
-      }
-    end
-  end
-
-  def upgrade_building
-    id = params[:id]
-    @building = Building.find_by(id: id)
-    @planet = Planet.find(@building.planet_id) unless @building.nil?
-    flash_message = nil
-    status = nil
-
-    if @building.nil?
-      return unexpected_error(1)
-    elsif @building.planet_id != current_user.id
-      return redirect_to planet_url(current_user.id)
-    elsif @planet.headquarter.lvl == 0 && @planet.headquarter != @building
-      flash_message = "Améliorez d'abord le Centre de commandemant !"
-      status = "warning"
-    elsif !@building.upgrade_start.nil?
-      flash_message = "Ce batiment est déjà en cours d'amélioration"
-      status = "warning"
-    elsif !@planet.check_power_availability(@building.conso_power_next_level)
-      flash_message = "Energie insuffisante"
-      status = "warning"
-    elsif !@planet.check_ressources_availability(@building.thorium_next_level, @building.metal_next_level, @building.food_next_level)
-      flash_message = "Nous manquons de ressources"
-      status = "warning"
-    else
-      position ||= params[:position].to_i
-      if @building.lvl == 0 && !position.nil?
-        @building.set_position(position)
-        redirect_to planet_url(@planet)
-      end
-      @building.upgrading
-      flash_message = "Batiment en cours de construction !"
-      status = "success"
-    end
-
-    respond_to do |format|
-      format.js { flash.now[status] = flash_message }
-      format.json { render json:
-        {
-          :building => @building,
           :planet => @planet
         }
       }
@@ -129,6 +126,14 @@ class BuildingsController < ApplicationController
       flash[:danger] = "Veuillez vous connecter pour effectuer cette action."
       redirect_to login_url
     end
+  end
+
+  def building
+    @building = Building.find_by(id: params[:id]) unless params[:id].nil?
+  end
+
+  def planet
+    @planet = Planet.find(current_user.id) unless current_user.nil?
   end
 
   def unexpected_error(nb)
