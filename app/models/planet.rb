@@ -87,9 +87,9 @@ class Planet < ApplicationRecord
   end
 
   def check_ressources_availability(thorium_next_level, metal_next_level, food_next_level)
-    return false unless (self.define_current_stock('thorium') - thorium_next_level) > 0 &&
-      (self.define_current_stock('metal') - metal_next_level) > 0 &&
-      (self.define_current_stock('food') - food_next_level) > 0
+    return false unless (self.define_current_stock('thorium') - thorium_next_level) >= 0 &&
+      (self.define_current_stock('metal') - metal_next_level) >= 0 &&
+      (self.define_current_stock('food') - food_next_level) >= 0
     true
   end
 

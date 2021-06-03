@@ -3,9 +3,6 @@
 headquarter:
   id: 1
   name: Centre de commandement
-  food_price: 600
-  metal_price: 150
-  thorium_price: 300
   lvl: 1
   conso_power: 0
   production: 0
@@ -15,9 +12,6 @@ headquarter:
 solar:
   id: 2
   name: Centrale solaire
-  food_price: 20
-  metal_price: 20
-  thorium_price: 20
   conso_power: 0
   lvl: 2
   production: 108
@@ -27,21 +21,9 @@ solar:
 farm:
   id: 3
   name: Champs
-  food_price: 20
-  metal_price: 20
-  thorium_price: 20
   lvl: 0
   conso_power: 0
   production: 0
-  planet_id: 1
-
-overpriced:
-  id: 11
-  name: Champs
-  food_price: 20000
-  metal_price: 20000
-  thorium_price: 20000
-  conso_power: 0
   planet_id: 1
 
 #two:

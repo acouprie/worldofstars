@@ -9,7 +9,6 @@ class BuildingTest < ActiveSupport::TestCase
     @headquarter = buildings(:headquarter)
     @solar = buildings(:solar)
     @farm = buildings(:farm)
-    @overpriced = buildings(:overpriced)
   end
   # called after every single test
   teardown do

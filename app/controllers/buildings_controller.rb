@@ -76,6 +76,7 @@ class BuildingsController < ApplicationController
       position ||= params[:position].to_i
       if @building.lvl == 0 && !position.nil?
         @building.set_position(position)
+        redirect_to planet_url(@planet)
       end
       @building.upgrading
       flash_message = "Batiment en cours de construction !"
