@@ -44,7 +44,7 @@ class Planet < ApplicationRecord
   def power_conso
     total = 0
     self.buildings.each do |building|
-      total += building.conso_power if building.lvl != 0
+      total += building.conso_power
     end
     total
   end

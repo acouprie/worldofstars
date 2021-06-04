@@ -52,6 +52,7 @@ class BuildingsController < ApplicationController
           redirect_to planet_url(@planet)
         end
         @building.upgrading
+        @planet = planet
         flash_message = "Bâtiment en cours de construction !"
         status = "success"
       end
@@ -83,6 +84,7 @@ class BuildingsController < ApplicationController
       flash_message = "L'amélioration du bâtiment est annulée"
       status = "success"
       @building.cancel_upgrading
+      @planet = planet
     end
     respond_to do |format|
       format.js { flash.now[status] = flash_message }

@@ -110,7 +110,7 @@ class Building < ApplicationRecord
   end
 
   def set_position(position)
-    return if !self.position.nil? || self.lvl != 0
+    return if self.lvl != 0
     self.update(position: position)
   end
 
