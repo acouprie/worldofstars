@@ -4,7 +4,7 @@ $("#build_progress_<%= @building.id %>").val("<%= @percent %>");
 // trigger when upgrade_start is finished
 // reload building infos
 $("#building_<%= @building.id %>").html('');
-$("#building_grid_view").html('<%= j render partial: "buildings/grid_view", :locals => {:buildings_finished => @buildings_finished} %>');
+$(".building_grid_view").html('<%= j render partial: "buildings/grid_view", :locals => {:buildings_finished => @buildings_finished} %>');
 // update resources
 $('#resources').html("<%= j (render partial: 'planets/resources', :locals => {:planet => @planet}) %>")
 $('#aside_resources').html("<%= j (render partial: 'planets/production', :locals => {:planet => @planet}) %>")
