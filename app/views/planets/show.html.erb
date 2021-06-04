@@ -46,6 +46,9 @@
 		</aside>
 		<aside>
 			<h3>Mes unités</h3>
+			<% @planet.units.each do |unit| %>
+				<%= unit.inspect %>
+			<% end %>
 		</aside>
 		<aside class="building_grid_view">
 			<%= raw(render('buildings/grid_view')) %>

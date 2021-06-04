@@ -1,0 +1,27 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  health: 1
+  attack: 1
+  defense: 1
+  capacity: 1
+  time_to_build: 1
+  food_price: 1
+  metal_price: 1
+  thorium_price: 1
+  number: 1
+  planet: Terre
+
+two:
+  name: MyString
+  health: 1
+  attack: 1
+  defense: 1
+  capacity: 1
+  time_to_build: 1
+  food_price: 1
+  metal_price: 1
+  thorium_price: 1
+  number: 1
+  planet: Terre

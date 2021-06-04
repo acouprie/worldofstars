@@ -2,10 +2,12 @@ class Planet < ApplicationRecord
   validates :name, presence: true, length: { maximum: 25 }
   validates :user_id, presence: true
   belongs_to :user
-  has_many :buildings
+  has_many :buildings, dependent: :destroy
+  has_many :units, dependent: :destroy
   accepts_nested_attributes_for :buildings
-  after_create :add_buildings_to_planet
+  after_create :add_buildings_to_planet, :add_units_to_planet
 
+  include BuildingsHelper
   STOCK_MINI = 1600
   HOUR = 3600
 
@@ -128,6 +130,19 @@ class Planet < ApplicationRecord
   private
 
   def add_buildings_to_planet
-    Building.add_buildings_to_planet(self.id)
+    self.buildings.create(name: HEADQUARTER_NAME)
+    self.buildings.create(name: SOLAR_NAME)
+    self.buildings.create(name: FARM_NAME)
+    self.buildings.create(name: METAL_NAME)
+    self.buildings.create(name: THORIUM_NAME)
+    self.buildings.create(name: STOCK_FOOD_NAME)
+    self.buildings.create(name: STOCK_METAL_NAME)
+    self.buildings.create(name: STOCK_THORIUM_NAME)
+    self.buildings.create(name: TRAINING_NAME)
+    self.buildings.create(name: CAMP_NAME)
+  end
+
+  def add_units_to_planet
+    self.units.create(name: "Soldat lourd")
   end
 end

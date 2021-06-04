@@ -1,18 +1,14 @@
 class BuildingsController < ApplicationController
-  before_action :logged_in_user, :building, :planet
-
-  def index
-    @buildings = Building.paginate(page: params[:page])
-  end
+  before_action :logged_in_user, :set_building, :set_planet
 
   # POST /building/upgrade, params[:id]
   # GET /building/upgrade?planet_id=1&position=1
   def upgrade
     if request.get?
       position = params[:position]
-      return planet_url(planet.id) if position.nil?
-      @buildings = Building.where(["planet_id = ? and position = ?", planet.id, position]).to_a
-      @buildings = Building.where(["planet_id = ? and lvl = ? and position is ?", planet.id, 0, nil]).order(:id).to_a.dup if @buildings.empty?
+      return planet_url(@planet.id) if position.nil?
+      @buildings = Building.where(["planet_id = ? and position = ?", @planet.id, position]).to_a
+      @buildings = Building.where(["planet_id = ? and lvl = ? and position is ?", @planet.id, 0, nil]).order(:id).to_a.dup if @buildings.empty?
       @buildings.each do |building|
         @buildings -= [building] if building.hasDependencies
       end
@@ -26,7 +22,6 @@ class BuildingsController < ApplicationController
       end
     end
     if request.post?
-      id = params[:id]
       flash_message = ""
       status = "warning"
       message_dep = @building.hasDependencies unless @building.nil?
@@ -52,7 +47,7 @@ class BuildingsController < ApplicationController
           redirect_to planet_url(@planet)
         end
         @building.upgrading
-        @planet = planet
+        @planet = set_planet
         flash_message = "Bâtiment en cours de construction !"
         status = "success"
       end
@@ -70,7 +65,6 @@ class BuildingsController < ApplicationController
   end
 
   def cancel_upgrade_building
-    id = params[:id]
     flash_message = nil
     status = nil
     if @building.nil?
@@ -84,7 +78,7 @@ class BuildingsController < ApplicationController
       flash_message = "L'amélioration du bâtiment est annulée"
       status = "success"
       @building.cancel_upgrading
-      @planet = planet
+      @planet = set_planet
     end
     respond_to do |format|
       format.js { flash.now[status] = flash_message }
@@ -97,10 +91,7 @@ class BuildingsController < ApplicationController
   end
 
   def percent_bar
-    id = params[:id]
-    @building = Building.find(id)
     return if @building.planet_id != current_user.id
-    @planet = Planet.find(@building.planet_id)
     @percent = compute_remaining_percent(@building)
     @buildings_finished = Building.where(["planet_id = ? and lvl != ?", @planet.id, 0]).order(:id)
     respond_to do |format|
@@ -135,11 +126,11 @@ class BuildingsController < ApplicationController
     end
   end
 
-  def building
+  def set_building
     @building = Building.find_by(id: params[:id]) unless params[:id].nil?
   end
 
-  def planet
+  def set_planet
     @planet = Planet.find(current_user.id) unless current_user.nil?
   end
 

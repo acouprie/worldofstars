@@ -96,19 +96,6 @@ class Building < ApplicationRecord
     self.name.downcase.tr(" ", "_").tr("ô", "o").tr("é", "e").tr("'", "_")
   end
 
-  def self.add_buildings_to_planet(planet_id)
-    self.create(name: HEADQUARTER_NAME, planet_id: planet_id)
-    self.create(name: SOLAR_NAME, planet_id: planet_id)
-    self.create(name: FARM_NAME, planet_id: planet_id)
-    self.create(name: METAL_NAME, planet_id: planet_id)
-    self.create(name: THORIUM_NAME, planet_id: planet_id)
-    self.create(name: STOCK_FOOD_NAME, planet_id: planet_id)
-    self.create(name: STOCK_METAL_NAME, planet_id: planet_id)
-    self.create(name: STOCK_THORIUM_NAME, planet_id: planet_id)
-    self.create(name: TRAINING_NAME, planet_id: planet_id)
-    self.create(name: CAMP_NAME, planet_id: planet_id)
-  end
-
   def set_position(position)
     return if self.lvl != 0
     self.update(position: position)

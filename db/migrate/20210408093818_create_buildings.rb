@@ -2,7 +2,6 @@ class CreateBuildings < ActiveRecord::Migration[6.1]
   def change
     create_table :buildings do |t|
       t.string :name
-      t.integer :planet_id
       t.integer :food_price, default: 0
       t.integer :metal_price, default: 0
       t.integer :thorium_price, default: 0
@@ -12,6 +11,7 @@ class CreateBuildings < ActiveRecord::Migration[6.1]
       t.integer :production, default: 0
       t.integer :position
       t.datetime :upgrade_start, default: nil
+      t.belongs_to :planet, null: false, foreign_key: true
 
       t.timestamps
     end

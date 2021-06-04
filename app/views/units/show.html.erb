@@ -1,0 +1,59 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @unit.name %>
+</p>
+
+<p>
+  <strong>Health:</strong>
+  <%= @unit.health %>
+</p>
+
+<p>
+  <strong>Attack:</strong>
+  <%= @unit.attack %>
+</p>
+
+<p>
+  <strong>Defense:</strong>
+  <%= @unit.defense %>
+</p>
+
+<p>
+  <strong>Capacity:</strong>
+  <%= @unit.capacity %>
+</p>
+
+<p>
+  <strong>Time to build:</strong>
+  <%= @unit.time_to_build %>
+</p>
+
+<p>
+  <strong>Food price:</strong>
+  <%= @unit.food_price %>
+</p>
+
+<p>
+  <strong>Metal price:</strong>
+  <%= @unit.metal_price %>
+</p>
+
+<p>
+  <strong>Thorium price:</strong>
+  <%= @unit.thorium_price %>
+</p>
+
+<p>
+  <strong>Number:</strong>
+  <%= @unit.number %>
+</p>
+
+<p>
+  <strong>Planet:</strong>
+  <%= @unit.planet_id %>
+</p>
+
+<%= link_to 'Edit', edit_unit_path(@unit) %> |
+<%= link_to 'Back', units_path %>
