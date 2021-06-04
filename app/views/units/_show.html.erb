@@ -1,0 +1,23 @@
+<h3>Unités</h3>
+<% @planet.units.each do |unit| %>
+  <%= image_tag("units/".concat(unit.image_name).concat(".png"), alt: unit.name, :id => "img_" + unit.image_name, :class => "unit_image") %>
+  <%= unit.name %>
+  <div id="unit_description_<%= unit.id %>" class="row">
+    <ul class="ressources_infos">
+      <li>
+      Nourriture : <%= unit.food_price %> -
+      Metal : <%= unit.metal_price %> -
+      Thorium : <%= unit.thorium_price %>
+      </li>
+      <li>
+      Santé : <%= unit.health %> -
+      Attaque : <%= unit.attack %> -
+      Défense : <%= unit.defense %> -
+      Capacité : <%= unit.capacity %>
+      </li>
+      <li>
+      Temps de construction : <%= unit.time_to_build %> secondes
+      </li>
+    </ul>
+  </div>
+<% end %>

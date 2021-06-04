@@ -5,6 +5,7 @@ class CreateUnits < ActiveRecord::Migration[6.1]
       t.integer :health, default: 0
       t.integer :attack, default: 0
       t.integer :defense, default: 0
+      t.integer :intellect, default: 0
       t.integer :capacity, default: 0
       t.integer :time_to_build, default: 0
       t.integer :food_price, default: 0

@@ -44,10 +44,11 @@
 		<aside>
 			<h3>Messagerie</h3>
 		</aside>
-		<aside>
-			<h3>Mes unités</h3>
+		<aside class="units_view">
+			<h3>Unités</h3>
 			<% @planet.units.each do |unit| %>
-				<%= unit.inspect %>
+				<%= image_tag("units/".concat(unit.image_name).concat(".png"), alt: unit.name, :id => "img_" + unit.image_name, :class => "unit_image") %>
+				<%= unit.number %>
 			<% end %>
 		</aside>
 		<aside class="building_grid_view">
@@ -61,7 +62,7 @@
 		<h2>Page</h2>
 		<div class="row">
 			<div class="col-md-6">
-				<h3>Unités</h3><br />
+				<%= raw(render('units/show')) %>
 			</div>
 			<div class="col-md-6 building_grid_view">
 				<%= raw(render('buildings/grid_view')) %>

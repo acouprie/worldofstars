@@ -8,6 +8,8 @@ class Planet < ApplicationRecord
   after_create :add_buildings_to_planet, :add_units_to_planet
 
   include BuildingsHelper
+  include UnitsHelper
+
   STOCK_MINI = 1600
   HOUR = 3600
 
@@ -143,6 +145,14 @@ class Planet < ApplicationRecord
   end
 
   def add_units_to_planet
-    self.units.create(name: "Soldat lourd")
+    self.units.create(LIGHT_INFANTRY)
+    self.units.create(HEAVY_INFANTRY)
+    self.units.create(SCIENTIST)
+    self.units.create(ARCHAEOLOGIST)
+    self.units.create(SPOT)
+    self.units.create(DRONE)
+    self.units.create(ATLAS)
+    self.units.create(CLONE)
+    self.units.create(SUPER_SOLDIER)
   end
 end
