@@ -156,6 +156,23 @@ class Building < ApplicationRecord
     self.upgrade_start + self.time_to_build
   end
 
+  def hasDependencies
+    flash_message = nil
+    if planet.headquarter.lvl == 0 && planet.headquarter != self
+      flash_message = "Améliorez d'abord le Centre de commandemant !"
+    elsif planet.solar.lvl == 0 && planet.solar != self && planet.headquarter != self
+      flash_message = "Améliorez d'abord la centrale solaire !"
+    elsif planet.headquarter != self &&
+      planet.solar != self &&
+      planet.food != self &&
+      planet.metal != self &&
+      planet.thorium != self &&
+      (planet.food.lvl == 0 || planet.metal.lvl == 0 || planet.thorium.lvl == 0)
+      flash_message = "Améliorez d'abord les sites de production !"
+    end
+    return flash_message.nil? ? false : flash_message
+  end
+
   private
 
   def planet

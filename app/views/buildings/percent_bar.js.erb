@@ -3,13 +3,14 @@ $("#build_progress_<%= @building.id %>").val("<%= @percent %>");
 <% if @building.upgrade_start.nil? %>
 // trigger when upgrade_start is finished
 // reload building infos
-$("#building_<%= @building.id %>").html('');
+clearInterval(interval_<%= @building.id %>);
+$("#action_building").html('');
+$("#building_list").html('<%= j render partial: "buildings/building_detail", :locals => {:buildings => @buildings = [@building]} %>');
 $(".building_grid_view").html('<%= j render partial: "buildings/grid_view", :locals => {:buildings_finished => @buildings_finished} %>');
 // update resources
 $('#resources').html("<%= j (render partial: 'planets/resources', :locals => {:planet => @planet}) %>")
 $('#aside_resources').html("<%= j (render partial: 'planets/production', :locals => {:planet => @planet}) %>")
 $(function() { display_upgrade_btn('<%= @building.id %>'); });
-clearInterval(interval_<%= @building.id %>);
 <% else %>
 // display the cancel btn and progres bar
 $(function() { display_cancel_btn('<%= @building.id %>', <%= !@building.upgrade_start.nil? %>); });

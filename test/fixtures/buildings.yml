@@ -26,6 +26,46 @@ farm:
   production: 0
   planet_id: 1
 
+metal:
+  id: 4
+  name: Mine de métaux
+  lvl: 0
+  conso_power: 0
+  production: 0
+  planet_id: 1
+
+thorium:
+  id: 5
+  name: Mine de thorium
+  lvl: 0
+  conso_power: 0
+  production: 0
+  planet_id: 1
+
+stock_food:
+  id: 6
+  name: Entrepôt de nourriture
+  lvl: 0
+  conso_power: 0
+  production: 0
+  planet_id: 1
+
+sotck_metal:
+  id: 7
+  name: Entrepôt de métaux
+  lvl: 0
+  conso_power: 0
+  production: 0
+  planet_id: 1
+
+stock_thorium:
+  id: 8
+  name: Entrepôt de thorium
+  lvl: 0
+  conso_power: 0
+  production: 0
+  planet_id: 1
+
 #two:
 #  name: MyString
 #  planet_id: 1

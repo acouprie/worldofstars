@@ -25,7 +25,15 @@ class BuildingsControllerTest < ActionDispatch::IntegrationTest
   test "should upgrade" do
     log_in_as(@user)
     post building_upgrade_path, params: {id: @farm.id, format: :js}
-    assert_equal "Batiment en cours de construction !", flash[:success]
+    assert_equal "Bâtiment en cours de construction !", flash[:success]
+  end
+
+  test "should not upgrade multiple" do
+    log_in_as(@user)
+    post building_upgrade_path, params: {id: @farm.id, format: :js}
+    assert_equal "Bâtiment en cours de construction !", flash[:success]
+    post building_upgrade_path, params: {id: @solar.id, format: :js}
+    assert_equal "Un bâtiment est déjà en cours d'amélioration.", flash[:warning]
   end
 
   test "should display error if building is nil upgrade" do
@@ -54,9 +62,9 @@ class BuildingsControllerTest < ActionDispatch::IntegrationTest
   test "should not upgrade already upgrading" do
     log_in_as(@user)
     post building_upgrade_path, params: {id: @farm.id, format: :js}
-    assert_equal "Batiment en cours de construction !", flash[:success]
+    assert_equal "Bâtiment en cours de construction !", flash[:success]
     post building_upgrade_path, params: {id: @farm.id, format: :js}
-    assert_equal "Ce batiment est déjà en cours d'amélioration", flash[:warning]
+    assert_equal "Ce bâtiment est déjà en cours d'amélioration", flash[:warning]
   end
 
   test "should not upgrade other player building" do
@@ -81,7 +89,7 @@ class BuildingsControllerTest < ActionDispatch::IntegrationTest
     log_in_as(@user)
     @solar.update(production: 22)
     post building_upgrade_path, params: {id: @farm.id, format: :js}
-    assert_equal "Batiment en cours de construction !", flash[:success]
+    assert_equal "Bâtiment en cours de construction !", flash[:success]
   end
 
   test "should not upgrade resources" do
@@ -95,20 +103,20 @@ class BuildingsControllerTest < ActionDispatch::IntegrationTest
     log_in_as(@user)
     @planet.update(total_food_stock: 50, total_metal_stock: 60)
     post building_upgrade_path, params: {id: @farm.id, format: :js}
-    assert_equal "Batiment en cours de construction !", flash[:success]
+    assert_equal "Bâtiment en cours de construction !", flash[:success]
   end
 
   test "should not cancel not upgrading" do
     log_in_as(@user)
     post building_cancel_path, params: {id: @headquarter.id, format: :js}
-    assert_equal "Le batiment n'est pas en amélioration", flash[:warning]
+    assert_equal "Le bâtiment n'est pas en amélioration", flash[:warning]
   end
 
   test "should cancel upgrading" do
     log_in_as(@user)
     post building_upgrade_path, params: {id: @farm.id, format: :js}
-    assert_equal "Batiment en cours de construction !", flash[:success]
+    assert_equal "Bâtiment en cours de construction !", flash[:success]
     post building_cancel_path, params: {id: @farm.id, format: :js}
-    assert_equal "L'amélioration du batiment est annulée", flash[:success]
+    assert_equal "L'amélioration du bâtiment est annulée", flash[:success]
   end
 end
