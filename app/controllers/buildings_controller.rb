@@ -36,9 +36,9 @@ class BuildingsController < ApplicationController
         flash_message = "Ce bâtiment est déjà en cours d'amélioration"
       elsif !@planet.buildings.select { |b| !b.upgrade_start.nil? }.empty?
         flash_message = "Un bâtiment est déjà en cours d'amélioration."
-      elsif !@planet.check_power_availability(@building.conso_power_next_level)
+      elsif !@planet.check_power_availability(@building.next_level.dig(:conso_power).to_i ||= 0)
         flash_message = "Energie insuffisante"
-      elsif !@planet.check_ressources_availability(@building.thorium_next_level, @building.metal_next_level, @building.food_next_level)
+      elsif !@planet.check_ressources_availability(@building.next_level.dig(:thorium_price).to_i, @building.next_level.dig(:metal_price).to_i, @building.next_level.dig(:food_price).to_i)
         flash_message = "Nous manquons de ressources"
       else
         position ||= params[:position].to_i
@@ -111,7 +111,7 @@ class BuildingsController < ApplicationController
 
   def compute_remaining_percent(b)
     return 0 if b.upgrade_start.nil?
-    percent = b.time_remaining * 100 / b.time_to_build
+    percent = b.time_remaining * 100 / b.next_level.dig(:time_to_build).to_i
     percent = percent + 100
     percent = 100 if percent > 100
     return percent.nil? ? 0 : percent.abs

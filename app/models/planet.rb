@@ -71,17 +71,17 @@ class Planet < ApplicationRecord
 
   # refund
   def add_resources_to_total(building)
-    food = self.total_food_stock + building.food_next_level
-    metal = self.total_metal_stock + building.metal_next_level
-    thorium = self.total_thorium_stock + building.thorium_next_level
+    food = self.total_food_stock + building.next_level.dig(:food_price).to_i
+    metal = self.total_metal_stock + building.next_level.dig(:metal_price).to_i
+    thorium = self.total_thorium_stock + building.next_level.dig(:thorium_price).to_i
     self.update(total_food_stock: food, food_time: Time.now, total_metal_stock: metal, metal_time: Time.now, total_thorium_stock: thorium, thorium_time: Time.now)
   end
 
   # pay
   def substract_resources_to_total(building)
-    food = self.total_food_stock - building.food_next_level
-    metal = self.total_metal_stock - building.metal_next_level
-    thorium = self.total_thorium_stock - building.thorium_next_level
+    food = self.total_food_stock - building.next_level.dig(:food_price).to_i
+    metal = self.total_metal_stock - building.next_level.dig(:metal_price).to_i
+    thorium = self.total_thorium_stock - building.next_level.dig(:thorium_price).to_i
     self.update(total_food_stock: food, food_time: Time.now, total_metal_stock: metal, metal_time: Time.now, total_thorium_stock: thorium, thorium_time: Time.now)
   end
 
@@ -98,35 +98,43 @@ class Planet < ApplicationRecord
   end
 
   def headquarter
-    self.buildings.headquarter
-  end
-
-  def food
-    self.buildings.farm
+    self.buildings.find_by(name: HEADQUARTER_NAME)
   end
 
   def solar
-    self.buildings.solar
+    self.buildings.find_by(name: SOLAR_NAME)
+  end
+
+  def food
+    self.buildings.find_by(name: FARM_NAME)
   end
 
   def metal
-    self.buildings.metal
+    self.buildings.find_by(name: METAL_NAME)
   end
 
   def thorium
-    self.buildings.thorium
+    self.buildings.find_by(name: THORIUM_NAME)
   end
 
   def stock_food
-    self.buildings.stock_food
+    self.buildings.find_by(name: STOCK_FOOD_NAME)
   end
 
   def stock_metal
-    self.buildings.stock_metal
+    self.buildings.find_by(name: STOCK_METAL_NAME)
   end
 
   def stock_thorium
-    self.buildings.stock_thorium
+    self.buildings.find_by(name: STOCK_THORIUM_NAME)
+  end
+
+  def training
+    self.buildings.find_by(name: STOCK_THORIUM_NAME)
+  end
+
+  def camp
+    self.buildings.find_by(name: CAMP_NAME)
   end
 
   private

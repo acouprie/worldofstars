@@ -22,7 +22,7 @@
 
 <p>
   <strong>Time to build:</strong>
-  <%= @building.time_to_build %>
+  <%= @building.next_level.dig(:time_to_build).to_i %>
 </p>
 
 <p>
