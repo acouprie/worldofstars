@@ -145,10 +145,13 @@ class Building < ApplicationRecord
 
   def hasDependencies
     flash_message = nil
+    # headquarter must be first
     if planet.headquarter.lvl == 0 && planet.headquarter != self
       flash_message = "Améliorez d'abord le Centre de commandemant !"
+    # solar must be second
     elsif planet.solar.lvl == 0 && planet.solar != self && planet.headquarter != self
       flash_message = "Améliorez d'abord la centrale solaire !"
+    # production site must be third
     elsif planet.headquarter != self &&
       planet.solar != self &&
       planet.food != self &&
@@ -156,6 +159,19 @@ class Building < ApplicationRecord
       planet.thorium != self &&
       (planet.food.lvl == 0 || planet.metal.lvl == 0 || planet.thorium.lvl == 0)
       flash_message = "Améliorez d'abord les sites de production !"
+    # stock and CELAE needs headquarter lvl 2
+    elsif (planet.stock_food == self || planet.stock_metal == self || planet.stock_thorium == self) &&
+      planet.headquarter.lvl < 2
+      flash_message = "Améliorez d'abord le Centre de commandemant !"
+    # laboratory and taining camp needs headquarter lvl 4
+    elsif planet.training_camp == self && planet.headquarter < 4
+      flash_message = "Améliorez d'abord le Centre de commandemant !"
+    # wormhole needs headquarter lvl 5, laboratory lvl 3, CELAE 1
+    # Camp militaire => Prérequis :  centre de commandement  lvl 5; camp d'entrainement  lvl 2 ; laboratoire  lvl 2
+    # Fusion Nucléaire => Prérequis : Centre de commandement lvl 5 ; Centrale électrique lvl 10 ;  Laboratoire  lvl  5 ; Maitrise de l'énergie lvl 7
+    # Tunnel Tok'ra => prérequis  : centre de  commandement  lvl 7 ; laboratoir lvl 7 ; technologie cristaux lvl 10
+    # Usine spatial => Prérequis  : centre de commandement  lvl 5,  laboratoire  lvl 8
+    # Satellite Radar => Prérequis : centre de commandement  lvl 8 ;  laboratoire lvl 8 ; usine spatial  lvl 5 ; exploration lvl 7
     end
     return flash_message.nil? ? false : flash_message
   end
