@@ -1,5 +1,5 @@
-module TimeToBuild
-  @queue = :time2build
+module BuildingUpgrade
+  @queue = :buildingUpgrade
 
   def self.perform(id)
     building = Building.find(id)

@@ -1,5 +1,5 @@
 <h3>Unités</h3>
-<% @planet.units.each do |unit| %>
+<% @planet.units.order(:id).each do |unit| %>
   <%= image_tag("units/".concat(unit.image_name).concat(".png"), alt: unit.name, :id => "img_" + unit.image_name, :class => "unit_image") %>
   <%= unit.name %>
   <div id="unit_description_<%= unit.id %>" class="row">
@@ -19,5 +19,14 @@
       Temps de construction : <%= unit.time_to_build %> secondes
       </li>
     </ul>
+  </div>
+  <div class="row">
+    <div id="create_<%= unit.id %>" class="col-md-9">
+      <%= button_to "Créer #{unit.name}",
+        unit_train_path(id: unit.id),
+        method: :post,
+        remote: true
+      %>
+    </div>
   </div>
 <% end %>

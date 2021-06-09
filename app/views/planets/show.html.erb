@@ -46,7 +46,7 @@
 		</aside>
 		<aside class="units_view">
 			<h3>Unités</h3>
-			<% @planet.units.each do |unit| %>
+			<% @planet.units.order(:id).each do |unit| %>
 				<%= image_tag("units/".concat(unit.image_name).concat(".png"), alt: unit.name, :id => "img_" + unit.image_name, :class => "unit_image") %>
 				<%= unit.number %>
 			<% end %>

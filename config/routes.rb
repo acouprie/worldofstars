@@ -20,6 +20,8 @@ Rails.application.routes.draw do
   post 'building/cancel', to: 'buildings#cancel_upgrade_building'
   get 'building/percent', to: 'buildings#percent_bar'
 
+  post 'unit/train', to: 'units#train'
+
   # URL contact information
   get '/contact', to: 'static_pages#contact'
 

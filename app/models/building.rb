@@ -46,8 +46,8 @@ class Building < ApplicationRecord
   end
 
   def cancel_upgrading
-    puts "--- Building " + self.id.to_s + " removed from queue time2build ---"
-    Resque.remove_delayed(TimeToBuild, self.id)
+    puts "--- Building " + self.id.to_s + " removed from queue buildingUpgrade ---"
+    Resque.remove_delayed(BuildingUpgrade, self.id)
     self.update(upgrade_start: nil, conso_power: self.conso_power - next_level.dig(:conso_power).to_i ||= 0)
     planet.add_resources_to_total(self)
     self.set_position(nil) if self.lvl == 0
@@ -55,8 +55,8 @@ class Building < ApplicationRecord
 
   def upgrading
     # TODO: enclose with try catch
-    puts "--- Building " + self.id.to_s + " in queue time2build ---"
-    Resque.enqueue_in_with_queue('time2build', next_level.dig(:time_to_build).to_i, TimeToBuild, self.id)
+    puts "--- Building " + self.id.to_s + " in queue buildingUpgrade ---"
+    Resque.enqueue_in_with_queue('buildingUpgrade', next_level.dig(:time_to_build).to_i, BuildingUpgrade, self.id)
     self.update(upgrade_start: Time.now, conso_power: next_level.dig(:conso_power).to_i ||= 0)
     planet.substract_resources_to_total(self)
   end

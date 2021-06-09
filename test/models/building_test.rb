@@ -14,7 +14,7 @@ class BuildingTest < ActiveSupport::TestCase
   teardown do
     # when controller is using cache it may be a good idea to reset it afterwards
     Rails.cache.clear
-    Resque.remove_delayed(TimeToBuild, 1)
+    Resque.remove_delayed(BuildingUpgrade, 1)
   end
 
   test "should upgrade" do

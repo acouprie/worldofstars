@@ -2,6 +2,12 @@ queue_buildings_for_upgrade:
   cron: "0 0 * * *"
   # you can use rufus-scheduler "every" syntax in place of cron if you prefer
   # every: 1h
-  queue: time2build
+  queue: buildingUpgrade
   args:
   description: "This job queues all buildings for upgrade"
+
+queue_units_for_train:
+  cron: "0 0 * * *"
+  queue: unitTrain
+  args:
+  description: "This job queues all unit for training"
