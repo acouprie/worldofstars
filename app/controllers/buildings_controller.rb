@@ -7,10 +7,20 @@ class BuildingsController < ApplicationController
     if request.get?
       position = params[:position]
       return planet_url(@planet.id) if position.nil?
-      @buildings = Building.where(["planet_id = ? and position = ?", @planet.id, position]).to_a
-      @buildings = Building.where(["planet_id = ? and lvl = ? and position is ?", @planet.id, 0, nil]).order(:id).to_a.dup if @buildings.empty?
-      @buildings.each do |building|
-        @buildings -= [building] if building.hasDependencies
+      @buildings = Building.where(["planet_id = ? and position = ?", @planet.id, position]).first
+      unless @buildings
+        @buildings = Building.where(["planet_id = ? and lvl = ? and position is ?", @planet.id, 0, nil]).order(:id).to_a.dup
+        @buildings.each do |building|
+          @buildings -= [building] if building.hasDependencies
+        end
+      else
+        @buildings.food_price = @buildings.next_level.dig(:food_price).to_i
+        @buildings.metal_price = @buildings.next_level.dig(:metal_price).to_i
+        @buildings.thorium_price = @buildings.next_level.dig(:thorium_price).to_i
+        @buildings.time_to_build = @buildings.next_level.dig(:time_to_build).to_i
+        @buildings.production = @buildings.next_level.dig(:production).to_i ||= 0
+        @buildings.conso_power = @buildings.next_level.dig(:conso_power).to_i ||= 0
+        @buildings = [@buildings]
       end
       respond_to do |format|
         format.html

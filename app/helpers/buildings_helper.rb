@@ -91,18 +91,18 @@ module BuildingsHelper
   HEADQUARTER_NAME = 'Centre de commandement'.freeze
   HEADQUARTER = [
     { lvl: 1, metal_price: 600, food_price: 150, thorium_price: 300, time_to_build: 15 },
-    { lvl: 2, metal_price: 1260, food_price: 315, thorium_price: 630, time_to_build: 15 },
-    { lvl: 3, metal_price: 2646, food_price: 661, thorium_price: 1323, time_to_build: 15 },
-    { lvl: 4, metal_price: 5556, food_price: 1389, thorium_price: 2778, time_to_build: 15 },
-    { lvl: 5, metal_price: 11668, food_price: 2917, thorium_price: 5834, time_to_build: 15 },
-    { lvl: 6, metal_price: 24504, food_price: 6126, thorium_price: 12252, time_to_build: 15 },
-    { lvl: 7, metal_price: 51549, food_price: 12864, thorium_price: 25729, time_to_build: 15 },
-    { lvl: 8, metal_price: 108865, food_price: 27016, thorium_price: 54032, time_to_build: 15 },
-    { lvl: 9, metal_price: 226937, food_price: 56734, thorium_price: 113468, time_to_build: 15 },
-    { lvl: 10, metal_price: 476568, food_price: 119142, thorium_price: 238284, time_to_build: 15 },
-    { lvl: 11, metal_price: 1000792, food_price: 250168, thorium_price: 500396, time_to_build: 15 },
-    { lvl: 12, metal_price: 2101665, food_price: 525416, thorium_price: 1050832, time_to_build: 15 },
-    { lvl: 13, metal_price: 4413496, food_price: 1103374, thorium_price: 2206748, time_to_build: 15 }
+    { lvl: 2, metal_price: 1260, food_price: 315, thorium_price: 630, time_to_build: 428 },
+    { lvl: 3, metal_price: 2646, food_price: 661, thorium_price: 1323, time_to_build: 812 },
+    { lvl: 4, metal_price: 5556, food_price: 1389, thorium_price: 2778, time_to_build: 1543 },
+    { lvl: 5, metal_price: 11668, food_price: 2917, thorium_price: 5834, time_to_build: 2932 },
+    { lvl: 6, metal_price: 24504, food_price: 6126, thorium_price: 12252, time_to_build: 5571 },
+    { lvl: 7, metal_price: 51549, food_price: 12864, thorium_price: 25729, time_to_build: 10585 },
+    { lvl: 8, metal_price: 108865, food_price: 27016, thorium_price: 54032, time_to_build: 20112 },
+    { lvl: 9, metal_price: 226937, food_price: 56734, thorium_price: 113468, time_to_build: 38213 },
+    { lvl: 10, metal_price: 476568, food_price: 119142, thorium_price: 238284, time_to_build: 72605 },
+    { lvl: 11, metal_price: 1000792, food_price: 250168, thorium_price: 500396, time_to_build: 137948 },
+    { lvl: 12, metal_price: 2101665, food_price: 525416, thorium_price: 1050832, time_to_build: 262103 },
+    { lvl: 13, metal_price: 4413496, food_price: 1103374, thorium_price: 2206748, time_to_build: 434276 }
   ].freeze
 
   TRAINING_NAME = "Camp d'entrainement".freeze

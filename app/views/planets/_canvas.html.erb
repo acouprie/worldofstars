@@ -30,8 +30,22 @@
     });
   }, false);
 
-  image.onload = function() {
+  function drawPlanet(paths) {
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    // draw background
     context.drawImage(image,10,10);
+    // Render elements.
+    elements.forEach(function(element) {
+      // Create circle
+      const circle = new Path2D();
+      circle.arc(element.center_x, element.center_y, 5, 0, 2 * Math.PI);
+      context.fillStyle = element.color;
+      context.fill(circle);
+      paths.push(circle);
+    });
+  }
+
+  image.onload = function() {
 
     <% i = 0 %>
     <% @planet.buildings.each do |building| %>
@@ -51,6 +65,8 @@
     var paths = [];
     var mouse = {x:0, y:0, overPath: null}; 
 
+    // draw background
+    context.drawImage(image,10,10);
     // Render elements.
     elements.forEach(function(element) {
       // Create circle
@@ -65,8 +81,61 @@
       mouse.x = e.offsetX;
       mouse.y = e.offsetY;
       checkMouseOver(paths);
-      canvas.style.cursor = mouse.overPath ? "pointer" : "default"; 
+      canvas.style.cursor = mouse.overPath ? "pointer" : "default";
+      if(mouse.overPath) {
+        display_tooltip(e)
+      } else {
+        drawPlanet(paths);
+      }
     });
+
+    function display_tooltip(event) {
+      var rect = event.target.getBoundingClientRect();
+      var x = event.clientX - rect.left;
+      var y = event.clientY - rect.top;
+      elements.forEach(function(element) {
+        if (y < element.center_y + 5 && y > element.center_y - 5
+          && x < element.center_x + 5 && x > element.center_x - 5
+          && element.color == "green") {
+            fetch('<%= building_upgrade_path %>' + "?position=" + element.id, {
+              headers : {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+              }
+            }).then(
+              function(response) {
+                if (response.status !== 200) {
+                  console.log('Looks like there was a problem. Status Code: ' +
+                    response.status);
+                  return;
+                }
+
+                // Examine the text in the response
+                response.json().then(function(data) {
+
+                  context.fillStyle = "grey";
+                  context.rect(element.center_x-50, element.center_y-125, 150, 115);
+                  context.fill();
+
+                  context.fillStyle = "black";
+                  context.font = '10px';
+                  context.fillText(data["buildings"][0]["name"], element.center_x-45, element.center_y-105);
+                  context.fillText("Nourriture : " + data["buildings"][0]["food_price"], element.center_x-45, element.center_y-90);
+                  context.fillText("Metal : " + data["buildings"][0]["metal_price"], element.center_x-45, element.center_y-75);
+                  context.fillText("Thorium : " + data["buildings"][0]["food_price"], element.center_x-45, element.center_y-60);
+                  context.fillText("Prod. : " + data["buildings"][0]["production"], element.center_x-45, element.center_y-45);
+                  context.fillText("Conso. : " + data["buildings"][0]["conso_power"], element.center_x-45, element.center_y-30);
+                  context.fillText("Temps de construction : " + data["buildings"][0]["time_to_build"], element.center_x-45, element.center_y-15);
+
+                  console.log(data);
+                });
+              }
+            ).catch(function(err) {
+              console.log('Fetch Error :-S', err);
+            });
+        }
+      });
+    }
 
     function checkMouseOver(paths) {
       var over;
