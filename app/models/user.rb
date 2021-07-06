@@ -23,13 +23,6 @@ class User < ApplicationRecord
 
   def update_last_connection
     update_columns(last_connection: Time.zone.now)
-    update_columns(actif: true)
-  end
-
-  def actif?
-    return true unless last_connection < 2.weeks.ago
-    update_columns(actif: false)
-    false
   end
 
 	# Returns the hash digest of the given string.

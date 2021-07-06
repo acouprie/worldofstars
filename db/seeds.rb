@@ -13,7 +13,6 @@ User.create!(name:  "Ether",
              admin: false,
              activated: true,
              activated_at: Time.zone.now,
-             actif: true,
              last_connection: Time.zone.now)
 
 
@@ -24,7 +23,6 @@ User.create!(name:  "testeur",
              admin: false,
              activated: true,
              activated_at: Time.zone.now,
-             actif: true,
              last_connection: Time.zone.now)
 
 15.times do |n|
@@ -37,6 +35,5 @@ User.create!(name:  "testeur",
 			password_confirmation: password,
 			activated: true,
 			activated_at: Time.zone.now,
-			actif: true,
       last_connection: Time.zone.now)
 end

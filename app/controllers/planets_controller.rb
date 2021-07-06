@@ -1,6 +1,8 @@
 class PlanetsController < ApplicationController
   before_action :is_owner?, only: [:show, :edit, :update]
   before_action :buildings
+  after_action :update_activity
+
   # GET /planets/:name
   # GET /planets/:name.json
   def show
@@ -71,5 +73,9 @@ class PlanetsController < ApplicationController
   def buildings
     @buildings_finished = Building.where(["planet_id = ? and lvl != ?", @planet.id, 0]).order(:id)
     @buildings = Building.where(["planet_id = ? and upgrade_start is not ?", @planet.id, nil]).order(:id)
+  end
+
+  def update_activity
+    @user.update_last_connection
   end
 end

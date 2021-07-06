@@ -17,7 +17,6 @@ Frodo:
   admin: true
   activated: true
   activated_at: <%= Time.zone.now %>
-  actif: true
   last_connection: <%= Time.zone.now %>
 
 # NON ADMIN
@@ -28,7 +27,6 @@ ObiWan:
   password_digest: <%= User.digest('password') %>
   activated: true
   activated_at: <%= Time.zone.now %>
-  actif: true
   last_connection: <%= Time.zone.now %>
 
 # NON ACTIVATED
@@ -39,7 +37,6 @@ JohnSnow:
   password_digest: <%= User.digest('password') %>
   activated: false
   activated_at: <%= Time.zone.now %>
-  actif: true
   last_connection: <%= Time.zone.now %>
 
 # NON ACTIF
@@ -50,5 +47,4 @@ LukeSkywalker:
   password_digest: <%= User.digest('password') %>
   activated: true
   activated_at: <%= Time.zone.now %>
-  actif: false
   last_connection: <%= 3.weeks.ago %>

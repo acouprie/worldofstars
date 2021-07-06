@@ -3,20 +3,18 @@
 	<section class="row">
 		<aside id="statistics" class="col-md-4">
 			<div class="test">
-						<h4>Statistiques</h4>
-			<ul>
-				<li><%= User.count %> joueurs inscrits</li>
-				<li><%= Planet.count %> planètes</li>
-				<li><%=  %> joueurs actifs</li>
-				<li>Joueurs connectés</li>
-				<li>record de joueurs connectés</li>
-			</ul>
+				<h4>Statistiques</h4>
+				<ul>
+					<li><%= User.count %> joueurs inscrits</li>
+					<li><%= Planet.count %> planètes</li>
+					<li><%= User.where((["last_connection > ?", 2.weeks.ago])).count %> joueurs actifs</li>
+					<li><%= User.where((["last_connection > ?", 15.minutes.ago])).count %> joueurs connectés</li>
+					<li><%= Redis.current.get("user_record") %> record de joueurs connectés</li>
+				</ul>
 			</div>
-
 		</aside>
 
 		<div class="col-md-1"></div>
-
 		<% if logged_in? %>
 			<% # Don't dislay the login form %>
 		<% else %>

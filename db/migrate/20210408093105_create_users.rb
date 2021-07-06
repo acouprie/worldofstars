@@ -11,7 +11,6 @@ class CreateUsers < ActiveRecord::Migration[6.1]
       t.datetime :activated_at
       t.datetime :reset_sent_at
       t.string :reset_digest
-      t.boolean :actif
       t.datetime :last_connection
 
       t.timestamps
