@@ -33,7 +33,7 @@
   function drawPlanet(paths) {
     context.clearRect(0, 0, canvas.width, canvas.height);
     // draw background
-    context.drawImage(image,10,10);
+    context.drawImage(image,0,0);
     // Render elements.
     elements.forEach(function(element) {
       // Create circle
@@ -65,17 +65,7 @@
     var paths = [];
     var mouse = {x:0, y:0, overPath: null}; 
 
-    // draw background
-    context.drawImage(image,10,10);
-    // Render elements.
-    elements.forEach(function(element) {
-      // Create circle
-      const circle = new Path2D();
-      circle.arc(element.center_x, element.center_y, 5, 0, 2 * Math.PI);
-      context.fillStyle = element.color;
-      context.fill(circle);
-      paths.push(circle);
-    });
+    drawPlanet(paths);
 
     canvas.addEventListener("mousemove", (e) => {
       mouse.x = e.offsetX;
@@ -112,14 +102,14 @@
 
                 // Examine the text in the response
                 response.json().then(function(data) {
+                  drawPlanet(paths);
 
                   context.fillStyle = "grey";
-                  context.rect(element.center_x-50, element.center_y-125, 150, 115);
-                  context.fill();
+                  context.fillRect(element.center_x-50, element.center_y-125, 150, 115);
 
                   context.fillStyle = "black";
                   context.font = '10px';
-                  context.fillText(data["buildings"][0]["name"], element.center_x-45, element.center_y-105);
+                  context.fillText(data["buildings"][0]["name"] + " lvl " + data["buildings"][0]["lvl"], element.center_x-45, element.center_y-105);
                   context.fillText("Nourriture : " + data["buildings"][0]["food_price"], element.center_x-45, element.center_y-90);
                   context.fillText("Metal : " + data["buildings"][0]["metal_price"], element.center_x-45, element.center_y-75);
                   context.fillText("Thorium : " + data["buildings"][0]["food_price"], element.center_x-45, element.center_y-60);
