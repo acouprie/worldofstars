@@ -1,26 +1,22 @@
 class BuildingsController < ApplicationController
-  before_action :logged_in_user, :set_building, :set_planet
+  before_action :logged_in_user, :set_planet, :set_building
 
   # POST /building/upgrade, params[:id]
   # GET /building/upgrade?planet_id=1&position=1
   def upgrade
+    # GET
     if request.get?
       position = params[:position]
       return planet_url(@planet.id) if position.nil?
-      @buildings = Building.where(["planet_id = ? and position = ?", @planet.id, position]).first
-      unless @buildings
-        @buildings = Building.where(["planet_id = ? and lvl = ? and position is ?", @planet.id, 0, nil]).order(:id).to_a.dup
-        @buildings.each do |building|
-          @buildings -= [building] if building.hasDependencies
-        end
-      else
-        @buildings.food_price = @buildings.next_level.dig(:food_price).to_i
-        @buildings.metal_price = @buildings.next_level.dig(:metal_price).to_i
-        @buildings.thorium_price = @buildings.next_level.dig(:thorium_price).to_i
-        @buildings.time_to_build = @buildings.next_level.dig(:time_to_build).to_i
-        @buildings.production = @buildings.next_level.dig(:production).to_i ||= 0
-        @buildings.conso_power = @buildings.next_level.dig(:conso_power).to_i ||= 0
-        @buildings = [@buildings]
+      @building = Building.where(["planet_id = ? and position = ?", @planet.id, position]).first
+      unless @building.nil?
+        @building.food_price = @building.next_level.dig(:food_price).to_i
+        @building.metal_price = @building.next_level.dig(:metal_price).to_i
+        @building.thorium_price = @building.next_level.dig(:thorium_price).to_i
+        @building.time_to_build = @building.next_level.dig(:time_to_build).to_i
+        @building.production = @building.next_level.dig(:production).to_i ||= 0
+        @building.conso_power = @building.next_level.dig(:conso_power).to_i ||= 0
+        @buildings = [@building]
       end
       respond_to do |format|
         format.html
@@ -31,6 +27,8 @@ class BuildingsController < ApplicationController
         }
       end
     end
+
+    # POST
     if request.post?
       flash_message = ""
       status = "warning"
@@ -138,6 +136,10 @@ class BuildingsController < ApplicationController
 
   def set_building
     @building = Building.find_by(id: params[:id]) unless params[:id].nil?
+    @buildings = Building.where(["planet_id = ? and lvl = ? and position is ?", @planet.id, 0, nil]).order(:id).to_a.dup
+    @buildings.each do |building|
+      @buildings -= [building] if building.hasDependencies
+    end
   end
 
   def set_planet

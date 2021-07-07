@@ -60,23 +60,23 @@
 </div>
 
 <script type="text/javascript">
-    // update progress at start
-    <% unless building.upgrade_start.nil? %>
-      refreshProgress_<%= building.id %>();
-      schedule_<%= building.id %>();
-    <% else %>
-      clearInterval(interval_<%= building.id %>);
-    <% end %>
-    var interval_<%= building.id %>;
-    // call refreshProgress every 3 seconds
-    function schedule_<%= building.id %>() {
-        interval_<%= building.id %> = setInterval(refreshProgress_<%= building.id %>, 3000);
-    }
-    // get the percentage
-    function refreshProgress_<%= building.id %>() {
-        $.ajax({
-            url: "<%= building_percent_path(id: building.id) %>"
-        })
-    }
+  // update progress at start
+  <% unless building.upgrade_start.nil? %>
+    refreshProgress_<%= building.id %>();
+    schedule_<%= building.id %>();
+  <% else %>
+    clearInterval(interval_<%= building.id %>);
+  <% end %>
+  var interval_<%= building.id %>;
+  // call refreshProgress every 3 seconds
+  function schedule_<%= building.id %>() {
+      interval_<%= building.id %> = setInterval(refreshProgress_<%= building.id %>, 3000);
+  }
+  // get the percentage
+  function refreshProgress_<%= building.id %>() {
+      $.ajax({
+          url: "<%= building_percent_path(id: building.id) %>"
+      })
+  }
 </script>
 <% end %>
