@@ -78,10 +78,16 @@ class Planet < ApplicationRecord
   end
 
   # pay
-  def substract_resources_to_total(building)
-    food = self.total_food_stock - building.next_level.dig(:food_price).to_i
-    metal = self.total_metal_stock - building.next_level.dig(:metal_price).to_i
-    thorium = self.total_thorium_stock - building.next_level.dig(:thorium_price).to_i
+  def substract_resources_to_total(obj)
+    if obj.class == Building
+      food = self.total_food_stock - obj.next_level.dig(:food_price).to_i
+      metal = self.total_metal_stock - obj.next_level.dig(:metal_price).to_i
+      thorium = self.total_thorium_stock - obj.next_level.dig(:thorium_price).to_i
+    else
+      food = self.total_food_stock - obj.food_price.to_i
+      metal = self.total_metal_stock - obj.metal_price.to_i
+      thorium = self.total_thorium_stock - obj.thorium_price.to_i
+    end
     self.update(total_food_stock: food, food_time: Time.now, total_metal_stock: metal, metal_time: Time.now, total_thorium_stock: thorium, thorium_time: Time.now)
   end
 
@@ -129,8 +135,8 @@ class Planet < ApplicationRecord
     self.buildings.find_by(name: STOCK_THORIUM_NAME)
   end
 
-  def training
-    self.buildings.find_by(name: STOCK_THORIUM_NAME)
+  def train_camp
+    self.buildings.find_by(name: TRAIN_CAMP_NAME)
   end
 
   def camp
@@ -148,7 +154,7 @@ class Planet < ApplicationRecord
     self.buildings.create(name: STOCK_FOOD_NAME)
     self.buildings.create(name: STOCK_METAL_NAME)
     self.buildings.create(name: STOCK_THORIUM_NAME)
-    self.buildings.create(name: TRAINING_NAME)
+    self.buildings.create(name: TRAIN_CAMP_NAME)
     self.buildings.create(name: CAMP_NAME)
   end
 

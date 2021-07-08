@@ -105,8 +105,8 @@ module BuildingsHelper
     { lvl: 13, metal_price: 4413496, food_price: 1103374, thorium_price: 2206748, time_to_build: 434276 }
   ].freeze
 
-  TRAINING_NAME = "Camp d'entrainement".freeze
-  TRAINING = [
+  TRAIN_CAMP_NAME = "Camp d'entrainement".freeze
+  TRAIN_CAMP = [
       { lvl: 1, metal_price: 250, food_price: 250, thorium_price: 100, time_to_build: 45 },
       { lvl: 2, metal_price: 500, food_price: 500, thorium_price: 128, time_to_build: 86 },
       { lvl: 3, metal_price: 1000, food_price: 1000, thorium_price: 400, time_to_build: 162 },

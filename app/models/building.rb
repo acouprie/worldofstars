@@ -25,8 +25,8 @@ class Building < ApplicationRecord
         STOCK_THORIUM
       when STOCK_METAL_NAME
         STOCK_METAL
-      when TRAINING_NAME
-        TRAINING
+      when TRAIN_CAMP_NAME
+        TRAIN_CAMP
       when CAMP_NAME
         CAMP
     end
@@ -108,7 +108,7 @@ class Building < ApplicationRecord
       planet.headquarter.lvl < 2
       flash_message = "Améliorez d'abord le Centre de commandemant !"
     # laboratory and taining camp needs headquarter lvl 4
-    elsif planet.training == self && planet.headquarter < 4
+    elsif planet.train_camp == self && planet.headquarter < 4
       flash_message = "Améliorez d'abord le Centre de commandemant !"
     # wormhole needs headquarter lvl 5, laboratory lvl 3, CELAE 1
     # Camp militaire => Prérequis :  centre de commandement  lvl 5; camp d'entrainement  lvl 2 ; laboratoire  lvl 2

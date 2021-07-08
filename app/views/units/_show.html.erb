@@ -1,5 +1,9 @@
 <h3>Unités</h3>
 <% @planet.units.order(:id).each do |unit| %>
+  <% if unit.isTrainable %>
+  <div id="flash_<%= unit.name %>" class="flash_messages">
+    <%= render partial: "shared/flash_messages" %>
+  </div>
   <%= image_tag("units/".concat(unit.image_name).concat(".png"), alt: unit.name, :id => "img_" + unit.image_name, :class => "unit_image") %>
   <%= unit.name %>
   <div id="unit_description_<%= unit.id %>" class="row">
@@ -29,4 +33,5 @@
       %>
     </div>
   </div>
+  <% end %>
 <% end %>
