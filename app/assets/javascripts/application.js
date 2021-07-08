@@ -25,25 +25,5 @@ var update_resources = function() {
   });
 }
 
-// display upgrade btn
-// hide progress bar and cancel btn
-function display_upgrade_btn(id) {
-  var upgrade_btn = "upgrade_btn_" + id;
-  var cancel_div = "cancel_" + id;
-  document.getElementById(upgrade_btn).style.display = "inline";
-  document.getElementById(cancel_div).style.display = "none";
-}
-
-// display cancel btn and progress bar
-// hide upgrade btn
-function display_cancel_btn(id, isUpgrading) {
-  if(isUpgrading) {
-    var upgrade_btn = "upgrade_btn_" + id;
-    var cancel_div = "cancel_" + id;
-    document.getElementById(upgrade_btn).style.display = "none";
-    document.getElementById(cancel_div).style.display = "block";
-  }
-}
-
 $(document).ready(toggle, update_resources);
 $(document).on('turbolinks:load', update_resources);

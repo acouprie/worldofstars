@@ -1,0 +1,50 @@
+<% @buildings.each do |building| %>
+<div id="building_<%= building.id %>">
+  <div class="building_name">
+    <%= building.name %> niveau <%= building.lvl %><br />
+  </div>
+
+  <div id="upgrading_infos" class="row">
+    <div id="cancel_<%= building.id %>">
+      <div id="cancel_btn_<%= building.id %>" class="col-md-6 cancel_btn"">
+      <%= button_to "Annuler #{building.name}",
+        building_cancel_path(id: building.id),
+        method: :post,
+        class: :cancel_building_button,
+        remote: true
+      %>
+      </div>
+      <div class="col-md-6">
+        <span id="building_finish_at_<%= building.id %>">
+          Termine le <%= building.finish_at %>
+        </span>
+        <div id="progress_bar_<%= building.id %>" class="col-md-6">
+          <progress id="build_progress_<%= building.id %>" max="100" value="0"> 0% </progress>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script type="text/javascript">
+  // update progress at start
+  <% unless building.upgrade_start.nil? %>
+    refreshProgress_<%= building.id %>();
+    schedule_<%= building.id %>();
+  <% else %>
+    clearInterval(interval_<%= building.id %>);
+  <% end %>
+  var interval_<%= building.id %>;
+  // call refreshProgress every 3 seconds
+  function schedule_<%= building.id %>() {
+      interval_<%= building.id %> = setInterval(refreshProgress_<%= building.id %>, 3000);
+  }
+  // get the percentage
+  function refreshProgress_<%= building.id %>() {
+      $.ajax({
+          url: "<%= building_percent_path(id: building.id) %>"
+      })
+  }
+</script>
+<% end %>
