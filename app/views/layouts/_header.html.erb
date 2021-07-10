@@ -8,7 +8,7 @@
 		<nav class="navbar-collapse">
 			<ul class="nav navbar-nav navbar-right">
 				<li><%= link_to "Accueil", root_path %></li>
-				<li><%= link_to "Forum", '#' %></li>
+				<li><%= link_to "Forum", 'https://worldofstars.forumactif.com/' %></li>
 				
 				<% if logged_in? %>
 					<li><%= link_to "Ma planète", current_user.planets.first %></li>
