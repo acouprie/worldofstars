@@ -107,8 +107,8 @@ class Building < ApplicationRecord
     elsif (planet.stock_food == self || planet.stock_metal == self || planet.stock_thorium == self) &&
       planet.headquarter.lvl < 2
       flash_message = "Améliorez d'abord le Centre de commandemant !"
-    # laboratory and taining camp needs headquarter lvl 4
-    elsif planet.train_camp == self && planet.headquarter < 4
+    # laboratory and training camp needs headquarter lvl 4
+    elsif planet.train_camp == self && planet.headquarter.lvl < 4
       flash_message = "Améliorez d'abord le Centre de commandemant !"
     # wormhole needs headquarter lvl 5, laboratory lvl 3, CELAE 1
     # Camp militaire => Prérequis :  centre de commandement  lvl 5; camp d'entrainement  lvl 2 ; laboratoire  lvl 2

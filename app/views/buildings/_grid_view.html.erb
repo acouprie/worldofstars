@@ -1,4 +1,16 @@
 <h3>Mes bâtiments</h3>
 <% @buildings_finished.each do |building| %>
-<%= link_to image_tag("buildings/".concat(building.image_name).concat(".jpg"), alt: building.name, :class => "building_image_mini"), building_upgrade_path(position: building.position) %>
+
+<div class="tooltips">
+    <%= link_to image_tag("buildings/".concat(building.image_name).concat(".jpg"), alt: building.name, :class => "building_image_mini"), building_upgrade_path(position: building.position) %>
+    <div class="tooltiptext">
+        <span><%= building.name + ' niveau ' + building.lvl.to_s %></span><br />
+        <span>Nourriture : <%= building.next_level.dig(:food_price).to_s %></span><br />
+        <span>Metal : <%= building.next_level.dig(:metal_price).to_s %></span><br />
+        <span>Thorium : <%= building.next_level.dig(:thorium_price).to_s %></span><br />
+        <span>Prod. : <%= (building.next_level.dig(:production) || 0).to_s %></span><br />
+        <span>Conso. : <%= (building.next_level.dig(:conso_power) || 0) .to_s %></span><br />
+        <span>Temps : <%= building.next_level.dig(:time_to_build).to_s %></span>
+    </div>
+</div>
 <% end %>
