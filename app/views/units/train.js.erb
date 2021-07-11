@@ -1,0 +1,5 @@
+$('#resources').html("<%= j (render partial: 'planets/resources', :locals => {:planet => @planet}) %>")
+$('#aside_resources').html("<%= j (render partial: 'planets/production', :locals => {:planet => @planet}) %>")
+<% unless @unit.nil? %>
+$("#flash_<%= @unit.id %>").html('<%= j render partial: "shared/flash_messages" %>');
+<% end %>

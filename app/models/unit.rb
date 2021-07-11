@@ -20,11 +20,13 @@ class Unit < ApplicationRecord
     true
   end
 
-  def training
+  def training(nb_unit)
     # TODO: enclose with try catch
-    puts "--- Unit " + self.id.to_s + " " + self.name + " in queue unit for " + self.time_to_build.to_s + "s ---"
-    Resque.enqueue_in_with_queue('unitTrain', self.time_to_build, UnitTrain, self.id)
-    # self.update(upgrade_start: Time.now, conso_power: next_level.dig(:conso_power).to_i ||= 0)
+    nb_unit.times { |i|
+      unit_t2b = self.time_to_build * i + 1
+      puts "--- Unit " + self.id.to_s + " " + self.name + " in queue unit for " + unit_t2b.to_s + "s ---"
+      Resque.enqueue_in_with_queue('unitTrain', unit_t2b, UnitTrain, self.id)
+    }
     planet.substract_resources_to_total(self)
   end
 

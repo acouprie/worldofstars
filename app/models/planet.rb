@@ -29,7 +29,13 @@ class Planet < ApplicationRecord
     total_stock = self.send "total_#{name}_stock"
     gap = (Time.now.to_datetime - (time)&.to_datetime) * 1.days
     total = production.to_f / HOUR * gap.to_f + total_stock
-    total = STOCK_MINI if total > STOCK_MINI
+    total = max_stock(name) if total > max_stock(name)
+    tot_stock = "total_" + name + "_stock"
+    time = name + "_time"
+    self.update(
+      tot_stock => total.to_i,
+      time => Time.now,
+    )
     total.to_i
   end
 
@@ -56,17 +62,6 @@ class Planet < ApplicationRecord
   def power_stock
     return 0 if solar.nil?
     solar.production - power_conso
-  end
-
-  def update_stocks
-    self.update(
-      total_food_stock: define_current_stock('food'),
-      food_time: Time.now,
-      total_metal_stock: define_current_stock('metal'),
-      metal_time: Time.now,
-      total_thorium_stock: define_current_stock('thorium'),
-      thorium_time: Time.now
-      )
   end
 
   # refund

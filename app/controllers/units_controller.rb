@@ -3,24 +3,27 @@ class UnitsController < ApplicationController
 
   def train
     if request.post? && @unit
+      # check if unit is owned (403)
+      return head(:forbidden) unless @planet.units.map(&:id).include? params[:id].to_i
       flash_message = ""
       status = "warning"
-      # check if unit is owned (403)
-      return unless @planet.buildings.map(&:id).include? params[:id]
+
+      param_nb_unit = "nb_unit_" + @unit.id.to_s
+      nb_unit = check_nb_unit(params[param_nb_unit.to_sym].to_i)
       # check if queue is full
       # check if possible to build
       if !@unit.isTrainable
-        flash_message = "Construisez/améliorez d'abord le centre d'entrainement !"
+        flash_message = "Améliorez d'abord le centre d'entrainement !"
       # check if resources
       elsif !@planet.check_ressources_availability(
-        @unit.thorium_price.to_i,
-        @unit.metal_price.to_i,
-        @unit.food_price.to_i
+        @unit.thorium_price.to_i * nb_unit,
+        @unit.metal_price.to_i * nb_unit,
+        @unit.food_price.to_i * nb_unit
       )
         flash_message = "Nous manquons de ressources"
       else
-        @unit.training
-        flash_message = "Unité en cours de construction !"
+        @unit.training(nb_unit)
+        flash_message = "Unité(s) en cours de construction !"
         status = "success"
       end
 
@@ -28,6 +31,8 @@ class UnitsController < ApplicationController
         format.js { flash.now[status] = flash_message }
         format.json { render json:
           {
+            :unit => @unit,
+            :planet => @planet
           }
         }
       end
@@ -35,12 +40,23 @@ class UnitsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
+
     def set_unit
       @unit = Unit.find(params[:id]) unless params[:id].nil?
     end
 
     def set_planet
       @planet = Planet.find(current_user.id) unless current_user.nil?
+    end
+
+    def check_nb_unit(nb_unit)
+      # TODO: check training and military lvl
+      if nb_unit > 15
+        return 15
+      elsif nb_unit < 1
+        return 1
+      else
+        return nb_unit
+      end
     end
 end

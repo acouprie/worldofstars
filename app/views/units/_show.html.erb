@@ -1,7 +1,7 @@
 <h3>Unités</h3>
 <% @planet.units.order(:id).each do |unit| %>
   <% if unit.isTrainable %>
-  <div id="flash_<%= unit.name %>" class="flash_messages">
+  <div id="flash_<%= unit.id %>" class="flash_messages">
     <%= render partial: "shared/flash_messages" %>
   </div>
   <%= image_tag("units/".concat(unit.image_name).concat(".png"), alt: unit.name, :id => "img_" + unit.image_name, :class => "unit_image") %>
@@ -25,13 +25,28 @@
     </ul>
   </div>
   <div class="row">
-    <div id="create_<%= unit.id %>" class="col-md-9">
-      <%= button_to "Créer #{unit.name}",
-        unit_train_path(id: unit.id),
-        method: :post,
-        remote: true
-      %>
-    </div>
+    <%= form_with(url: unit_train_path(id: unit.id), remote: true) do |f| %>
+      <%= f.number_field :"nb_unit_#{unit.id}", class: 'col-md-2 unit_number', onchange:"max_bound(#{unit.id})", in: 1..15, value: 1 %>
+      <input id="max_unit_<%= unit.id %>" class="btn col-md-offset-1 col-md-2" type="button" value="Max" onclick="max_unit(<%= unit.id %>)">
+      <%= f.submit "Créer #{unit.name}", class: "btn btn-primary col-md-offset-1 col-md-6" %>
+    <% end %>
   </div>
   <% end %>
 <% end %>
+
+<script type="text/javascript">
+  function max_unit(id) {
+    input_field_name = "nb_unit_" + id;
+    document.getElementById(input_field_name).value = 15;
+  }
+
+  function max_bound(id) {
+    input_field_name = "nb_unit_" + id;
+    input_field = document.getElementById(input_field_name);
+    if(input_field.value > input_field.max) {
+      input_field.value = input_field.max;
+    } else if (input_field.value < input_field.min) {
+      input_field.value = input_field.min;
+    }
+  }
+</script>
