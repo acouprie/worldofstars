@@ -1,0 +1,10 @@
+setup:
+  addons:
+    - plan: heroku-postgresql
+build:
+  docker:
+    web: ./Dockerfile
+  config:
+    REQUIREMENTS_FILENAME: heroku.yml
+run:
+  web: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p ${PORT:-3000} -b '0.0.0.0' && QUEUE=* bundle exec rake resque:work"

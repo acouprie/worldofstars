@@ -1,0 +1,53 @@
+/* line 5, app/assets/stylesheets/buildings.scss */
+#building_list, #upgrading_infos {
+  margin-top: 20px;
+}
+
+/* line 9, app/assets/stylesheets/buildings.scss */
+.tooltips {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black;
+  /* If you want dots under the hoverable text */
+}
+
+/* Tooltip text */
+/* line 16, app/assets/stylesheets/buildings.scss */
+.tooltips .tooltiptext {
+  visibility: hidden;
+  width: 150px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+  /* Position the tooltip text */
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -60px;
+  /* Fade in tooltip */
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+/* Tooltip arrow */
+/* line 38, app/assets/stylesheets/buildings.scss */
+.tooltips .tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+/* line 50, app/assets/stylesheets/buildings.scss */
+.tooltips:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
