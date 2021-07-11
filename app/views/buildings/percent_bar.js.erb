@@ -10,7 +10,7 @@ $(".building_grid_view").html('<%= j render partial: "buildings/grid_view", :loc
 // update resources
 $('#resources').html("<%= j (render partial: 'planets/resources', :locals => {:planet => @planet}) %>")
 $('#aside_resources').html("<%= j (render partial: 'planets/production', :locals => {:planet => @planet}) %>")
-<% else %>
-// display the cancel btn and progres bar
-$('#building_finish_at_<%= @building.id %>').html("Termine le <%= @building.finish_at %>");
+if(<%= @building.name == "Camp d'entrainement" %>) {
+    $('.units_show').html("<%= j (render partial: 'units/show', :locals => {:planet => @planet}) %>")
+}
 <% end %>

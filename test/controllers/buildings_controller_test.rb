@@ -15,6 +15,8 @@ class BuildingsControllerTest < ActionDispatch::IntegrationTest
     # when controller is using cache it may be a good idea to reset it afterwards
     Rails.cache.clear
     Resque.remove_delayed(BuildingUpgrade, 1)
+    Resque.remove_delayed(BuildingUpgrade, 2)
+    Resque.remove_delayed(BuildingUpgrade, 3)
   end
 
   test "should not upgrade not log in" do

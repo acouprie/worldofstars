@@ -112,6 +112,10 @@ class Building < ApplicationRecord
       flash_message = "Améliorez d'abord le Centre de commandemant !"
     # wormhole needs headquarter lvl 5, laboratory lvl 3, CELAE 1
     # Camp militaire => Prérequis :  centre de commandement  lvl 5; camp d'entrainement  lvl 2 ; laboratoire  lvl 2
+    elsif planet.camp == self && planet.headquarter.lvl < 5
+      flash_message = "Améliorez d'abord le Centre de commandemant !"
+    elsif planet.camp == self && planet.train_camp.lvl < 2
+      flash_message = "Améliorez d'abord le camp d'entrainement !"
     # Fusion Nucléaire => Prérequis : Centre de commandement lvl 5 ; Centrale électrique lvl 10 ;  Laboratoire  lvl  5 ; Maitrise de l'énergie lvl 7
     # Tunnel Tok'ra => prérequis  : centre de  commandement  lvl 7 ; laboratoir lvl 7 ; technologie cristaux lvl 10
     # Usine spatial => Prérequis  : centre de commandement  lvl 5,  laboratoire  lvl 8
