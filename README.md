@@ -4,7 +4,7 @@ World of Stars is a browser-based game.
 
 The player shall manage its planet's resources to build new buildings, units and spaceships in order to defend and attack the other players with the spaceships or through wormholes connecting the planets together.
 
-This project use a set of innovative technologies such as Rails 6, Docker, Postgresql and Redis for the queuing system. Ajax calls are also made during the execution.
+This project use a set of innovative technologies such as Rails 6, Docker, SASS, and Postgresq. Sidekiq and Redis are used for the queuing system. Ajax calls are also made during the execution.
 A dynamic HTML canvas is used for rendering the planet of the user.
 
 # Initialisation
@@ -15,7 +15,7 @@ A dynamic HTML canvas is used for rendering the planet of the user.
 $ git clone https://github.com/acouprie/worldofstars.git
 ```
 
-## Run with Docker (recommended)
+## Run with Docker
 
 ```
 $ docker-compose build
