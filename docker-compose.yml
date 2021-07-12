@@ -2,7 +2,7 @@ version: "3"
 services:
   web: &web
     build: .
-    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0' -e ${RAILS_ENV}"
     volumes:
       - .:/myapp
     ports:
@@ -28,19 +28,17 @@ services:
     volumes:
       - './redis-data:/data'
 
-  worker:
-    <<: *web
-    command: bin/rails environment resque:work
-    environment:
-      QUEUE: "*"
-    ports: []
+  sidekiq:
+    build: .
+    volumes:
+      - .:/myapp
+      - '/myapp/tmp' # don't mount tmp directory
+    depends_on:
+      - db
+      - redis
+    command: bash -c "bundle exec sidekiq -C config/sidekiq.yml"
     env_file:
       - '.env'
-
-  scheduler:
-    <<: *web
-    command: bin/rake environment resque:scheduler
-    ports: []
 
 volumes:
   redis:

@@ -1,4 +1,5 @@
 require 'test_helper'
+require 'sidekiq/api'
 
 class BuildingTest < ActiveSupport::TestCase
   # test "the truth" do
@@ -14,7 +15,10 @@ class BuildingTest < ActiveSupport::TestCase
   teardown do
     # when controller is using cache it may be a good idea to reset it afterwards
     Rails.cache.clear
-    Resque.remove_delayed(BuildingUpgrade, 1)
+    Sidekiq::Queue.all.each(&:clear)
+    Sidekiq::RetrySet.new.clear
+    Sidekiq::ScheduledSet.new.clear
+    Sidekiq::DeadSet.new.clear
   end
 
   test "should upgrade" do

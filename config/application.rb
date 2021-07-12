@@ -9,7 +9,6 @@ Bundler.require(*Rails.groups)
 module WorldOfStars
   class Application < Rails::Application
     config.load_defaults 6.0
-    # Set Resque as ActiveJob queue adapter.
-    config.active_job.queue_adapter = :resque
+    config.active_job.queue_adapter = :sidekiq
   end
 end

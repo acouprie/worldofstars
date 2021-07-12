@@ -1,3 +1,5 @@
+require 'sidekiq/api'
+
 class Building < ApplicationRecord
   belongs_to :planet
   before_create :check_uniqueness
@@ -47,7 +49,10 @@ class Building < ApplicationRecord
 
   def cancel_upgrading
     puts "--- Building " + self.id.to_s + " removed from queue buildingUpgrade ---"
-    Resque.remove_delayed(BuildingUpgrade, self.id)
+    queue = Sidekiq::ScheduledSet.new
+    queue.each do |job|
+      job.delete if (job.klass == 'BuildingUpgrade' && job.args.first == self.id)
+    end
     self.update(upgrade_start: nil, conso_power: self.conso_power - next_level.dig(:conso_power).to_i ||= 0)
     planet.add_resources_to_total(self)
     self.set_position(nil) if self.lvl == 0
@@ -56,7 +61,7 @@ class Building < ApplicationRecord
   def upgrading
     # TODO: enclose with try catch
     puts "--- Building " + self.id.to_s + " in queue buildingUpgrade ---"
-    Resque.enqueue_in_with_queue('buildingUpgrade', next_level.dig(:time_to_build).to_i, BuildingUpgrade, self.id)
+    BuildingUpgradeWorker.perform_in(Time.now+next_level.dig(:time_to_build).to_i, self.id)
     self.update(upgrade_start: Time.now, conso_power: next_level.dig(:conso_power).to_i ||= 0)
     planet.substract_resources_to_total(self)
   end

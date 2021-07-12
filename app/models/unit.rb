@@ -1,3 +1,5 @@
+require 'sidekiq/api'
+
 class Unit < ApplicationRecord
   belongs_to :planet
   validates :planet_id, presence: true
@@ -25,7 +27,7 @@ class Unit < ApplicationRecord
     nb_unit.times { |i|
       unit_t2b = self.time_to_build * i + 1
       puts "--- Unit " + self.id.to_s + " " + self.name + " in queue unit for " + unit_t2b.to_s + "s ---"
-      Resque.enqueue_in_with_queue('unitTrain', unit_t2b, UnitTrain, self.id)
+      BuildingUpgradeWorker.perform_in(Time.now+unit_t2b, self.id)
     }
     planet.substract_resources_to_total(self)
   end

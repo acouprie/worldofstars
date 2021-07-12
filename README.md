@@ -32,38 +32,6 @@ $ docker-compose run web rails db:test:prepare
 $ docker-compose run web rails test
 ```
 
-## Run without docker (obsolete, possibly outdated)
-
-### System dependencies
-
-```
-$ gem install bundler
-$ bundle install
-```
-
-### Database creation
-
-```
-$ rails db:migrate
-```
-
-### Database initialization
-
-```
-$ rails db:seed
-```
-
-### Launch the server
-
-Run a [redis server](https://redis.io/)
-```
-$ rails s
-$ bundle exec rake environment resque:scheduler
-$ QUEUE=* rake environment resque:work
-```
-
-Connect to localhost:3000/
-
 ### How to run the test suite
 
 ```
