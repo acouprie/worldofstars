@@ -17,8 +17,10 @@ services:
     image: postgres
     volumes:
       - ./db/postgres-data/:/var/lib/postgresql/data
-    environment:
-      POSTGRES_PASSWORD: password
+    ports:
+      - "5432:5432"
+    env_file:
+      - '.env'
 
   redis:
     image: "redis:alpine"

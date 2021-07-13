@@ -48,7 +48,7 @@ gem 'rails-controller-testing'
 gem 'bcrypt'
 # make sample users with semi-realistics name
 gem 'faker'
-
+gem 'pg'
 # Delayed jobs
 gem 'sidekiq'
 gem 'redis'
@@ -57,8 +57,6 @@ gem 'redis-namespace'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
-  # Use sqlite3 as the database for Active Record
-  gem 'sqlite3'
 end
 
 group :development do
@@ -68,10 +66,10 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen'
+  gem 'rubocop', require: false
 end
 
 group :production do
-  gem 'pg'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
