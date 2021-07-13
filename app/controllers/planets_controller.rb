@@ -67,7 +67,8 @@ class PlanetsController < ApplicationController
     @user = current_user
     return redirect_to login_url if @user.nil?
     @planet = Planet.find_by(name: params[:name])
-    redirect_to planet_url(@user.id) if @planet.nil? || @user.id != @planet.id
+    return redirect_to planet_url(@user.planets.first) if @planet.nil? || !@user.planets.include?(@planet)
+    planet_url(@planet)
   end
 
   def buildings

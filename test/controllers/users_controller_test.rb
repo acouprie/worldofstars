@@ -77,6 +77,6 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   test "should redirect user when other planet" do
     log_in_as(@other_user)
     get planet_url(@planet.id)
-    assert_redirected_to planet_url(@other_planet.id)
+    assert_redirected_to planet_url(@other_planet)
   end
 end

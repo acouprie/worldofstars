@@ -5,6 +5,7 @@ class BuildingsControllerTest < ActionDispatch::IntegrationTest
     @user = users(:Frodo)
     @other_user = users(:ObiWan)
     @planet = planets(:Terre)
+    @other_planet = planets(:Venus)
     @headquarter = buildings(:headquarter)
     @solar = buildings(:solar)
     @farm = buildings(:farm)
@@ -44,7 +45,7 @@ class BuildingsControllerTest < ActionDispatch::IntegrationTest
     post building_upgrade_path, params: {id: 9999, format: :js}
     assert_equal "Erreur 0x01, contactez l'administrateur avec ce code.", flash[:danger]
     follow_redirect!
-    assert_redirected_to planet_url(@user.id)
+    assert planet_url(@planet)
   end
 
   test "should display error if building is nil cancel" do
@@ -52,7 +53,7 @@ class BuildingsControllerTest < ActionDispatch::IntegrationTest
     post building_cancel_path, params: {id: 9999, format: :js}
     assert_equal "Erreur 0x02, contactez l'administrateur avec ce code.", flash[:danger]
     follow_redirect!
-    assert_redirected_to planet_url(@user.id)
+    assert planet_url(@planet)
   end
 
   test "should upgrade headquarter first" do
@@ -74,7 +75,7 @@ class BuildingsControllerTest < ActionDispatch::IntegrationTest
     log_in_as(@other_user)
     post building_upgrade_path, params: {id: @headquarter.id, format: :js}
     follow_redirect!
-    assert_redirected_to planet_url(@other_user.id)
+    assert_redirected_to planet_url(@other_planet)
   end
 
   test "should not upgrade energy" do

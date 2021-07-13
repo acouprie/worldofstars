@@ -1,12 +1,13 @@
 class BuildingsController < ApplicationController
-  before_action :logged_in_user, :set_planet, :set_building
+  before_action :logged_in_user, :set_planet, :set_buildings
 
   # POST /building/upgrade, params[:id]
   # GET /building/upgrade?planet_id=1&position=1
   def upgrade
+    # TODO: return proper REST status
+    position = params[:position]
     # GET
     if request.get?
-      position = params[:position]
       return planet_url(@planet.id) if position.nil?
       @building = Building.where(["planet_id = ? and position = ?", @planet.id, position]).first
       unless @building.nil?
@@ -49,7 +50,6 @@ class BuildingsController < ApplicationController
       elsif !@planet.check_ressources_availability(@building.next_level.dig(:thorium_price).to_i, @building.next_level.dig(:metal_price).to_i, @building.next_level.dig(:food_price).to_i)
         flash_message = "Nous manquons de ressources"
       else
-        position ||= params[:position].to_i
         if @building.lvl == 0 && !position.nil?
           @building.set_position(position)
           redirect_to planet_url(@planet)
@@ -99,7 +99,6 @@ class BuildingsController < ApplicationController
   end
 
   def percent_bar
-    return if @building.planet_id != current_user.id
     @percent = compute_remaining_percent(@building)
     @buildings_finished = Building.where(["planet_id = ? and lvl != ?", @planet.id, 0]).order(:id)
     respond_to do |format|
@@ -134,7 +133,7 @@ class BuildingsController < ApplicationController
     end
   end
 
-  def set_building
+  def set_buildings
     @building = Building.find_by(id: params[:id]) unless params[:id].nil?
     @buildings = Building.where(["planet_id = ? and lvl = ? and position is ?", @planet.id, 0, nil]).order(:id).to_a.dup
     @buildings.each do |building|
@@ -146,12 +145,12 @@ class BuildingsController < ApplicationController
     @planet = Planet.find(current_user.id) unless current_user.nil?
   end
 
-  def unexpected_error(nb)
+  def unexpected_error(nb=1)
     flash_message = "Erreur 0x0#{nb}, contactez l'administrateur avec ce code."
     status = "danger"
     respond_to do |format|
       format.js { flash.now[status] = flash_message }
     end
-    return redirect_to planet_url(current_user.id)
+    redirect_to planet_url(@planet)
   end
 end

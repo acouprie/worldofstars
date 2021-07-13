@@ -38,7 +38,7 @@ class User < ApplicationRecord
 	end
 
   def add_planet_to_user
-    Planet.create(user_id: self.id, name: 'Mars' + self.id.to_s)
+    Planet.create(user_id: self.id, name: 'Abydos_' + rand(10000).to_s)
   end
 
 	# Remembers a user in the database for use in persistent sessions.
