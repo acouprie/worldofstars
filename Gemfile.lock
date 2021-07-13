@@ -128,8 +128,6 @@ GEM
       nio4r (~> 2.0)
     racc (1.5.2)
     rack (2.2.3)
-    rack-protection (2.1.0)
-      rack
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
     rails (6.1.4)
@@ -194,11 +192,10 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
-    sidekiq (6.0.7)
+    sidekiq (6.2.1)
       connection_pool (>= 2.2.2)
       rack (~> 2.0)
-      rack-protection (>= 2.0.0)
-      redis (>= 4.1.0)
+      redis (>= 4.2.0)
     spring (2.1.1)
     spring-watcher-listen (2.0.1)
       listen (>= 2.7, < 4.0)
@@ -255,7 +252,7 @@ DEPENDENCIES
   redis-namespace
   rubocop
   sass-rails
-  sidekiq
+  sidekiq (= 6.2.1)
   spring
   spring-watcher-listen
   turbolinks

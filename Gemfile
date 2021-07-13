@@ -50,7 +50,7 @@ gem 'bcrypt'
 gem 'faker'
 gem 'pg'
 # Delayed jobs
-gem 'sidekiq'
+gem 'sidekiq', '6.2.1'
 gem 'redis'
 gem 'redis-namespace'
 
