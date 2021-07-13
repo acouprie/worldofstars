@@ -10,16 +10,19 @@ dev_test: &dev_test
   <<: *default
   port: 5432
   host: <%= ENV['DATABASE_HOST'] %>
-  database: <%= ENV['DATABASE_NAME'] %>
 
 development:
   <<: *default
   <<: *dev_test
+  database: <%= ENV['DATABASE_NAME'] %>
 
 test:
   <<: *default
   <<: *dev_test
+  database: <%= ENV['DATABASE_NAME_TEST'] %>
 
 production:
   <<: *default
-  url: <%= ENV['DATABASE_URL'] %>
+  <<: *dev_test
+  database: <%= ENV['DATABASE_NAME'] %>
+  #url: <%= ENV['DATABASE_URL'] %>
