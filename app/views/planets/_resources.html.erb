@@ -1,36 +1,38 @@
-<div id="resources" class="row">
-    <span class="col-md-3">
-        Energie: <%= @planet.power_stock %><br />
-    </span>
-    <span class="col-md-3">
-        Nourriture : <%= @planet.define_current_stock('food') %> / <%= @planet.max_stock('food') %><br />
-    </span>
-    <span class="col-md-3">
-        Métaux : <%= @planet.define_current_stock('metal') %> / <%= @planet.max_stock('metal') %><br />
-    </span>
-    <span class="col-md-2">
-        Thorium : <%= @planet.define_current_stock('thorium') %> / <%= @planet.max_stock('thorium') %><br />
-    </span>
-    <span class="col-md-1" id='horloge'></span>
+<aside>
+    <ul id="resources" class="row aside_board">
+        <li class="col-md-3">
+            Energie: <%= @planet.power_stock %><br />
+        </li>
+        <li class="col-md-3">
+            Nourriture : <%= @planet.define_current_stock('food') %> / <%= @planet.max_stock('food') %><br />
+        </li>
+        <li class="col-md-3">
+            Métaux : <%= @planet.define_current_stock('metal') %> / <%= @planet.max_stock('metal') %><br />
+        </li>
+        <li class="col-md-2">
+            Thorium : <%= @planet.define_current_stock('thorium') %> / <%= @planet.max_stock('thorium') %><br />
+        </li>
+        <li class="col-md-1" id='horloge'></li>
+    </ul>
+</aside>
 
-    <script type="text/javascript">
-        function refresh(){
-            var t = 1000; // rafraîchissement en millisecondes
-            setTimeout('showDate()',t)
-        }
+<script type="text/javascript">
+    function refresh(){
+        var t = 1000; // rafraîchissement en millisecondes
+        setTimeout('showDate()',t)
+    }
 
-        function showDate() {
-            var date = new Date()
-            var h = date.getHours();
-            var m = date.getMinutes();
-            var s = date.getSeconds();
-            if( h < 10 ){ h = '0' + h; }
-            if( m < 10 ){ m = '0' + m; }
-            if( s < 10 ){ s = '0' + s; }
-            var time = h + ':' + m + ':' + s
-            document.getElementById('horloge').innerHTML = time;
-            refresh();
-        }
-        showDate()
-    </script>
-</div>
+    function showDate() {
+        var date = new Date()
+        var h = date.getHours();
+        var m = date.getMinutes();
+        var s = date.getSeconds();
+        if( h < 10 ){ h = '0' + h; }
+        if( m < 10 ){ m = '0' + m; }
+        if( s < 10 ){ s = '0' + s; }
+        var time = h + ':' + m + ':' + s
+        document.getElementById('horloge').innerHTML = time;
+        refresh();
+    }
+    showDate()
+</script>

@@ -32,7 +32,7 @@ gem 'jbuilder'
 
 # personnal gems
 # to use bootstrap
-gem 'bootstrap-sass'
+gem 'bootstrap', '~> 5.0.1'
 # bootstrap for pagination
 gem 'bootstrap-will_paginate'
 # implements pagination of users

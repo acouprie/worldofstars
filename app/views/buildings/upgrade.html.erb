@@ -15,7 +15,7 @@
                     <%= render partial: "shared/flash_messages" %>
                 </div>
 
-                <div id="building_description_<%= building.id %>" class="row">
+                <div id="building_description_<%= building.id %>">
                     <%= image_tag("buildings/".concat(building.image_name).concat(".jpg"), alt: building.name, :id => "img_" + building.image_name, :class => "building_image") %>
                     <ul class="ressources_infos">
                     <li>
@@ -37,10 +37,10 @@
                 <div class="row">
 
                     <div id="upgrade_btn_<%= building.id %>" class="col-md-9 upgrade_btn">
-                    <%= button_to "Améliorer #{building.name}",
+                    <%= button_to building.lvl == 0 ? "Construire #{building.name}" : "Améliorer #{building.name}",
                         building_upgrade_path(id: building.id, position: building.position.nil? ? params[:position] : building.position),
                         method: :post,
-                        class: :upgrade_building_button,
+                        class: 'upgrade_building_button btn btn-light col-md-6',
                         remote: true
                     %>
                     </div>

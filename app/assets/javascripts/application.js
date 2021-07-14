@@ -1,8 +1,9 @@
 // jquery must be first
-//= require jquery
+//= require jquery3
 //= require jquery_ujs
 //= require turbolinks
-//= require bootstrap-sprockets
+//= require popper
+//= require bootstrap
 // tree must be last
 //= require_tree .
 

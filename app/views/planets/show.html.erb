@@ -1,5 +1,5 @@
 <% provide(:title, @planet.name) %>
-
+<div id="planet_board">
 <%= raw(render('planets/resources')) %>
 <div class="row">
 	<div id="aside_resources" class="col-md-2">
@@ -11,7 +11,7 @@
 </div>
 <div class="row">
 	<div class="col-md-2">
-		<aside>
+		<aside class="aside_board">
 			<h3>Niveau</h3>
 			<p>
 			<h4>Expérience</h4>
@@ -38,25 +38,25 @@
 			00 / 00 <br />
 			</p>
 		</aside>
-		<aside>
+		<aside class="aside_board">
 			<h3>Mon compte</h3>
 			<%=  %><br />
 			<%=  %><br />
 		</aside>
-		<aside>
+		<aside class="aside_board">
 			<h3>Messagerie</h3>
 		</aside>
-		<aside class="units_view">
+		<aside class="units_view aside_board">
 			<h3>Unités</h3>
 			<% @planet.units.order(:id).each do |unit| %>
 				<%= image_tag("units/".concat(unit.image_name).concat(".png"), alt: unit.name, :id => "img_" + unit.image_name, :class => "unit_image") %>
 				<%= unit.number %>
 			<% end %>
 		</aside>
-		<aside class="building_grid_view">
+		<aside class="building_grid_view aside_board">
 			<%= raw(render('buildings/grid_view')) %>
 		</aside>
-		<aside>
+		<aside class="aside_board">
 			<h2>Soutiens</h2>
 		</aside>
 	</div>
@@ -82,4 +82,5 @@
 			</div>
 		</div>
 	</aside>
+</div>
 </div>

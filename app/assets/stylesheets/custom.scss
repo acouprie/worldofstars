@@ -1,9 +1,4 @@
-@import "bootstrap-sprockets";
 @import "bootstrap";
-
-header {
-	padding-top :55px;
-}
 
 #remember_me {
 	font-size: 10px;
@@ -107,7 +102,7 @@ input {
 	li {
 		overflow: auto;
 		padding: 10px 0;
-		border-bottom: 1px solid $gray-lighter;
+		border-bottom: 1px solid #d3d3d3;
 	}
 }
 

@@ -28,7 +28,7 @@
     <%= form_with(url: unit_train_path(id: unit.id), remote: true) do |f| %>
       <%= f.number_field :"nb_unit_#{unit.id}", class: 'col-md-2 unit_number', onchange:"max_bound(#{unit.id})", in: 1..15, value: 1 %>
       <input id="max_unit_<%= unit.id %>" class="btn col-md-offset-1 col-md-2" type="button" value="Max" onclick="max_unit(<%= unit.id %>)">
-      <%= f.submit "Créer #{unit.name}", class: "btn btn-primary col-md-offset-1 col-md-6" %>
+      <%= f.submit "Créer #{unit.name}", class: "btn btn-light col-md-offset-1 col-md-6" %>
     <% end %>
   </div>
   <% end %>
