@@ -89,7 +89,8 @@ class Building < ApplicationRecord
 
   def finish_at
     return nil if self.upgrade_start.nil?
-    self.upgrade_start + self.next_level.dig(:time_to_build).to_i
+    datetime= (self.upgrade_start + self.next_level.dig(:time_to_build).to_i).to_datetime
+    datetime.strftime("Termine le %d/%m/%Y à %H:%M:%S")
   end
 
   def hasDependencies

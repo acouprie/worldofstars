@@ -10,5 +10,6 @@ module WorldOfStars
   class Application < Rails::Application
     config.load_defaults 6.0
     config.active_job.queue_adapter = :sidekiq
+    config.time_zone = 'Paris'
   end
 end

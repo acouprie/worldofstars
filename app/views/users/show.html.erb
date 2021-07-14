@@ -2,7 +2,7 @@
 	<div class="row">
 		<aside class="col-md-4">
 			<h1>Informations sur <%= @user.name %></h1>
-			Le <%= Time.now %><br />
+			Le <%= Time.current %><br />
 			<%= gravatar_for @user %><br />
 			<%= @user.email %><br />
 			Compte créé le : <%= @user.created_at %><br />
