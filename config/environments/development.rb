@@ -33,7 +33,7 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :test
 
   host = 'localhost:3000'
-  config.hosts << "worldofstars.herokuapp.com"
+  config.hosts << "0.0.0.0"
 
   config.action_mailer.default_url_options = { host: host, protocol: 'https' }
 
