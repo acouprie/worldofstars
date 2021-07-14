@@ -8,6 +8,7 @@
 }
 
 .aside_board {
+  margin: 10px;
   background-color: #333;
 }
 
@@ -18,6 +19,19 @@
   border-radius: 5px;
 }
 
+#resources {
+  margin-left: 3%;
+  margin-right: 3%;
+}
+
 #resources li {
   list-style: none;
+}
+
+#prod_conso_title {
+	margin-bottom: 30%;
+}
+
+#prod_conso_details {
+	margin-left: 10%;
 }

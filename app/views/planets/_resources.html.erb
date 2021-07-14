@@ -1,6 +1,6 @@
 <aside id="resources">
-    <ul class="row aside_board">
-        <li class="col-md-3">
+    <ul class="row aside_board align-items-center">
+        <li class="col-md-2">
             <%= image_tag("icons/energy.png", alt: "icone énérgie", :id => "energy_icon", :class => "icons resources_icons") %> Energie: <%= @planet.power_stock %><br />
         </li>
         <li class="col-md-3">
@@ -9,10 +9,10 @@
         <li class="col-md-3">
             <%= image_tag("icons/metal.png", alt: "icone métal", :id => "metal_icon", :class => "icons resources_icons") %> Métaux : <%= @planet.define_current_stock('metal') %> / <%= @planet.max_stock('metal') %><br />
         </li>
-        <li class="col-md-2">
+        <li class="col-md-3">
             <%= image_tag("icons/thorium.png", alt: "icone thorium", :id => "thorium_icon", :class => "icons resources_icons") %> Thorium : <%= @planet.define_current_stock('thorium') %> / <%= @planet.max_stock('thorium') %><br />
         </li>
-        <li class="col-md-1" id='horloge'></li>
+        <li class="col-md-1 list-inline-item" id='horloge'></li>
     </ul>
 </aside>
 

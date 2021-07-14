@@ -3,9 +3,12 @@
 <%= raw(render('planets/resources')) %>
 <div class="row">
 	<div class="col-md-2">
+	<aside id="aside_resources" class="aside_board h-100" style="max-height:98%;">
 		<%= raw(render('planets/production')) %>
+		</aside>
 	</div>
 	<div id="canvas" class="col-md-10">
+		<h2 id="planet_name">Planète <%= @planet.name %></h2>
 		<%= render 'planets/canvas' %>
 	</div>
 </div>
