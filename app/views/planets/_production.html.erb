@@ -1,23 +1,48 @@
-<aside class="aside_board">
-    <h2>Production / Conso.</h2>
-    <p>
-        Energie :<br />
-        + <%= @planet.production('solar') %> par heure<br />
-        - <%= @planet.power_conso %> par heure<br />
-    </p>
-    <p>
-        Nourriture :<br />
-        + <%= @planet.production('food') %> par heure<br />
-        - 0 par heure<br />
-    </p>
-    <p>
-        Métaux :<br />
-        + <%= @planet.production('metal') %> par heure<br />
-        - 0 par heure<br />
-    </p>
-    <p>
-        Thorium :<br />
-        + <%= @planet.production('thorium') %> par heure<br />
-        - 0 par heure<br />
-    </p>
+<aside id="aside_resources" class="aside_board h-100">
+    <h2 id="prod_conso_title">Production / Conso.</h2>
+    <div id="prod_conso_details">
+        <div class="row">
+            <div class="col-md-3">
+                <%= image_tag("icons/energy.png", alt: "icone énérgie", :id => "energy_icon", :class => "icons resources_icons") %>
+            </div>
+            <div class="col-md-9">
+                Energie :<br />
+                + <%= @planet.production('solar') %> par heure<br />
+                - <%= @planet.power_conso %> par heure<br />
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-3">
+                <%= image_tag("icons/food.png", alt: "icone nourriture", :id => "food_icon", :class => "icons resources_icons") %>
+            </div>
+            <div class="col-md-9">
+                Nourriture :<br />
+                + <%= @planet.production('food') %> par heure<br />
+                - 0 par heure<br />
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-3">
+                <%= image_tag("icons/metal.png", alt: "icone métal", :id => "metal_icon", :class => "icons resources_icons") %>
+            </div>
+            <div class="col-md-9">
+                Métaux :<br />
+                + <%= @planet.production('metal') %> par heure<br />
+                - 0 par heure<br />
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-3">
+                <%= image_tag("icons/thorium.png", alt: "icone thorium", :id => "thorium_icon", :class => "icons resources_icons") %>
+            </div>
+            <div class="col-md-9">
+                Thorium :<br />
+                + <%= @planet.production('thorium') %> par heure<br />
+                - 0 par heure<br />
+            </div>
+        </div>
+    </div>
 </aside>

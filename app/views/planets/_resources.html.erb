@@ -1,16 +1,16 @@
 <aside id="resources">
     <ul class="row aside_board">
         <li class="col-md-3">
-            Energie: <%= @planet.power_stock %><br />
+            <%= image_tag("icons/energy.png", alt: "icone énérgie", :id => "energy_icon", :class => "icons resources_icons") %> Energie: <%= @planet.power_stock %><br />
         </li>
         <li class="col-md-3">
-            Nourriture : <%= @planet.define_current_stock('food') %> / <%= @planet.max_stock('food') %><br />
+            <%= image_tag("icons/food.png", alt: "icone nourriture", :id => "food_icon", :class => "icons resources_icons") %> Nourriture : <%= @planet.define_current_stock('food') %> / <%= @planet.max_stock('food') %><br />
         </li>
         <li class="col-md-3">
-            Métaux : <%= @planet.define_current_stock('metal') %> / <%= @planet.max_stock('metal') %><br />
+            <%= image_tag("icons/metal.png", alt: "icone métal", :id => "metal_icon", :class => "icons resources_icons") %> Métaux : <%= @planet.define_current_stock('metal') %> / <%= @planet.max_stock('metal') %><br />
         </li>
         <li class="col-md-2">
-            Thorium : <%= @planet.define_current_stock('thorium') %> / <%= @planet.max_stock('thorium') %><br />
+            <%= image_tag("icons/thorium.png", alt: "icone thorium", :id => "thorium_icon", :class => "icons resources_icons") %> Thorium : <%= @planet.define_current_stock('thorium') %> / <%= @planet.max_stock('thorium') %><br />
         </li>
         <li class="col-md-1" id='horloge'></li>
     </ul>
