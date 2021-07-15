@@ -25,6 +25,17 @@ $ docker-compose run web rails db:migrate
 $ docker-compose run web rails db:seed
 ```
 
+To recompile the assets, run:
+```
+$ docker-compose run web bundle exec rails assets:precompile
+```
+
+To reset the database, run:
+```
+$ sudo rm -rf db/postgres-data/
+$ docker-compose run web bundle exec rails assets:precompile
+```
+
 ## Tests
 
 ```
@@ -41,5 +52,4 @@ $ rails t
 ## Credentials
 
 User : test@test.com
-
 Pwd : Test1234

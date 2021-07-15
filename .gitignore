@@ -23,6 +23,7 @@
 
 node_modules
 
+public/assets/
 vendor/cache/
 
 redis-data/
