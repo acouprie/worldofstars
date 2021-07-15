@@ -5,10 +5,10 @@
 			<div class="test">
 				<h4>Statistiques</h4>
 				<ul>
-					<li><%= User.count %> joueurs inscrits</li>
+					<li><%= User.where(["activated = ?", true]).count %> joueurs inscrits</li>
 					<li><%= Planet.count %> planètes</li>
-					<li><%= User.where((["last_connection > ?", 2.weeks.ago])).count %> joueurs actifs</li>
-					<li><%= User.where((["last_connection > ?", 15.minutes.ago])).count %> joueurs connectés</li>
+					<li><%= User.where(["last_connection > ? and activated = ?", 2.weeks.ago, true]).count %> joueurs actifs</li>
+					<li><%= User.where(["last_connection > ? and activated = ?", 15.minutes.ago, true]).count %> joueurs connectés</li>
 					<li><%= Redis.current.get("user_record") %> record de joueurs connectés</li>
 				</ul>
 			</div>
