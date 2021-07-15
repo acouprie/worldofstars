@@ -1,23 +1,18 @@
 <% provide(:title, 'Contact') %>
 <div class="container">
-    <h1>Page de contact</h1>
+    <h1>Rapporter un bug</h1>
     <div class="row text-center">
         <div class="col-md-6">
+            <br />
+            <br />
             <p>Rejoignez le <%= link_to "forum", "https://worldofstars.forumactif.com/" %></p>
         </div>
         <div class="col-md-6">
             <p>
-                <%= link_to image_tag("logos/Discord-Logo-Color.png", alt: "Discord", id: "logo-discord", class: "logos"), "https://discord.gg/fPzBJ6VWMt" %>
+                <%= link_to image_tag("icons/Discord-Logo-Color.png", alt: "Discord", id: "logo-discord", class: "icons"), "https://discord.gg/fPzBJ6VWMt" %>
                 <br />
-                <%= link_to "Rejoignez le serveur Discord", "https://discord.gg/fPzBJ6VWMt" %>
+                Rejoignez le serveur <%= link_to "Discord", "https://discord.gg/fPzBJ6VWMt" %>
             </p>
         </div>
-    </div>
-    <h2>Rapporter un bug</h2>
-    <div class="row text-center">
-        <p>
-            Vous êtes développeur ? Ouvrez un ticket sur GitHub ou proposez une pull request !
-            <%= link_to "GitHub", "https://github.com/acouprie/worldofstars" %> <%= link_to image_tag("logos/GitHub-Mark-Light-64px.png", alt: "GitHub", id: "logo-github", class: "logos"), "https://github.com/acouprie/worldofstars" %>
-        </p>
     </div>
 </div>
