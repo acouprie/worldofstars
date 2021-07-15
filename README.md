@@ -33,7 +33,7 @@ $ docker-compose run web bundle exec rails assets:precompile
 To reset the database, run:
 ```
 $ sudo rm -rf db/postgres-data/
-$ docker-compose run web bundle exec rails assets:precompile
+$ docker-compose run web bundle exec rails assets:reset
 ```
 
 ## Tests
